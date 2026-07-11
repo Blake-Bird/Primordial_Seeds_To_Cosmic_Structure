@@ -6230,110 +6230,240 @@ function buildBaryonicMatter() {
 }
 
 function buildProbeFields() {
-  const leftHost = document.getElementById('s2LeftProbeField');
-  const rightHost = document.getElementById('s2RightProbeField');
+  const leftHost =
+    document.getElementById(
+      's2LeftProbeField'
+    );
 
-  if (!leftHost || !rightHost) return;
+  const rightHost =
+    document.getElementById(
+      's2RightProbeField'
+    );
+
+  if (!leftHost || !rightHost) {
+    return;
+  }
+
+  leftHost.innerHTML = '';
+  rightHost.innerHTML = '';
 
   const leftPaths = [
     {
-      dx: '-27vw',
-      dy: '-20vh',
-      mx: '-6.8vw',
-      my: '-5.0vh',
-      size: '12.2vmin',
+      kind: 'rock',
+      dx: '-28vw',
+      dy: '-21vh',
+      mx: '-8.2vw',
+      my: '-6.2vh',
+      qx: '-2.2vw',
+      qy: '-1.7vh',
+      size: '13.8vmin',
       delay: 0,
-      tilt: '-18deg'
+      tilt: '-18deg',
+      startRot: '-22deg',
+      midRot: '-8deg',
+      endRot: '8deg'
     },
     {
-      dx: '-14vw',
-      dy: '28vh',
-      mx: '-3.7vw',
-      my: '7.1vh',
-      size: '10.8vmin',
-      delay: 360,
-      tilt: '27deg'
+      kind: 'ice',
+      dx: '-16vw',
+      dy: '29vh',
+      mx: '-4.7vw',
+      my: '8.0vh',
+      qx: '-1.3vw',
+      qy: '2.1vh',
+      size: '12.2vmin',
+      delay: 300,
+      tilt: '27deg',
+      startRot: '18deg',
+      midRot: '4deg',
+      endRot: '-10deg'
     },
     {
-      dx: '16vw',
-      dy: '-23vh',
-      mx: '4.1vw',
-      my: '-5.8vh',
+      kind: 'gas',
+      dx: '18vw',
+      dy: '-24vh',
+      mx: '5.1vw',
+      my: '-6.8vh',
+      qx: '1.5vw',
+      qy: '-1.9vh',
+      size: '14.6vmin',
+      delay: 600,
+      tilt: '-34deg',
+      startRot: '28deg',
+      midRot: '12deg',
+      endRot: '-5deg'
+    },
+    {
+      kind: 'moon',
+      dx: '22vw',
+      dy: '23vh',
+      mx: '6.3vw',
+      my: '6.7vh',
+      qx: '1.8vw',
+      qy: '1.8vh',
       size: '11.6vmin',
-      delay: 720,
-      tilt: '-34deg'
-    },
-    {
-      dx: '20vw',
-      dy: '22vh',
-      mx: '5.0vw',
-      my: '5.4vh',
-      size: '9.9vmin',
-      delay: 1080,
-      tilt: '14deg'
+      delay: 900,
+      tilt: '14deg',
+      startRot: '-28deg',
+      midRot: '-12deg',
+      endRot: '6deg'
     }
   ];
 
   const rightPaths = [
     {
-      dx: '-16vw',
-      dy: '-22vh',
-      mx: '-4.0vw',
-      my: '-5.4vh',
-      size: '11.8vmin',
+      kind: 'ice',
+      dx: '-18vw',
+      dy: '-23vh',
+      mx: '-5.2vw',
+      my: '-6.4vh',
+      qx: '-1.5vw',
+      qy: '-1.8vh',
+      size: '13.3vmin',
       delay: 0,
-      tilt: '21deg'
+      tilt: '21deg',
+      startRot: '20deg',
+      midRot: '7deg',
+      endRot: '-8deg'
     },
     {
-      dx: '17vw',
-      dy: '-18vh',
-      mx: '4.4vw',
-      my: '-4.6vh',
-      size: '10.4vmin',
-      delay: 360,
-      tilt: '-25deg'
+      kind: 'rock',
+      dx: '19vw',
+      dy: '-20vh',
+      mx: '5.4vw',
+      my: '-5.8vh',
+      qx: '1.6vw',
+      qy: '-1.6vh',
+      size: '12.7vmin',
+      delay: 300,
+      tilt: '-25deg',
+      startRot: '-24deg',
+      midRot: '-8deg',
+      endRot: '9deg'
     },
     {
-      dx: '-12vw',
-      dy: '28vh',
-      mx: '-3.1vw',
-      my: '7.0vh',
-      size: '12.4vmin',
-      delay: 720,
-      tilt: '34deg'
+      kind: 'gas',
+      dx: '-14vw',
+      dy: '29vh',
+      mx: '-4.0vw',
+      my: '8.1vh',
+      qx: '-1.2vw',
+      qy: '2.2vh',
+      size: '14.4vmin',
+      delay: 600,
+      tilt: '34deg',
+      startRot: '30deg',
+      midRot: '13deg',
+      endRot: '-4deg'
     },
     {
-      dx: '22vw',
-      dy: '24vh',
-      mx: '5.5vw',
-      my: '6.0vh',
-      size: '9.8vmin',
-      delay: 1080,
-      tilt: '-12deg'
+      kind: 'moon',
+      dx: '23vw',
+      dy: '25vh',
+      mx: '6.6vw',
+      my: '7.1vh',
+      qx: '1.9vw',
+      qy: '2.0vh',
+      size: '11.9vmin',
+      delay: 900,
+      tilt: '-12deg',
+      startRot: '-30deg',
+      midRot: '-14deg',
+      endRot: '5deg'
     }
   ];
 
-  function addProbe(host, config) {
-    const probe = document.createElement('span');
+  function addProbe(
+    host,
+    config
+  ) {
+    const probe =
+      document.createElement('span');
 
-    probe.className = 's2-probe';
-    probe.style.setProperty('--dx', config.dx);
-    probe.style.setProperty('--dy', config.dy);
-    probe.style.setProperty('--mx', config.mx);
-    probe.style.setProperty('--my', config.my);
-    probe.style.setProperty('--probe-size', config.size);
-    probe.style.setProperty('--probe-delay', `${config.delay}ms`);
-    probe.style.setProperty('--probe-tilt', config.tilt);
+    probe.className =
+      `s2-probe s2-probe-${config.kind}`;
+
+    probe.innerHTML = `
+      <span class="s2-probe-surface"></span>
+      <span class="s2-probe-grid"></span>
+      <span class="s2-probe-shadow"></span>
+    `;
+
+    probe.style.setProperty(
+      '--dx',
+      config.dx
+    );
+
+    probe.style.setProperty(
+      '--dy',
+      config.dy
+    );
+
+    probe.style.setProperty(
+      '--mx',
+      config.mx
+    );
+
+    probe.style.setProperty(
+      '--my',
+      config.my
+    );
+
+    probe.style.setProperty(
+      '--qx',
+      config.qx
+    );
+
+    probe.style.setProperty(
+      '--qy',
+      config.qy
+    );
+
+    probe.style.setProperty(
+      '--probe-size',
+      config.size
+    );
+
+    probe.style.setProperty(
+      '--probe-delay',
+      `${config.delay}ms`
+    );
+
+    probe.style.setProperty(
+      '--probe-tilt',
+      config.tilt
+    );
+
+    probe.style.setProperty(
+      '--start-rot',
+      config.startRot
+    );
+
+    probe.style.setProperty(
+      '--mid-rot',
+      config.midRot
+    );
+
+    probe.style.setProperty(
+      '--end-rot',
+      config.endRot
+    );
 
     host.appendChild(probe);
   }
 
   leftPaths.forEach((config) => {
-    addProbe(leftHost, config);
+    addProbe(
+      leftHost,
+      config
+    );
   });
 
   rightPaths.forEach((config) => {
-    addProbe(rightHost, config);
+    addProbe(
+      rightHost,
+      config
+    );
   });
 }
 
