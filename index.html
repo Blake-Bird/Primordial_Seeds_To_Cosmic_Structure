@@ -4077,16 +4077,67 @@ body {
       </section>
 
       <!-- SLIDE 2 -->
-      <section class="slide-two" id="slideTwo" aria-label="Ordinary matter interacts with light; dark matter bends spacetime without shining">
-        <div class="s2-bg s2-bg-field" aria-hidden="true"></div>
-        <div class="s2-bg s2-bg-void" aria-hidden="true"></div>
-        <div class="s2-starfield" id="slide2StarField" aria-hidden="true"></div>
+      <section
+        class="slide-two"
+        id="slideTwo"
+        aria-label="Visible matter scatters light while invisible matter bends spacetime without scattering it"
+      >
+        <div
+          class="s2-bg s2-bg-field"
+          aria-hidden="true"
+        ></div>
 
-        <div class="s2-scene" aria-hidden="true">
-          <svg class="s2-physics-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <div
+          class="s2-bg s2-bg-void"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="s2-starfield"
+          id="slide2StarField"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="s2-scene"
+          aria-hidden="true"
+        >
+          <svg
+            class="s2-physics-svg"
+            viewBox="0 0 1600 900"
+            preserveAspectRatio="xMidYMid slice"
+          >
             <defs>
-              <filter id="s2SoftGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="3.2" result="blur" />
+              <filter
+                id="s2SoftGlow"
+                x="-60%"
+                y="-60%"
+                width="220%"
+                height="220%"
+              >
+                <feGaussianBlur
+                  stdDeviation="4.2"
+                  result="blur"
+                />
+
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              <filter
+                id="s2FineGlow"
+                x="-60%"
+                y="-60%"
+                width="220%"
+                height="220%"
+              >
+                <feGaussianBlur
+                  stdDeviation="1.35"
+                  result="blur"
+                />
+
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -4094,28 +4145,219 @@ body {
               </filter>
             </defs>
 
-            <g class="s2-funnel s2-left-funnel" id="s2LeftFunnel"></g>
-            <g class="s2-funnel s2-right-funnel" id="s2RightFunnel"></g>
+            <g
+              class="s2-funnel s2-left-funnel"
+              id="s2LeftFunnel"
+            ></g>
 
-            <g class="s2-light-group s2-left-incoming" id="s2LeftIncoming"></g>
-            <g class="s2-light-group s2-left-scatter" id="s2LeftScatter"></g>
-            <g class="s2-light-group s2-left-absorbed" id="s2LeftAbsorbed"></g>
-            <g class="s2-light-group s2-right-passing" id="s2RightPassing"></g>
-            <g class="s2-light-group s2-right-arcs" id="s2RightArcs"></g>
+            <g
+              class="s2-funnel s2-right-funnel"
+              id="s2RightFunnel"
+            ></g>
+
+            <g
+              class="s2-light-group s2-right-passing"
+              id="s2RightPassing"
+            ></g>
+
+            <g
+              class="s2-light-group s2-left-incoming"
+              id="s2LeftIncoming"
+            ></g>
+
+            <g
+              class="s2-light-group s2-left-scatter"
+              id="s2LeftScatter"
+            ></g>
+
+            <g
+              class="s2-light-group s2-left-absorbed"
+              id="s2LeftAbsorbed"
+            ></g>
+
+            <g
+              class="s2-light-group s2-right-arcs"
+              id="s2RightArcs"
+            ></g>
           </svg>
 
           <div class="s2-ordinary-system">
-            <div class="s2-ordinary-texture"></div>
-            <div class="s2-baryon-particles" id="baryonParticles"></div>
-            <div class="s2-emission-field" id="emissionField"></div>
-            <div class="s2-impact-flashes" id="impactFlashes"></div>
+            <div
+              class="s2-baryon-particles"
+              id="baryonParticles"
+            ></div>
           </div>
 
-          <div class="s2-dark-absence"></div>
+          <div
+            class="s2-probe-field s2-probe-field-left"
+            id="s2LeftProbeField"
+          ></div>
+
+          <div
+            class="s2-probe-field s2-probe-field-right"
+            id="s2RightProbeField"
+          ></div>
         </div>
 
-        <div class="s2-screen-polish" aria-hidden="true"></div>
+        <div
+          class="s2-screen-polish"
+          aria-hidden="true"
+        ></div>
       </section>
+
+      <div
+        class="s23-orbit-transition"
+        id="s23OrbitTransition"
+        aria-hidden="true"
+      >
+        <div class="s23-transition-depth"></div>
+
+        <div
+          class="s23-matter-stream"
+          id="s23MatterStream"
+        ></div>
+
+        <svg
+          viewBox="0 0 1600 900"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <filter
+              id="s23Glow"
+              x="-70%"
+              y="-70%"
+              width="240%"
+              height="240%"
+            >
+              <feGaussianBlur
+                stdDeviation="4.5"
+                result="blur"
+              />
+
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <radialGradient id="s23CoreGradient">
+              <stop
+                offset="0%"
+                stop-color="rgba(255,250,224,1)"
+              />
+
+              <stop
+                offset="22%"
+                stop-color="rgba(255,215,156,.88)"
+              />
+
+              <stop
+                offset="52%"
+                stop-color="rgba(118,184,255,.38)"
+              />
+
+              <stop
+                offset="100%"
+                stop-color="rgba(80,120,255,0)"
+              />
+            </radialGradient>
+          </defs>
+
+          <g class="s23-ring-group s23-rings-left">
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="82"
+              ry="29.5"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="218"
+              ry="78.5"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="410"
+              ry="147.6"
+              transform="rotate(-25 800 486)"
+            />
+          </g>
+
+          <g class="s23-ring-group s23-rings-right">
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="142"
+              ry="51.1"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="312"
+              ry="112.3"
+              transform="rotate(-25 800 486)"
+            />
+          </g>
+
+          <g class="s23-final-orbits">
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="82"
+              ry="29.5"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="142"
+              ry="51.1"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="218"
+              ry="78.5"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="312"
+              ry="112.3"
+              transform="rotate(-25 800 486)"
+            />
+
+            <ellipse
+              cx="800"
+              cy="486"
+              rx="410"
+              ry="147.6"
+              transform="rotate(-25 800 486)"
+            />
+          </g>
+
+          <circle
+            class="s23-core-seed"
+            cx="800"
+            cy="486"
+            r="12"
+            fill="url(#s23CoreGradient)"
+          />
+        </svg>
+      </div>
 
 
       <!-- SLIDE 3 -->
