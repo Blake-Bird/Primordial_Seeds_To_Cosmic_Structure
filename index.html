@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Dark Matter Halo Mass Function</title>
+    <title>Primordial Seeds to Cosmic Structure</title>
 <style>
 /* ===== src/slide1.css ===== */
 :root {
@@ -1551,6 +1551,658 @@ body {
   }
 }
 </style>
+
+
+<style>
+/* ===== Slide 2 final perfection overrides ===== */
+
+.slide-two {
+  background:
+    radial-gradient(circle at 34% 43%, rgba(69, 126, 255, .055), transparent 23%),
+    radial-gradient(circle at 72% 43%, rgba(69, 126, 255, .018), transparent 24%),
+    radial-gradient(circle at 50% 52%, rgba(7, 12, 27, .54), rgba(0, 1, 5, .98) 58%, #000 100%);
+}
+
+.s2-bg-field {
+  opacity: 0;
+  filter: brightness(.13) contrast(1.62) saturate(.55) blur(.18px);
+}
+
+.s2-bg-void {
+  background:
+    radial-gradient(circle at 34% 43%, rgba(95, 159, 255, .045), transparent 21%),
+    radial-gradient(circle at 72% 43%, rgba(90, 133, 255, .012), transparent 23%),
+    radial-gradient(circle at 50% 48%, transparent 0 30%, rgba(0,0,0,.48) 69%, rgba(0,0,0,.96) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.94), rgba(0,0,0,.18) 48%, rgba(0,0,0,.92)),
+    linear-gradient(180deg, rgba(0,0,0,.84), transparent 38%, rgba(0,0,0,.94));
+}
+
+.s2-ordinary-texture,
+.s2-emission-field,
+.s2-impact-flashes,
+.s2-dark-absence {
+  display: none !important;
+}
+
+.s2-ordinary-system {
+  left: 20vw;
+  top: 29vh;
+  width: 28vw;
+  max-width: 470px;
+  min-width: 330px;
+  aspect-ratio: 1;
+  z-index: 14;
+}
+
+.s2-baryon-particles {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.s2-baryon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  opacity: 0;
+  background:
+    radial-gradient(circle,
+      rgba(246, 252, 255, .98) 0 13%,
+      rgba(151, 220, 255, .94) 22%,
+      rgba(72, 142, 255, .70) 45%,
+      rgba(67, 95, 224, .18) 67%,
+      transparent 78%);
+  box-shadow:
+    0 0 calc(var(--size) * 2.1) rgba(145, 220, 255, .72),
+    0 0 calc(var(--size) * 5.5) rgba(70, 131, 255, .24);
+  transform:
+    translate(calc(var(--sx) * 1px), calc(var(--sy) * 1px))
+    scale(.16);
+  will-change: transform, opacity, filter;
+}
+
+.slide-two.s2-particles-visible .s2-baryon,
+.slide-two.s2-left-capture .s2-baryon,
+.slide-two.s2-right-capture .s2-baryon,
+.slide-two.s2-light-visible .s2-baryon {
+  animation:
+    s2ParticleCondense 2100ms cubic-bezier(.16,.84,.22,1)
+      calc(var(--delay) * 1ms) forwards,
+    s2ParticleOrbit var(--orbit) ease-in-out
+      calc(var(--delay) * 1ms + 2200ms) infinite alternate;
+}
+
+@keyframes s2ParticleCondense {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform:
+      translate(calc(var(--sx) * 1px), calc(var(--sy) * 1px))
+      scale(.12);
+  }
+
+  38% {
+    opacity: calc(var(--alpha) * .64);
+  }
+
+  100% {
+    opacity: var(--alpha);
+    filter: blur(0);
+    transform:
+      translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px))
+      scale(1);
+  }
+}
+
+@keyframes s2ParticleOrbit {
+  from {
+    transform:
+      translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px))
+      scale(.96);
+  }
+
+  to {
+    transform:
+      translate(
+        calc((var(--tx) + var(--ox)) * 1px),
+        calc((var(--ty) + var(--oy)) * 1px)
+      )
+      scale(1.06);
+  }
+}
+
+.s2-probe-field {
+  position: absolute;
+  inset: 0;
+  z-index: 16;
+  pointer-events: none;
+}
+
+.s2-probe {
+  position: absolute;
+  width: var(--probe-size);
+  height: var(--probe-size);
+  margin: calc(var(--probe-size) * -.5);
+  border-radius: 50%;
+  opacity: 0;
+  transform:
+    translate3d(var(--dx), var(--dy), 0)
+    scale(.84);
+  border: 1px solid rgba(183, 227, 255, .62);
+  background:
+    radial-gradient(circle at 32% 25%,
+      rgba(255,255,255,.18),
+      rgba(126,205,255,.055) 19%,
+      rgba(61,112,222,.035) 48%,
+      rgba(0,0,0,.05) 68%,
+      transparent 76%),
+    repeating-radial-gradient(circle,
+      transparent 0 15%,
+      rgba(155,215,255,.10) 15.4% 15.9%,
+      transparent 16.4% 28%);
+  box-shadow:
+    inset 0 0 36px rgba(131, 205, 255, .08),
+    0 0 26px rgba(94, 174, 255, .16);
+  backdrop-filter: blur(1.2px);
+  will-change: transform, opacity, filter;
+}
+
+.s2-probe-field-left .s2-probe {
+  left: 34vw;
+  top: 43vh;
+}
+
+.s2-probe-field-right .s2-probe {
+  left: 72vw;
+  top: 43vh;
+}
+
+.s2-probe::before,
+.s2-probe::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.s2-probe::before {
+  inset: 14%;
+  border: 1px solid rgba(185, 229, 255, .28);
+  transform: rotateX(67deg) rotateZ(var(--probe-tilt));
+  box-shadow: 0 0 18px rgba(112, 196, 255, .10);
+}
+
+.s2-probe::after {
+  inset: -1px;
+  background:
+    linear-gradient(112deg,
+      transparent 0 37%,
+      rgba(230,248,255,.22) 46%,
+      transparent 56%);
+  mix-blend-mode: screen;
+  animation: s2ProbeScan 3.4s linear infinite;
+}
+
+@keyframes s2ProbeScan {
+  from {
+    transform: rotate(-14deg);
+    opacity: .22;
+  }
+
+  50% {
+    opacity: .58;
+  }
+
+  to {
+    transform: rotate(346deg);
+    opacity: .22;
+  }
+}
+
+.slide-two.s2-left-capture .s2-probe-field-left .s2-probe {
+  animation:
+    s2ProbeFall 4800ms cubic-bezier(.52,.08,.22,1)
+    var(--probe-delay) forwards;
+}
+
+.slide-two.s2-right-capture .s2-probe-field-right .s2-probe,
+.slide-two.s2-light-visible .s2-probe-field-right .s2-probe {
+  animation:
+    s2ProbeFall 4800ms cubic-bezier(.52,.08,.22,1)
+    var(--probe-delay) forwards;
+}
+
+@keyframes s2ProbeFall {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform:
+      translate3d(var(--dx), var(--dy), 0)
+      scale(.82);
+  }
+
+  9% {
+    opacity: .88;
+    filter: blur(0);
+  }
+
+  62% {
+    opacity: .94;
+    transform:
+      translate3d(var(--mx), var(--my), 0)
+      scale(.98);
+  }
+
+  84% {
+    opacity: .96;
+    transform:
+      translate3d(0, 0, 0)
+      scale(.90);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(9px);
+    transform:
+      translate3d(0, 0, 0)
+      scale(.06);
+  }
+}
+
+.s2-funnel {
+  opacity: 0;
+}
+
+.s2-left-funnel .s2-funnel-line,
+.s2-right-funnel .s2-funnel-line {
+  stroke: rgba(150, 211, 255, .34);
+  filter:
+    drop-shadow(0 0 4px rgba(126, 198, 255, .18))
+    drop-shadow(0 0 13px rgba(75, 127, 255, .08));
+}
+
+.s2-funnel-ring {
+  stroke-width: 1.02;
+}
+
+.s2-funnel-spoke {
+  stroke-width: .72;
+}
+
+.s2-funnel-shadow {
+  fill: rgba(0,0,0,.54);
+  filter:
+    drop-shadow(0 0 28px rgba(73,125,255,.08));
+}
+
+.s2-funnel-throat {
+  fill: rgba(0,0,0,.96);
+  filter:
+    drop-shadow(0 0 24px rgba(0,0,0,1))
+    drop-shadow(0 0 18px rgba(111,185,255,.10));
+}
+
+.slide-two.s2-left-capture .s2-left-funnel,
+.slide-two.s2-right-capture .s2-left-funnel,
+.slide-two.s2-light-visible .s2-left-funnel {
+  animation:
+    s2FunnelReveal 560ms ease 6100ms forwards;
+}
+
+.slide-two.s2-right-capture .s2-right-funnel,
+.slide-two.s2-light-visible .s2-right-funnel {
+  animation:
+    s2FunnelReveal 560ms ease 6100ms forwards;
+}
+
+.slide-two.s2-left-capture .s2-left-funnel .s2-funnel-line,
+.slide-two.s2-right-capture .s2-left-funnel .s2-funnel-line,
+.slide-two.s2-light-visible .s2-left-funnel .s2-funnel-line,
+.slide-two.s2-right-capture .s2-right-funnel .s2-funnel-line,
+.slide-two.s2-light-visible .s2-right-funnel .s2-funnel-line {
+  animation:
+    s2FunnelLineDraw 1500ms cubic-bezier(.16,.84,.22,1)
+    calc(6100ms + var(--delay) * 1ms) forwards;
+}
+
+.slide-two.s2-left-capture .s2-left-funnel .s2-funnel-shadow,
+.slide-two.s2-left-capture .s2-left-funnel .s2-funnel-throat,
+.slide-two.s2-right-capture .s2-left-funnel .s2-funnel-shadow,
+.slide-two.s2-right-capture .s2-left-funnel .s2-funnel-throat,
+.slide-two.s2-light-visible .s2-left-funnel .s2-funnel-shadow,
+.slide-two.s2-light-visible .s2-left-funnel .s2-funnel-throat,
+.slide-two.s2-right-capture .s2-right-funnel .s2-funnel-shadow,
+.slide-two.s2-right-capture .s2-right-funnel .s2-funnel-throat,
+.slide-two.s2-light-visible .s2-right-funnel .s2-funnel-shadow,
+.slide-two.s2-light-visible .s2-right-funnel .s2-funnel-throat {
+  animation:
+    s2FunnelFillIn 900ms ease 6820ms forwards;
+}
+
+@keyframes s2FunnelReveal {
+  to {
+    opacity: .92;
+  }
+}
+
+.s2-wave {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pathLength: 100;
+  stroke-dasharray: 24 108;
+  stroke-dashoffset: 132;
+  opacity: 0;
+}
+
+.s2-wave-glow {
+  stroke-width: 8;
+  filter: url(#s2SoftGlow);
+}
+
+.s2-wave-core {
+  stroke-width: 1.65;
+  filter: url(#s2FineGlow);
+}
+
+.s2-wave-warm,
+.s2-wave-cool,
+.s2-wave-scatter,
+.s2-wave-absorbed {
+  color: rgba(219, 244, 255, .96);
+  stroke: currentColor;
+}
+
+.s2-wave-glow {
+  color: rgba(102, 186, 255, .25);
+}
+
+.slide-two.s2-light-visible .s2-left-incoming .s2-wave,
+.slide-two.s2-light-visible .s2-right-passing .s2-wave,
+.slide-two.s2-light-visible .s2-left-scatter .s2-wave,
+.slide-two.s2-light-visible .s2-left-absorbed .s2-wave {
+  animation:
+    s2WavePacketTravel var(--packet-duration)
+    linear var(--packet-delay) forwards;
+}
+
+@keyframes s2WavePacketTravel {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 132;
+  }
+
+  7% {
+    opacity: var(--packet-opacity);
+  }
+
+  88% {
+    opacity: var(--packet-opacity);
+  }
+
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -108;
+  }
+}
+
+.s2-collision-ring {
+  fill: none;
+  stroke: rgba(211, 245, 255, .72);
+  stroke-width: 1.4;
+  opacity: 0;
+  filter: url(#s2FineGlow);
+}
+
+.slide-two.s2-light-visible .s2-collision-ring {
+  animation:
+    s2Collision 820ms ease-out var(--impact-delay) forwards;
+}
+
+@keyframes s2Collision {
+  0% {
+    opacity: 0;
+    transform: scale(.18);
+    transform-origin: center;
+  }
+
+  28% {
+    opacity: .88;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.7);
+    transform-origin: center;
+  }
+}
+
+.s23-orbit-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.s23-orbit-transition svg {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.s23-transition-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 50% 54%,
+      transparent 0 20%,
+      rgba(0,0,0,.18) 46%,
+      rgba(0,0,0,.84) 100%
+    );
+  opacity: 0;
+}
+
+.s23-ring-group {
+  fill: none;
+  stroke: rgba(196, 230, 255, .42);
+  stroke-width: 1.15;
+  filter:
+    drop-shadow(0 0 10px rgba(111, 185, 255, .22));
+  transform-box: view-box;
+  transform-origin: 800px 486px;
+  opacity: 0;
+}
+
+.deck.is-transitioning-to-slide3 .s35-transition-wash {
+  display: none !important;
+}
+
+.deck.is-transitioning-to-slide3 .s23-orbit-transition {
+  opacity: 1;
+}
+
+.deck.is-transitioning-to-slide3 .s23-transition-depth {
+  animation:
+    s23Depth 1900ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide3 .s23-rings-left {
+  animation:
+    s23LeftGridToOrbit 1800ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide3 .s23-rings-right {
+  animation:
+    s23RightGridToOrbit 1800ms cubic-bezier(.16,.84,.22,1) 70ms forwards;
+}
+
+.deck.is-transitioning-to-slide3 #slideTwo {
+  animation:
+    s23SlideTwoOut 1850ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide3 #slideThree {
+  z-index: 45;
+  opacity: 1;
+  pointer-events: none;
+  animation:
+    s23SlideThreeResolve 1900ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+@keyframes s23LeftGridToOrbit {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-295px, 132px)
+      scale(.42, .23)
+      rotate(24deg);
+  }
+
+  16% {
+    opacity: .74;
+  }
+
+  72% {
+    opacity: .78;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(0,0)
+      scale(1,1)
+      rotate(0deg);
+  }
+}
+
+@keyframes s23RightGridToOrbit {
+  0% {
+    opacity: 0;
+    transform:
+      translate(390px, 132px)
+      scale(.46, .25)
+      rotate(24deg);
+  }
+
+  16% {
+    opacity: .70;
+  }
+
+  72% {
+    opacity: .76;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(0,0)
+      scale(1,1)
+      rotate(0deg);
+  }
+}
+
+@keyframes s23Depth {
+  0% {
+    opacity: 0;
+    transform: scale(.96);
+  }
+
+  42% {
+    opacity: .72;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes s23SlideTwoOut {
+  0% {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+  }
+
+  55% {
+    opacity: .38;
+    filter: blur(3px) brightness(.72);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(14px) brightness(.34);
+  }
+}
+
+@keyframes s23SlideThreeResolve {
+  0% {
+    opacity: 0;
+    transform: scale(1.055);
+    filter: blur(18px) brightness(.38);
+  }
+
+  48% {
+    opacity: .52;
+    filter: blur(7px) brightness(.70);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) brightness(1);
+  }
+}
+
+.slide-three.s3-orbits-intro .s3-orbit-rings ellipse {
+  opacity: .34;
+  stroke-dashoffset: 0;
+  transition: opacity 700ms ease;
+}
+
+@media (max-width: 900px) {
+  .s2-ordinary-system {
+    left: 13vw;
+    top: 30vh;
+    width: 42vw;
+    min-width: 0;
+  }
+
+  .s2-probe-field-left,
+  .s2-probe-field-right {
+    transform: scale(.88);
+    transform-origin: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-two.s2-particles-visible .s2-baryon,
+  .slide-two.s2-left-capture .s2-baryon,
+  .slide-two.s2-right-capture .s2-baryon,
+  .slide-two.s2-light-visible .s2-baryon {
+    opacity: var(--alpha);
+    transform:
+      translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px))
+      scale(1);
+  }
+
+  .slide-two.s2-left-capture .s2-left-funnel,
+  .slide-two.s2-right-capture .s2-left-funnel,
+  .slide-two.s2-right-capture .s2-right-funnel,
+  .slide-two.s2-light-visible .s2-left-funnel,
+  .slide-two.s2-light-visible .s2-right-funnel {
+    opacity: .88;
+  }
+}
+</style>
+
+
 <style>
 /* ===== src/deck.css ===== */
 .deck {
@@ -4068,28 +4720,28 @@ function buildSlideTwoStars() {
 }
 
 function buildBaryonicMatter() {
-  const count = prefersReduced ? 12 : 42;
+  const count = prefersReduced ? 30 : 78;
 
   for (let i = 0; i < count; i += 1) {
     const node = document.createElement('span');
     node.className = 's2-baryon';
 
     const angle = slideTwoRand() * Math.PI * 2;
-    const radius = Math.pow(slideTwoRand(), 0.74) * 132;
+    const radius = Math.pow(slideTwoRand(), 0.62) * 128;
 
     const tx = Math.cos(angle) * radius;
-    const ty = Math.sin(angle) * radius * 0.7;
+    const ty = Math.sin(angle) * radius * 0.74;
 
-    const sx = (slideTwoRand() - 0.5) * 570;
-    const sy = (slideTwoRand() - 0.5) * 400;
+    const sx = (slideTwoRand() - 0.5) * 610;
+    const sy = (slideTwoRand() - 0.5) * 440;
 
-    const ox = (slideTwoRand() - 0.5) * 10;
-    const oy = (slideTwoRand() - 0.5) * 10;
+    const ox = (slideTwoRand() - 0.5) * 8;
+    const oy = (slideTwoRand() - 0.5) * 8;
 
-    const size = 4.5 + slideTwoRand() * 18;
-    const delay = i * 86 + slideTwoRand() * 130;
-    const orbit = 5.5 + slideTwoRand() * 6;
-    const alpha = 0.46 + slideTwoRand() * 0.48;
+    const size = 3.8 + slideTwoRand() * 12.5;
+    const delay = i * 18 + slideTwoRand() * 180;
+    const orbit = 6.5 + slideTwoRand() * 7;
+    const alpha = 0.46 + slideTwoRand() * 0.50;
 
     node.style.setProperty('--tx', tx.toFixed(2));
     node.style.setProperty('--ty', ty.toFixed(2));
@@ -4106,65 +4758,125 @@ function buildBaryonicMatter() {
   }
 }
 
-function buildEmissionSparks() {
-  const count = prefersReduced ? 7 : 18;
+function buildProbeFields() {
+  const leftHost = document.getElementById('s2LeftProbeField');
+  const rightHost = document.getElementById('s2RightProbeField');
 
-  for (let i = 0; i < count; i += 1) {
-    const node = document.createElement('span');
-    node.className = 's2-emission';
+  if (!leftHost || !rightHost) return;
 
-    const angle = slideTwoRand() * Math.PI * 2;
-    const radius = 24 + slideTwoRand() * 118;
+  const leftPaths = [
+    {
+      dx: '-27vw',
+      dy: '-20vh',
+      mx: '-6.8vw',
+      my: '-5.0vh',
+      size: '12.2vmin',
+      delay: 0,
+      tilt: '-18deg'
+    },
+    {
+      dx: '-14vw',
+      dy: '28vh',
+      mx: '-3.7vw',
+      my: '7.1vh',
+      size: '10.8vmin',
+      delay: 360,
+      tilt: '27deg'
+    },
+    {
+      dx: '16vw',
+      dy: '-23vh',
+      mx: '4.1vw',
+      my: '-5.8vh',
+      size: '11.6vmin',
+      delay: 720,
+      tilt: '-34deg'
+    },
+    {
+      dx: '20vw',
+      dy: '22vh',
+      mx: '5.0vw',
+      my: '5.4vh',
+      size: '9.9vmin',
+      delay: 1080,
+      tilt: '14deg'
+    }
+  ];
 
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius * 0.72;
+  const rightPaths = [
+    {
+      dx: '-16vw',
+      dy: '-22vh',
+      mx: '-4.0vw',
+      my: '-5.4vh',
+      size: '11.8vmin',
+      delay: 0,
+      tilt: '21deg'
+    },
+    {
+      dx: '17vw',
+      dy: '-18vh',
+      mx: '4.4vw',
+      my: '-4.6vh',
+      size: '10.4vmin',
+      delay: 360,
+      tilt: '-25deg'
+    },
+    {
+      dx: '-12vw',
+      dy: '28vh',
+      mx: '-3.1vw',
+      my: '7.0vh',
+      size: '12.4vmin',
+      delay: 720,
+      tilt: '34deg'
+    },
+    {
+      dx: '22vw',
+      dy: '24vh',
+      mx: '5.5vw',
+      my: '6.0vh',
+      size: '9.8vmin',
+      delay: 1080,
+      tilt: '-12deg'
+    }
+  ];
 
-    const dx = Math.cos(angle) * (38 + slideTwoRand() * 90);
-    const dy = Math.sin(angle) * (32 + slideTwoRand() * 70);
+  function addProbe(host, config) {
+    const probe = document.createElement('span');
 
-    const size = 28 + slideTwoRand() * 78;
-    const delay = slideTwoRand() * 700;
-    const rotation = (angle * 180) / Math.PI;
+    probe.className = 's2-probe';
+    probe.style.setProperty('--dx', config.dx);
+    probe.style.setProperty('--dy', config.dy);
+    probe.style.setProperty('--mx', config.mx);
+    probe.style.setProperty('--my', config.my);
+    probe.style.setProperty('--probe-size', config.size);
+    probe.style.setProperty('--probe-delay', `${config.delay}ms`);
+    probe.style.setProperty('--probe-tilt', config.tilt);
 
-    node.style.setProperty('--x', x.toFixed(2));
-    node.style.setProperty('--y', y.toFixed(2));
-    node.style.setProperty('--dx', dx.toFixed(2));
-    node.style.setProperty('--dy', dy.toFixed(2));
-    node.style.setProperty('--angle', rotation.toFixed(2));
-    node.style.setProperty('--size', `${size.toFixed(2)}px`);
-    node.style.setProperty('--delay', delay.toFixed(0));
-
-    emissionField.appendChild(node);
+    host.appendChild(probe);
   }
+
+  leftPaths.forEach((config) => {
+    addProbe(leftHost, config);
+  });
+
+  rightPaths.forEach((config) => {
+    addProbe(rightHost, config);
+  });
 }
 
-function buildImpactFlashes() {
-  const count = prefersReduced ? 5 : 14;
-
-  for (let i = 0; i < count; i += 1) {
-    const node = document.createElement('span');
-    node.className = 's2-impact-flash';
-
-    const angle = slideTwoRand() * Math.PI * 2;
-    const radius = Math.pow(slideTwoRand(), 0.7) * 112;
-
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius * 0.72;
-
-    const size = 16 + slideTwoRand() * 42;
-    const delay = slideTwoRand() * 720;
-
-    node.style.setProperty('--x', x.toFixed(2));
-    node.style.setProperty('--y', y.toFixed(2));
-    node.style.setProperty('--size', `${size.toFixed(2)}px`);
-    node.style.setProperty('--delay', delay.toFixed(0));
-
-    impactFlashes.appendChild(node);
-  }
-}
-
-function appendEllipse(group, className, cx, cy, rx, ry, delay = 0) {
+function appendEllipse(
+  group,
+  className,
+  cx,
+  cy,
+  rx,
+  ry,
+  delay = 0
+) {
   const ellipse = createSvg('ellipse');
+
   ellipse.setAttribute('class', className);
   ellipse.setAttribute('cx', cx);
   ellipse.setAttribute('cy', cy);
@@ -4172,39 +4884,67 @@ function appendEllipse(group, className, cx, cy, rx, ry, delay = 0) {
   ellipse.setAttribute('ry', ry);
   ellipse.setAttribute('pathLength', '100');
   ellipse.style.setProperty('--delay', delay.toFixed(0));
+
   group.appendChild(ellipse);
+
   return ellipse;
 }
 
-function appendPath(group, className, d, delay = 0) {
+function appendPath(
+  group,
+  className,
+  d,
+  delay = 0
+) {
   const path = createSvg('path');
+
   path.setAttribute('class', className);
   path.setAttribute('d', d);
   path.setAttribute('pathLength', '100');
   path.style.setProperty('--delay', delay.toFixed(0));
+
   group.appendChild(path);
+
   return path;
 }
 
-/*
-  Centering correction:
-  ordinary matter center is visually around x=505, y=500.
-  funnel top is directly below it at x=505, y=615.
-  throat is directly underneath at x=505, y≈780.
-*/
 function buildFunnel(group, options) {
-  const { cx, cy, rx, ry, depth, spokeCount = 18, left = true } = options;
+  const {
+    cx,
+    cy,
+    rx,
+    ry,
+    depth,
+    spokeCount = 20
+  } = options;
 
-  appendEllipse(group, 's2-funnel-shadow', cx, cy + depth * 0.60, rx * 0.36, ry * 0.18, 0);
-  appendEllipse(group, 's2-funnel-throat', cx, cy + depth, rx * 0.13, ry * 0.13, 0);
+  appendEllipse(
+    group,
+    's2-funnel-shadow',
+    cx,
+    cy + depth * 0.61,
+    rx * 0.34,
+    ry * 0.17,
+    0
+  );
+
+  appendEllipse(
+    group,
+    's2-funnel-throat',
+    cx,
+    cy + depth,
+    rx * 0.105,
+    ry * 0.105,
+    0
+  );
 
   const rings = [
     [1.00, 0.00, 0],
-    [0.80, 0.16, 420],
-    [0.61, 0.34, 900],
-    [0.43, 0.54, 1420],
-    [0.27, 0.75, 2060],
-    [0.14, 0.96, 2760]
+    [0.82, 0.15, 85],
+    [0.64, 0.32, 170],
+    [0.47, 0.51, 255],
+    [0.30, 0.73, 340],
+    [0.14, 0.96, 425]
   ];
 
   rings.forEach(([scale, drop, delay]) => {
@@ -4225,266 +4965,333 @@ function buildFunnel(group, options) {
     const outerX = cx + Math.cos(theta) * rx;
     const outerY = cy + Math.sin(theta) * ry;
 
-    const midX = cx + Math.cos(theta) * rx * 0.38;
-    const midY = cy + depth * 0.48 + Math.sin(theta) * ry * 0.30;
+    const midX = cx + Math.cos(theta) * rx * 0.37;
+    const midY =
+      cy +
+      depth * 0.49 +
+      Math.sin(theta) * ry * 0.28;
 
-    const innerX = cx + Math.cos(theta) * rx * 0.08;
-    const innerY = cy + depth * 0.97 + Math.sin(theta) * ry * 0.08;
+    const innerX =
+      cx +
+      Math.cos(theta) * rx * 0.07;
 
-    const d = `M ${outerX.toFixed(1)} ${outerY.toFixed(1)}
-               C ${((outerX + midX) / 2).toFixed(1)} ${(outerY + depth * 0.20).toFixed(1)},
-                 ${midX.toFixed(1)} ${midY.toFixed(1)},
-                 ${innerX.toFixed(1)} ${innerY.toFixed(1)}`;
+    const innerY =
+      cy +
+      depth * 0.97 +
+      Math.sin(theta) * ry * 0.06;
+
+    const d =
+      `M ${outerX.toFixed(1)} ${outerY.toFixed(1)}
+       C ${((outerX + midX) / 2).toFixed(1)}
+         ${(outerY + depth * 0.20).toFixed(1)},
+         ${midX.toFixed(1)}
+         ${midY.toFixed(1)},
+         ${innerX.toFixed(1)}
+         ${innerY.toFixed(1)}`;
 
     appendPath(
       group,
       's2-funnel-line s2-funnel-spoke',
       d,
-      left ? 700 + i * 42 : 160 + i * 38
+      110 + i * 16
     );
   }
 }
 
-function catmullRom(points, samplesPerSegment = 26) {
-  const out = [];
+function sinePath(
+  x0,
+  y0,
+  x1,
+  y1,
+  amplitude,
+  wavelength,
+  phase = 0,
+  samples = 190
+) {
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const length = Math.hypot(dx, dy);
 
-  for (let i = 0; i < points.length - 1; i += 1) {
-    const p0 = points[Math.max(i - 1, 0)];
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    const p3 = points[Math.min(i + 2, points.length - 1)];
+  const tx = dx / length;
+  const ty = dy / length;
 
-    for (let j = 0; j < samplesPerSegment; j += 1) {
-      const t = j / samplesPerSegment;
-      const tt = t * t;
-      const ttt = tt * t;
+  const nx = -ty;
+  const ny = tx;
 
-      const x = 0.5 * (
-        (2 * p1[0]) +
-        (-p0[0] + p2[0]) * t +
-        (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * tt +
-        (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * ttt
-      );
+  const commands = [];
 
-      const y = 0.5 * (
-        (2 * p1[1]) +
-        (-p0[1] + p2[1]) * t +
-        (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * tt +
-        (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * ttt
-      );
+  for (let i = 0; i <= samples; i += 1) {
+    const u = i / samples;
+    const distance = length * u;
+    const envelope = Math.sin(Math.PI * u);
 
-      out.push([x, y]);
-    }
+    const displacement =
+      Math.sin(
+        (distance / wavelength) * Math.PI * 2 + phase
+      ) *
+      amplitude *
+      envelope;
+
+    const x =
+      x0 +
+      dx * u +
+      nx * displacement;
+
+    const y =
+      y0 +
+      dy * u +
+      ny * displacement;
+
+    commands.push(
+      `${i === 0 ? 'M' : 'L'} ${x.toFixed(2)} ${y.toFixed(2)}`
+    );
   }
 
-  out.push(points[points.length - 1]);
-  return out;
+  return commands.join(' ');
 }
 
-function measure(points) {
-  const lengths = [0];
-  let total = 0;
-
-  for (let i = 1; i < points.length; i += 1) {
-    total += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
-    lengths.push(total);
-  }
-
-  return { lengths };
-}
-
-function wavePath(points, options = {}) {
+function appendWavePacket(
+  group,
+  d,
+  options = {}
+) {
   const {
-    amp = 3.4,
-    wavelength = 68,
-    phase = 0,
-    samples = 26
-  } = options;
-
-  const base = catmullRom(points, samples);
-  const { lengths } = measure(base);
-  const d = [];
-
-  for (let i = 0; i < base.length; i += 1) {
-    const prev = base[Math.max(i - 1, 0)];
-    const next = base[Math.min(i + 1, base.length - 1)];
-    const angle = Math.atan2(next[1] - prev[1], next[0] - prev[0]);
-    const nx = -Math.sin(angle);
-    const ny = Math.cos(angle);
-
-    const s = lengths[i];
-    const envelope = Math.sin(Math.PI * (i / Math.max(1, base.length - 1)));
-    const offset = Math.sin((s / wavelength) * Math.PI * 2 + phase) * amp * envelope;
-
-    const x = base[i][0] + nx * offset;
-    const y = base[i][1] + ny * offset;
-
-    d.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
-  }
-
-  return d.join(' ');
-}
-
-function appendWavePair(group, points, options = {}) {
-  const {
-    className = 's2-wave-warm',
+    className = 's2-wave-cool',
     delay = 0,
-    amp = 3.4,
-    wavelength = 68,
-    phase = 0,
-    coreWidth = 1.2,
-    glowWidth = 5.4,
-    coreOpacity = 0.86,
-    glowOpacity = 0.12
+    duration = 5200,
+    coreOpacity = 0.92,
+    glowOpacity = 0.24
   } = options;
 
-  const d = wavePath(points, { amp, wavelength, phase });
+  const glow = appendPath(
+    group,
+    `s2-wave s2-wave-glow ${className}`,
+    d,
+    0
+  );
 
-  const glow = appendPath(group, `s2-wave s2-wave-glow ${className}`, d, delay);
-  setStyles(glow, {
-    '--glow-width': `${glowWidth}`,
-    '--final-opacity': `${glowOpacity}`
-  });
+  glow.style.setProperty(
+    '--packet-delay',
+    `${delay}ms`
+  );
 
-  const core = appendPath(group, `s2-wave s2-wave-core ${className}`, d, delay);
-  setStyles(core, {
-    '--core-width': `${coreWidth}`,
-    '--final-opacity': `${coreOpacity}`
-  });
+  glow.style.setProperty(
+    '--packet-duration',
+    `${duration}ms`
+  );
+
+  glow.style.setProperty(
+    '--packet-opacity',
+    glowOpacity
+  );
+
+  const core = appendPath(
+    group,
+    `s2-wave s2-wave-core ${className}`,
+    d,
+    0
+  );
+
+  core.style.setProperty(
+    '--packet-delay',
+    `${delay}ms`
+  );
+
+  core.style.setProperty(
+    '--packet-duration',
+    `${duration}ms`
+  );
+
+  core.style.setProperty(
+    '--packet-opacity',
+    coreOpacity
+  );
+}
+
+function appendCollision(
+  group,
+  x,
+  y,
+  delay
+) {
+  const ring = createSvg('circle');
+
+  ring.setAttribute(
+    'class',
+    's2-collision-ring'
+  );
+
+  ring.setAttribute('cx', x);
+  ring.setAttribute('cy', y);
+  ring.setAttribute('r', 12);
+
+  ring.style.setProperty(
+    '--impact-delay',
+    `${delay}ms`
+  );
+
+  group.appendChild(ring);
 }
 
 function buildLightWaves() {
-  const incoming = [
-    [[-90, 330], [110, 338], [260, 374], [390, 438], [500, 468]],
-    [[-90, 425], [118, 424], [270, 442], [400, 482], [520, 505]],
-    [[-90, 520], [118, 506], [274, 502], [414, 526], [545, 560]]
-  ];
-
-  incoming.forEach((path, index) => {
-    appendWavePair(leftIncoming, path, {
-      className: index === 1 ? 's2-wave-cool' : 's2-wave-warm',
-      delay: index * 110,
-      amp: index === 0 ? 4.1 : 3.4,
-      wavelength: 78,
-      phase: index * 1.3,
-      coreWidth: index === 0 ? 1.45 : 1.15,
-      glowWidth: index === 0 ? 6.5 : 5.2,
-      coreOpacity: 0.84,
-      glowOpacity: 0.11
-    });
+  [
+    leftIncoming,
+    leftScatter,
+    leftAbsorbed,
+    rightPassing,
+    rightArcs
+  ].forEach((group) => {
+    group.innerHTML = '';
   });
 
-  const scatter = [
-    [[500, 468], [405, 390], [260, 322], [95, 275]],
-    [[520, 505], [390, 508], [252, 548], [100, 620]],
-    [[540, 548], [438, 623], [294, 688], [120, 746]],
-    [[504, 482], [610, 402], [752, 340], [910, 300]]
-  ];
+  const rows = [342, 390, 438];
+  const amplitude = 9.5;
+  const wavelength = 78;
 
-  scatter.forEach((path, index) => {
-    appendWavePair(leftScatter, path, {
+  rows.forEach((y, index) => {
+    const phase = index * 1.22;
+    const delay = index * 230;
+
+    const leftIncomingPath = sinePath(
+      -130,
+      y,
+      526,
+      y,
+      amplitude,
+      wavelength,
+      phase
+    );
+
+    appendWavePacket(
+      leftIncoming,
+      leftIncomingPath,
+      {
+        className: 's2-wave-cool',
+        delay,
+        duration: 3300,
+        coreOpacity: 0.94,
+        glowOpacity: 0.22
+      }
+    );
+
+    const rightPassingPath = sinePath(
+      650,
+      y,
+      1710,
+      y,
+      amplitude,
+      wavelength,
+      phase
+    );
+
+    appendWavePacket(
+      rightPassing,
+      rightPassingPath,
+      {
+        className: 's2-wave-cool',
+        delay,
+        duration: 5400,
+        coreOpacity: 0.94,
+        glowOpacity: 0.22
+      }
+    );
+
+    appendCollision(
+      leftScatter,
+      526,
+      y,
+      2420 + delay
+    );
+  });
+
+  const scatterUp = sinePath(
+    526,
+    342,
+    930,
+    205,
+    8.2,
+    wavelength,
+    0
+  );
+
+  const scatterDown = sinePath(
+    526,
+    390,
+    950,
+    548,
+    8.2,
+    wavelength,
+    1.22
+  );
+
+  const absorbed = sinePath(
+    526,
+    438,
+    675,
+    438,
+    7,
+    wavelength,
+    2.44
+  );
+
+  appendWavePacket(
+    leftScatter,
+    scatterUp,
+    {
       className: 's2-wave-scatter',
-      delay: index * 85,
-      amp: 3.2,
-      wavelength: 66,
-      phase: index * 1.5,
-      coreWidth: 0.95,
-      glowWidth: 4.7,
-      coreOpacity: 0.62,
-      glowOpacity: 0.09
-    });
-  });
+      delay: 2480,
+      duration: 2900,
+      coreOpacity: 0.86,
+      glowOpacity: 0.18
+    }
+  );
 
-  const absorbed = [
-    [[500, 504], [582, 506], [680, 508], [775, 510]],
-    [[488, 455], [580, 442], [690, 430], [790, 420]]
-  ];
+  appendWavePacket(
+    leftScatter,
+    scatterDown,
+    {
+      className: 's2-wave-scatter',
+      delay: 2710,
+      duration: 2900,
+      coreOpacity: 0.86,
+      glowOpacity: 0.18
+    }
+  );
 
-  absorbed.forEach((path, index) => {
-    appendWavePair(leftAbsorbed, path, {
+  appendWavePacket(
+    leftAbsorbed,
+    absorbed,
+    {
       className: 's2-wave-absorbed',
-      delay: index * 120,
-      amp: 1.8,
-      wavelength: 62,
-      phase: index,
-      coreWidth: 0.85,
-      glowWidth: 4.0,
-      coreOpacity: 0.38,
-      glowOpacity: 0.05
-    });
-  });
-
-  /*
-    Right-side light:
-    same direction, smooth path, only a tiny gravitational bend.
-    No scatter. No reflection. No random bending up/down.
-  */
-  const right = [
-    [[650, 355], [840, 356], [1000, 364], [1135, 386], [1265, 392], [1440, 382], [1690, 382]],
-    [[650, 475], [840, 475], [1005, 479], [1140, 491], [1270, 495], [1445, 488], [1690, 488]],
-    [[650, 595], [845, 588], [1015, 570], [1140, 552], [1270, 566], [1450, 592], [1690, 592]]
-  ];
-
-  right.forEach((path, index) => {
-    appendWavePair(rightPassing, path, {
-      className: index === 1 ? 's2-wave-cool' : 's2-wave-warm',
-      delay: index * 110,
-      amp: index === 0 ? 2.7 : 2.1,
-      wavelength: 82,
-      phase: index * 1.25,
-      coreWidth: index === 0 ? 1.35 : 1.05,
-      glowWidth: index === 0 ? 6.0 : 5.0,
-      coreOpacity: 0.84,
-      glowOpacity: 0.10
-    });
-  });
-
-  const arcs = [
-    [[1030, 300], [1120, 252], [1245, 260], [1330, 314]],
-    [[1015, 660], [1130, 700], [1268, 680], [1345, 618]]
-  ];
-
-  arcs.forEach((path, index) => {
-    appendWavePair(rightArcs, path, {
-      className: 's2-wave-arc',
-      delay: index * 120,
-      amp: 1.2,
-      wavelength: 86,
-      phase: index,
-      coreWidth: 0.75,
-      glowWidth: 3.6,
-      coreOpacity: 0.24,
-      glowOpacity: 0.04
-    });
-  });
+      delay: 2940,
+      duration: 1450,
+      coreOpacity: 0.58,
+      glowOpacity: 0.12
+    }
+  );
 }
 
 buildSlideOneParticles();
 buildSlideTwoStars();
 buildBaryonicMatter();
-buildEmissionSparks();
-buildImpactFlashes();
+buildProbeFields();
 
-/* Left funnel is now centered under visible matter. */
 buildFunnel(leftFunnel, {
-  cx: 505,
-  cy: 615,
-  rx: 280,
-  ry: 72,
-  depth: 168,
-  spokeCount: 18,
-  left: true
+  cx: 540,
+  cy: 520,
+  rx: 286,
+  ry: 70,
+  depth: 218,
+  spokeCount: 20
 });
 
-/* Right funnel is centered under invisible dark matter. */
 buildFunnel(rightFunnel, {
-  cx: 1190,
-  cy: 615,
-  rx: 315,
-  ry: 82,
-  depth: 172,
-  spokeCount: 18,
-  left: false
+  cx: 1160,
+  cy: 520,
+  rx: 286,
+  ry: 70,
+  depth: 218,
+  spokeCount: 20
 });
 
 buildLightWaves();
@@ -4494,55 +5301,104 @@ let step = 0;
 let titleTimer = null;
 let transitionTimer = null;
 let slideTwoTimer = null;
+let slideTwoLockedUntil = 0;
+
+function lockSlideTwoFor(milliseconds) {
+  slideTwoLockedUntil =
+    performance.now() + milliseconds;
+}
+
+function slideTwoIsLocked() {
+  return performance.now() < slideTwoLockedUntil;
+}
 
 function revealSlideOne() {
-  slideOne.classList.add('is-halo-revealed');
+  slideOne.classList.add(
+    'is-halo-revealed'
+  );
 
   titleTimer = window.setTimeout(() => {
-    slideOne.classList.add('is-title-revealed');
+    slideOne.classList.add(
+      'is-title-revealed'
+    );
   }, prefersReduced ? 80 : 1220);
 }
 
 function transitionToSlideTwo() {
-  deck.classList.add('is-transitioning-to-slide2');
+  deck.classList.add(
+    'is-transitioning-to-slide2'
+  );
 
   transitionTimer = window.setTimeout(() => {
-    deck.classList.add('show-slide-2');
+    deck.classList.add(
+      'show-slide-2'
+    );
   }, prefersReduced ? 80 : 760);
 
   slideTwoTimer = window.setTimeout(() => {
-    slideTwo.classList.add('s2-ready');
-    deck.classList.remove('is-transitioning-to-slide2');
+    slideTwo.classList.add(
+      's2-ready'
+    );
+
+    deck.classList.remove(
+      'is-transitioning-to-slide2'
+    );
   }, prefersReduced ? 100 : 1180);
 }
 
 function advanceSlideTwoBeat() {
+  if (slideTwoIsLocked()) {
+    return;
+  }
+
   if (step === 2) {
-    slideTwo.classList.add('s2-matter-visible');
+    slideTwo.classList.add(
+      's2-particles-visible'
+    );
+
+    lockSlideTwoFor(
+      prefersReduced ? 80 : 2300
+    );
+
     step = 3;
     return;
   }
 
   if (step === 3) {
-    slideTwo.classList.add('s2-left-gravity');
+    slideTwo.classList.add(
+      's2-left-capture'
+    );
+
+    lockSlideTwoFor(
+      prefersReduced ? 80 : 7900
+    );
+
     step = 4;
     return;
   }
 
   if (step === 4) {
-    slideTwo.classList.add('s2-left-light');
+    slideTwo.classList.add(
+      's2-right-capture'
+    );
+
+    lockSlideTwoFor(
+      prefersReduced ? 80 : 7900
+    );
+
     step = 5;
     return;
   }
 
   if (step === 5) {
-    slideTwo.classList.add('s2-right-gravity');
-    step = 6;
-    return;
-  }
+    slideTwo.classList.add(
+      's2-light-visible'
+    );
 
-  if (step === 6) {
-    slideTwo.classList.add('s2-right-light');
+    lockSlideTwoFor(
+      prefersReduced ? 80 : 5850
+    );
+
     step = 7;
   }
 }
@@ -4561,7 +5417,10 @@ function advance() {
   }
 
   if (step >= 7) {
-    step = window.slide34Controller?.advance?.(step) ?? step;
+    step =
+      window.slide34Controller?.advance?.(step)
+      ?? step;
+
     return;
   }
 
@@ -4576,20 +5435,27 @@ function clearTimers() {
 
 function resetDeck() {
   step = 0;
+  slideTwoLockedUntil = 0;
+
   clearTimers();
 
-  slideOne.classList.remove('is-halo-revealed', 'is-title-revealed');
+  slideOne.classList.remove(
+    'is-halo-revealed',
+    'is-title-revealed'
+  );
 
   slideTwo.classList.remove(
     's2-ready',
-    's2-matter-visible',
-    's2-left-gravity',
-    's2-left-light',
-    's2-right-gravity',
-    's2-right-light'
+    's2-particles-visible',
+    's2-left-capture',
+    's2-right-capture',
+    's2-light-visible'
   );
 
-  deck.classList.remove('is-transitioning-to-slide2', 'show-slide-2');
+  deck.classList.remove(
+    'is-transitioning-to-slide2',
+    'show-slide-2'
+  );
 
   window.slide34Controller?.reset?.();
 
@@ -4600,17 +5466,30 @@ function jumpToSlideTwoStart() {
   clearTimers();
 
   step = 2;
-  slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-  deck.classList.add('show-slide-2');
-  deck.classList.remove('is-transitioning-to-slide2');
+  slideTwoLockedUntil = 0;
 
-  slideTwo.classList.add('s2-ready');
+  slideOne.classList.add(
+    'is-halo-revealed',
+    'is-title-revealed'
+  );
+
+  deck.classList.add(
+    'show-slide-2'
+  );
+
+  deck.classList.remove(
+    'is-transitioning-to-slide2'
+  );
+
+  slideTwo.classList.add(
+    's2-ready'
+  );
+
   slideTwo.classList.remove(
-    's2-matter-visible',
-    's2-left-gravity',
-    's2-left-light',
-    's2-right-gravity',
-    's2-right-light'
+    's2-particles-visible',
+    's2-left-capture',
+    's2-right-capture',
+    's2-light-visible'
   );
 }
 
@@ -4618,12 +5497,13 @@ function jumpToSlideTwoComplete() {
   jumpToSlideTwoStart();
 
   step = 7;
+  slideTwoLockedUntil = 0;
+
   slideTwo.classList.add(
-    's2-matter-visible',
-    's2-left-gravity',
-    's2-left-light',
-    's2-right-gravity',
-    's2-right-light'
+    's2-particles-visible',
+    's2-left-capture',
+    's2-right-capture',
+    's2-light-visible'
   );
 }
 
@@ -4655,23 +5535,62 @@ window.addEventListener('keydown', (event) => {
 
   if (key === '4') {
     step = 8;
-    slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-    slideTwo.classList.add('s2-ready', 's2-matter-visible', 's2-left-gravity', 's2-left-light', 's2-right-gravity', 's2-right-light');
-    window.slide34Controller?.jumpToSlideThreeStart?.();
+
+    slideOne.classList.add(
+      'is-halo-revealed',
+      'is-title-revealed'
+    );
+
+    slideTwo.classList.add(
+      's2-ready',
+      's2-particles-visible',
+      's2-left-capture',
+      's2-right-capture',
+      's2-light-visible'
+    );
+
+    window.slide34Controller
+      ?.jumpToSlideThreeStart?.();
   }
 
   if (key === '5') {
     step = 12;
-    slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-    slideTwo.classList.add('s2-ready', 's2-matter-visible', 's2-left-gravity', 's2-left-light', 's2-right-gravity', 's2-right-light');
-    window.slide34Controller?.jumpToSlideFourStart?.();
+
+    slideOne.classList.add(
+      'is-halo-revealed',
+      'is-title-revealed'
+    );
+
+    slideTwo.classList.add(
+      's2-ready',
+      's2-particles-visible',
+      's2-left-capture',
+      's2-right-capture',
+      's2-light-visible'
+    );
+
+    window.slide34Controller
+      ?.jumpToSlideFourStart?.();
   }
 
   if (key === '6') {
     step = 16;
-    slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-    slideTwo.classList.add('s2-ready', 's2-matter-visible', 's2-left-gravity', 's2-left-light', 's2-right-gravity', 's2-right-light');
-    window.slide34Controller?.jumpToSlideFourComplete?.();
+
+    slideOne.classList.add(
+      'is-halo-revealed',
+      'is-title-revealed'
+    );
+
+    slideTwo.classList.add(
+      's2-ready',
+      's2-particles-visible',
+      's2-left-capture',
+      's2-right-capture',
+      's2-light-visible'
+    );
+
+    window.slide34Controller
+      ?.jumpToSlideFourComplete?.();
   }
 
   if (key === 'f') {
@@ -4695,18 +5614,51 @@ if (params.has('slide2')) {
 }
 
 window.addEventListener('load', () => {
-  const params2 = new URLSearchParams(window.location.search);
+  const params2 =
+    new URLSearchParams(
+      window.location.search
+    );
+
   if (params2.has('slide3')) {
     step = 8;
-    slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-    slideTwo.classList.add('s2-ready', 's2-matter-visible', 's2-left-gravity', 's2-left-light', 's2-right-gravity', 's2-right-light');
-    window.slide34Controller?.jumpToSlideThreeStart?.();
+    slideTwoLockedUntil = 0;
+
+    slideOne.classList.add(
+      'is-halo-revealed',
+      'is-title-revealed'
+    );
+
+    slideTwo.classList.add(
+      's2-ready',
+      's2-particles-visible',
+      's2-left-capture',
+      's2-right-capture',
+      's2-light-visible'
+    );
+
+    window.slide34Controller
+      ?.jumpToSlideThreeStart?.();
   }
+
   if (params2.has('slide4')) {
     step = 12;
-    slideOne.classList.add('is-halo-revealed', 'is-title-revealed');
-    slideTwo.classList.add('s2-ready', 's2-matter-visible', 's2-left-gravity', 's2-left-light', 's2-right-gravity', 's2-right-light');
-    window.slide34Controller?.jumpToSlideFourStart?.();
+    slideTwoLockedUntil = 0;
+
+    slideOne.classList.add(
+      'is-halo-revealed',
+      'is-title-revealed'
+    );
+
+    slideTwo.classList.add(
+      's2-ready',
+      's2-particles-visible',
+      's2-left-capture',
+      's2-right-capture',
+      's2-light-visible'
+    );
+
+    window.slide34Controller
+      ?.jumpToSlideFourStart?.();
   }
 });
 
@@ -5108,15 +6060,27 @@ window.addEventListener('load', () => {
   }
 
   function transitionToSlideThree() {
-    deck.classList.add('is-transitioning-to-slide3');
+    deck.classList.add(
+      'is-transitioning-to-slide3'
+    );
+
+    slideThree.classList.add(
+      's3-ready',
+      's3-orbits-intro'
+    );
+
     window.setTimeout(() => {
-      deck.classList.add('show-slide-3');
-      deck.classList.remove('show-slide-2');
-    }, reduced ? 20 : 520);
+      deck.classList.add(
+        'show-slide-3'
+      );
+    }, reduced ? 20 : 820);
+
     window.setTimeout(() => {
-      deck.classList.remove('is-transitioning-to-slide3');
-      slideThree.classList.add('s3-ready');
-    }, reduced ? 30 : 1180);
+      deck.classList.remove(
+        'show-slide-2',
+        'is-transitioning-to-slide3'
+      );
+    }, reduced ? 40 : 1940);
   }
 
   function transitionToSlideFour() {
@@ -5134,14 +6098,27 @@ window.addEventListener('load', () => {
   function reset() {
     window.slides59Controller?.reset?.();
     deck.classList.remove('show-slide-3', 'show-slide-4', 'is-transitioning-to-slide3', 'is-transitioning-to-slide4');
-    slideThree.classList.remove('s3-ready', 's3-equation', 's3-expected', 's3-observed');
+    slideThree.classList.remove(
+      's3-ready',
+      's3-orbits-intro',
+      's3-equation',
+      's3-expected',
+      's3-observed'
+    );
     slideFour.classList.remove('s4-ready', 's4-data', 's4-disk', 's4-halo', 's4-fit');
   }
 
   function jumpToSlideThreeStart() {
     reset();
-    deck.classList.add('show-slide-3');
-    slideThree.classList.add('s3-ready');
+
+    deck.classList.add(
+      'show-slide-3'
+    );
+
+    slideThree.classList.add(
+      's3-ready',
+      's3-orbits-intro'
+    );
   }
 
   function jumpToSlideFourStart() {
