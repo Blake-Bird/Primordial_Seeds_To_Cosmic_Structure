@@ -4481,6 +4481,550 @@ body {
 .s4-legend-label { font-size: 20px; }
 
 </style>
+
+<style>
+/* ===== Slides 3-5 perfected rotation-curve sequence ===== */
+
+/* Slide 3: tracked material and calculated speeds come first. */
+.s3-speed-annotations {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.s3-speed-annotation-line {
+  fill: none;
+  stroke: rgba(174, 216, 255, .55);
+  stroke-width: 1.35;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  filter: url(#s3Glow);
+}
+
+.s3-speed-annotation-dot {
+  fill: rgba(224, 246, 255, .98);
+  stroke: rgba(108, 177, 255, .72);
+  stroke-width: 2;
+  opacity: 0;
+  filter: url(#s3Glow);
+}
+
+.s3-speed-value {
+  fill: rgba(238, 248, 255, .96);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 23px;
+  font-weight: 720;
+  letter-spacing: .015em;
+  opacity: 0;
+  filter: drop-shadow(0 0 12px rgba(95, 173, 255, .48));
+}
+
+.s3-speed-note {
+  fill: rgba(188, 215, 248, .58);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.slide-three.s3-predicted .s3-speed-annotations,
+.slide-three.s3-equation .s3-speed-annotations,
+.slide-three.s3-observed .s3-speed-annotations {
+  opacity: 1;
+}
+
+.slide-three.s3-predicted .s3-speed-annotation-line,
+.slide-three.s3-equation .s3-speed-annotation-line,
+.slide-three.s3-observed .s3-speed-annotation-line {
+  animation: s3SpeedLeaderDraw 760ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 130ms) forwards;
+}
+
+.slide-three.s3-predicted .s3-speed-annotation-dot,
+.slide-three.s3-equation .s3-speed-annotation-dot,
+.slide-three.s3-observed .s3-speed-annotation-dot {
+  animation: s3SpeedDotIn 500ms cubic-bezier(.16,.84,.22,1) calc(300ms + var(--i) * 130ms) forwards;
+}
+
+.slide-three.s3-predicted .s3-speed-value,
+.slide-three.s3-predicted .s3-speed-note,
+.slide-three.s3-equation .s3-speed-value,
+.slide-three.s3-equation .s3-speed-note,
+.slide-three.s3-observed .s3-speed-value,
+.slide-three.s3-observed .s3-speed-note {
+  animation: s3SpeedTextIn 620ms cubic-bezier(.16,.84,.22,1) calc(420ms + var(--i) * 130ms) forwards;
+}
+
+.slide-three.s3-observed .s3-speed-annotations {
+  opacity: .18;
+  transition: opacity 650ms ease;
+}
+
+@keyframes s3SpeedLeaderDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes s3SpeedDotIn {
+  from { opacity: 0; transform: scale(.2); transform-origin: center; }
+  to { opacity: 1; transform: scale(1); transform-origin: center; }
+}
+
+@keyframes s3SpeedTextIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Orbit rings and tracked particles are the first click. */
+.slide-three.s3-predicted .s3-orbit-rings ellipse,
+.slide-three.s3-equation .s3-orbit-rings ellipse,
+.slide-three.s3-observed .s3-orbit-rings ellipse {
+  animation: s3RingDraw 1000ms cubic-bezier(.16,.84,.22,1) forwards;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+.slide-three.s3-predicted .s3-orbiter,
+.slide-three.s3-equation .s3-orbiter,
+.slide-three.s3-observed .s3-orbiter {
+  opacity: .96;
+  transition: opacity 680ms cubic-bezier(.16,.84,.22,1);
+}
+
+.slide-three.s3-predicted .s3-orbiter::before,
+.slide-three.s3-equation .s3-orbiter::before,
+.slide-three.s3-observed .s3-orbiter::before {
+  opacity: .9;
+}
+
+/* Equation is completely hidden until the second click. */
+.s3-equation-card {
+  width: min(36vw, 570px);
+  height: 174px;
+  margin-top: 17px;
+  padding: 14px 20px 10px;
+  opacity: 0 !important;
+  transform: translateY(16px) scale(.975) !important;
+  filter: blur(8px);
+  overflow: hidden;
+}
+
+.slide-three.s3-equation .s3-equation-card,
+.slide-three.s3-observed .s3-equation-card {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0);
+  transition: opacity 300ms ease, transform 620ms cubic-bezier(.16,.84,.22,1), filter 620ms ease;
+}
+
+.s3-equation-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.s3-eq-trace,
+.s3-eq-fill {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
+
+.s3-eq-trace text,
+.s3-eq-trace path,
+.s3-eq-trace line {
+  fill: transparent;
+  stroke: rgba(241, 248, 255, .92);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1150;
+  stroke-dashoffset: 1150;
+}
+
+.s3-eq-fill text {
+  fill: #fff9e9;
+  stroke: none;
+}
+
+.s3-eq-fill path,
+.s3-eq-fill line {
+  fill: none;
+  stroke: #fff9e9;
+  stroke-width: 4.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.s3-eq-fill {
+  opacity: 0;
+}
+
+.s3-eq-symbol { font-size: 74px; }
+.s3-eq-numerator { font-size: 49px; }
+.s3-eq-denominator { font-size: 45px; }
+.s3-eq-radical { fill: none !important; }
+.s3-eq-fraction-line { stroke-width: 3.2 !important; }
+
+.slide-three.s3-equation .s3-eq-trace text,
+.slide-three.s3-equation .s3-eq-trace path,
+.slide-three.s3-equation .s3-eq-trace line,
+.slide-three.s3-observed .s3-eq-trace text,
+.slide-three.s3-observed .s3-eq-trace path,
+.slide-three.s3-observed .s3-eq-trace line {
+  animation: s3EquationTrace 1450ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.slide-three.s3-equation .s3-eq-fill,
+.slide-three.s3-observed .s3-eq-fill {
+  animation: s3EquationFill 850ms ease 720ms forwards;
+}
+
+.s3-equation-sweep {
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  bottom: 18px;
+  width: 74px;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(189, 231, 255, .34), rgba(255, 236, 186, .38), transparent);
+  filter: blur(4px);
+  transform: translateX(-90px) skewX(-14deg);
+}
+
+.slide-three.s3-equation .s3-equation-sweep,
+.slide-three.s3-observed .s3-equation-sweep {
+  animation: s3EquationSweep 1350ms cubic-bezier(.16,.84,.22,1) 120ms forwards;
+}
+
+@keyframes s3EquationTrace {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes s3EquationFill {
+  to { opacity: 1; }
+}
+
+@keyframes s3EquationSweep {
+  0% { opacity: 0; transform: translateX(-90px) skewX(-14deg); }
+  20% { opacity: .9; }
+  100% { opacity: 0; transform: translateX(580px) skewX(-14deg); }
+}
+
+/* Radius arrow appears with the equation, not before it. */
+.s3-radius-system { opacity: 0 !important; }
+
+.slide-three.s3-equation .s3-radius-system,
+.slide-three.s3-observed .s3-radius-system {
+  opacity: 1 !important;
+  transition: opacity 260ms ease;
+}
+
+.slide-three.s3-equation .s3-radius-line,
+.slide-three.s3-observed .s3-radius-line {
+  animation: s3RadiusDraw 1200ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.slide-three.s3-equation .s3-radius-head,
+.slide-three.s3-observed .s3-radius-head {
+  opacity: 1;
+  transition: opacity 500ms 720ms ease;
+}
+
+.slide-three.s3-equation .s3-radius-label,
+.slide-three.s3-observed .s3-radius-label {
+  opacity: 1;
+  transition: opacity 500ms 820ms ease;
+}
+
+/* Old predicted/observed speed pills are gone from HTML; guard against stale markup. */
+.s3-speed-readout { display: none !important; }
+
+/* Slide 3 -> 4: tracked orbit particles become observed graph points. */
+.s34-track-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 74;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.s34-track-transition.is-active { opacity: 1; }
+
+.s34-track-dot {
+  position: absolute;
+  left: var(--sx);
+  top: var(--sy);
+  width: var(--size);
+  height: var(--size);
+  margin: calc(var(--size) * -.5);
+  border-radius: 50%;
+  opacity: 0;
+  background: radial-gradient(circle, #fff 0 18%, #ffd9a0 28%, #86c9ff 54%, transparent 74%);
+  box-shadow: 0 0 10px rgba(255, 233, 188, .9), 0 0 28px rgba(111, 181, 255, .55);
+  will-change: transform, opacity, filter;
+}
+
+.s34-track-dot::after {
+  content: "";
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  width: var(--trail);
+  height: 2px;
+  transform: translateY(-50%) rotate(var(--angle));
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, rgba(126, 193, 255, .18), rgba(255, 235, 190, .82));
+  filter: blur(.35px);
+}
+
+.s34-track-transition.is-active .s34-track-dot {
+  animation: s34TrackToGraph 1900ms cubic-bezier(.18,.76,.14,1) var(--delay) forwards;
+}
+
+@keyframes s34TrackToGraph {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+    filter: blur(0) brightness(1);
+  }
+  52% {
+    opacity: 1;
+    transform: translate3d(var(--mx), var(--my), 0) scale(.82);
+    filter: blur(0) brightness(1.35);
+  }
+  86% {
+    opacity: 1;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(.68);
+    filter: blur(0) brightness(1.65);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(.46);
+    filter: blur(3px) brightness(1.8);
+  }
+}
+
+.deck.is-transitioning-to-slide4 #slideFour {
+  z-index: 9;
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0) brightness(1);
+  pointer-events: none;
+}
+
+.deck.is-transitioning-to-slide4 #slideThree {
+  animation: s34GalaxyToGraph 2100ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide4 .s4-graph-stage {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  animation: s34GraphResolve 1750ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide4 .s4-title-block {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@keyframes s34GalaxyToGraph {
+  0% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); }
+  56% { opacity: .48; transform: scale(.985); filter: blur(3px) brightness(.64); }
+  100% { opacity: 0; transform: scale(.955); filter: blur(16px) brightness(.28); }
+}
+
+@keyframes s34GraphResolve {
+  0% { opacity: 0; transform: translateY(24px) scale(.965); filter: blur(14px); }
+  48% { opacity: .58; filter: blur(5px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Slide 4 exact reveal order: observed points -> visible matter -> dark matter fit. */
+.slide-four.s4-data .s4-data-point,
+.slide-four.s4-disk .s4-data-point,
+.slide-four.s4-fit .s4-data-point,
+.slide-four.s4-data .s4-error-bar,
+.slide-four.s4-disk .s4-error-bar,
+.slide-four.s4-fit .s4-error-bar {
+  opacity: 1 !important;
+}
+
+.slide-four.s4-data .s4-observed-sample .s4-data-point,
+.slide-four.s4-data .s4-observed-sample .s4-error-bar {
+  animation: s4ObservedResolve 460ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 18ms) both !important;
+}
+
+@keyframes s4ObservedResolve {
+  from { opacity: 0; transform: scale(.25); transform-origin: center; }
+  to { opacity: 1; transform: scale(1); transform-origin: center; }
+}
+
+.slide-four.s4-data:not(.s4-disk) .s4-line-disk,
+.slide-four.s4-data:not(.s4-disk) .s4-line-glow.s4-line-disk,
+.slide-four.s4-data:not(.s4-fit) .s4-line-fit,
+.slide-four.s4-data:not(.s4-fit) .s4-line-glow.s4-line-fit {
+  opacity: 0 !important;
+  stroke-dashoffset: 1000 !important;
+  animation: none !important;
+}
+
+.slide-four.s4-disk .s4-line-disk,
+.slide-four.s4-fit .s4-line-disk,
+.slide-four.s4-disk .s4-line-glow.s4-line-disk,
+.slide-four.s4-fit .s4-line-glow.s4-line-disk {
+  opacity: 1 !important;
+  animation: s4LineDraw 1450ms cubic-bezier(.16,.84,.22,1) forwards !important;
+}
+
+.slide-four.s4-disk:not(.s4-fit) .s4-line-fit,
+.slide-four.s4-disk:not(.s4-fit) .s4-line-glow.s4-line-fit {
+  opacity: 0 !important;
+  stroke-dashoffset: 1000 !important;
+  animation: none !important;
+}
+
+.slide-four.s4-fit .s4-line-fit,
+.slide-four.s4-fit .s4-line-glow.s4-line-fit {
+  opacity: 1 !important;
+  animation: s4LineDraw 1450ms cubic-bezier(.16,.84,.22,1) forwards !important;
+}
+
+.slide-four.s4-data .legend-data,
+.slide-four.s4-disk .legend-data,
+.slide-four.s4-fit .legend-data { opacity: 1 !important; }
+
+.slide-four.s4-data .legend-disk,
+.slide-four.s4-data .legend-fit { opacity: 0 !important; }
+
+.slide-four.s4-disk .legend-disk,
+.slide-four.s4-fit .legend-disk { opacity: 1 !important; }
+
+.slide-four.s4-disk .legend-fit { opacity: 0 !important; }
+.slide-four.s4-fit .legend-fit { opacity: 1 !important; }
+
+.slide-four.s4-data .s4-gap-marker { opacity: 0 !important; }
+.slide-four.s4-disk .s4-gap-marker,
+.slide-four.s4-fit .s4-gap-marker {
+  opacity: 1 !important;
+  transition: opacity 650ms 650ms ease;
+}
+
+.s4-label {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+/* Slide 4 -> 5: the complete graph physically shrinks into the flat-rotation card. */
+.s45-graph-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 92;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: transparent;
+}
+
+.s45-graph-transition.is-active { opacity: 1; }
+
+.s45-graph-shell {
+  position: absolute;
+  left: var(--left);
+  top: var(--top);
+  width: var(--width);
+  height: var(--height);
+  transform-origin: top left;
+  border-radius: 34px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(252,252,255,.98), rgba(236,239,246,.96));
+  box-shadow: 0 35px 120px rgba(0,0,0,.68), inset 0 0 0 1px rgba(255,255,255,.45);
+  will-change: transform, filter, opacity, border-radius;
+}
+
+.s45-graph-clone {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.s45-graph-transition.is-active .s45-graph-shell {
+  animation: s45GraphIntoEvidence 2100ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+@keyframes s45GraphIntoEvidence {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1,1);
+    filter: blur(0) brightness(1);
+    border-radius: 34px;
+  }
+  54% {
+    opacity: 1;
+    filter: blur(0) brightness(1.08);
+  }
+  88% {
+    opacity: 1;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(var(--scale-x), var(--scale-y));
+    filter: blur(0) brightness(.94);
+    border-radius: 22px;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(var(--scale-x), var(--scale-y));
+    filter: blur(2px) brightness(.84);
+    border-radius: 22px;
+  }
+}
+
+.deck.is-transitioning-to-slide5 #slideFour {
+  animation: s45SlideFourOut 2050ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.deck.is-transitioning-to-slide5 #slideFive {
+  z-index: 12;
+  opacity: 1;
+  pointer-events: none;
+  transform: scale(1);
+  filter: blur(0) brightness(1);
+  animation: s45SlideFiveIn 2050ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+@keyframes s45SlideFourOut {
+  0%, 30% { opacity: 1; filter: blur(0) brightness(1); }
+  100% { opacity: 0; filter: blur(16px) brightness(.26); transform: scale(.97); }
+}
+
+@keyframes s45SlideFiveIn {
+  0% { opacity: 0; filter: blur(18px) brightness(.35); transform: scale(1.045); }
+  45% { opacity: .32; }
+  100% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1); }
+}
+
+.slide-five.s5-transition-arrived .s5-card-rotation {
+  opacity: 1 !important;
+  transform: translate3d(0,0,0) rotate(0deg) scale(1) !important;
+  filter: blur(0) brightness(1) saturate(1.08) !important;
+}
+
+.slide-five.s5-transition-arrived #s5MiniRotation {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+@media (max-width: 900px) {
+  .s3-equation-card { width: min(72vw, 520px); }
+  .s3-speed-value { font-size: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s34-track-dot,
+  .s45-graph-shell { animation-duration: .001ms !important; }
+}
+</style>
+
 <style>
 /* ===== src/slides5-9.css ===== */
 #slideFive,
@@ -5915,7 +6459,7 @@ body {
 
 
       <!-- SLIDE 3 -->
-      <section class="slide-three" id="slideThree" aria-label="Rotation curves: what visible matter predicts versus what galaxies actually do">
+      <section class="slide-three" id="slideThree" aria-label="Rotation curves: visible matter predicts slower outer motion than galaxies actually show">
         <div class="s3-background" aria-hidden="true"></div>
         <canvas class="s3-galaxy-canvas" id="s3GalaxyCanvas" aria-hidden="true"></canvas>
         <div class="s3-halo-veil" aria-hidden="true"></div>
@@ -5929,54 +6473,79 @@ body {
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            <filter id="s3EquationGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="2.4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
             <linearGradient id="s3RadiusGradient" x1="0" x2="1" y1="0" y2="0">
               <stop offset="0%" stop-color="rgba(255,236,191,.95)" />
               <stop offset="100%" stop-color="rgba(141,184,255,.86)" />
             </linearGradient>
           </defs>
+
           <g class="s3-radius-system">
             <path class="s3-radius-line" id="s3RadiusLine" pathLength="100" />
             <circle class="s3-radius-head" id="s3RadiusHead" r="5" />
             <text class="s3-radius-label" id="s3RadiusLabel">r</text>
           </g>
+
           <g class="s3-orbit-rings" id="s3OrbitRings"></g>
+          <g class="s3-speed-annotations" id="s3SpeedAnnotations"></g>
         </svg>
 
         <div class="s3-orbit-layer" id="s3OrbitLayer" aria-hidden="true"></div>
 
-        <section class="s3-explain" aria-label="Plain-language rotation curve explanation">
+        <section class="s3-explain" aria-label="Circular speed equation">
           <p class="s3-kicker">Rotation curves</p>
-          
-          <div class="s3-equation-card">
-            <span class="s3-eq-left">circular speed at radius</span>
-            <span class="s3-eq-main s3-eq-physics"><i>v</i>(<i>r</i>) = <span class="s3-radical"><span><span class="s3-frac"><span>G&nbsp;M(&lt;<i>r</i>)</span><span><i>r</i></span></span></span></span></span>
+
+          <div class="s3-equation-card" aria-label="v equals the square root of G M divided by r">
+            <svg class="s3-equation-svg" viewBox="0 0 570 160" preserveAspectRatio="xMinYMid meet" role="img" aria-label="v equals square root of G M over r">
+              <g class="s3-eq-trace" filter="url(#s3EquationGlow)">
+                <text x="18" y="103" class="s3-eq-symbol">v =</text>
+                <path class="s3-eq-radical" d="M 142 86 L 156 104 L 177 34 L 520 34" />
+                <text x="290" y="74" text-anchor="middle" class="s3-eq-numerator">GM</text>
+                <line x1="220" y1="86" x2="360" y2="86" class="s3-eq-fraction-line" />
+                <text x="290" y="126" text-anchor="middle" class="s3-eq-denominator">r</text>
+              </g>
+              <g class="s3-eq-fill">
+                <text x="18" y="103" class="s3-eq-symbol">v =</text>
+                <path class="s3-eq-radical" d="M 142 86 L 156 104 L 177 34 L 520 34" />
+                <text x="290" y="74" text-anchor="middle" class="s3-eq-numerator">GM</text>
+                <line x1="220" y1="86" x2="360" y2="86" class="s3-eq-fraction-line" />
+                <text x="290" y="126" text-anchor="middle" class="s3-eq-denominator">r</text>
+              </g>
+            </svg>
+            <div class="s3-equation-sweep" aria-hidden="true"></div>
           </div>
         </section>
 
-        <div class="s3-speed-readout" aria-hidden="true">
-          <div class="s3-speed-chip s3-chip-predicted">predicted outer speed <b>≈45 km/s</b></div>
-          <div class="s3-speed-chip s3-chip-observed">observed outer speed <b>≈150 km/s</b></div>
-        </div>
-
-        <div class="s3-slide-caption" aria-hidden="true">
-          NGC 3198
-        </div>
+        <div class="s3-slide-caption" aria-hidden="true">NGC 3198</div>
       </section>
 
       <!-- SLIDE 4 -->
-      <section class="slide-four" id="slideFour" aria-label="NGC 3198 rotation curve graph with visible matter, observed data, and dark matter fit">
+      <section class="slide-four" id="slideFour" aria-label="NGC 3198 rotation curve graph: observed points, visible matter prediction, and dark matter fit">
         <div class="s4-background" aria-hidden="true"></div>
         <img class="s4-galaxy-ghost" src="assets/ngc-3198-reference.png" alt="" draggable="false" aria-hidden="true" />
-        <div class="s4-graph-stage">
+
+        <div class="s4-graph-stage" id="s4GraphStage">
           <svg class="s4-graph" id="s4Graph" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
         </div>
-        <section class="s4-title-block" aria-label="Rotation curve interpretation">
+
+        <section class="s4-title-block" aria-label="NGC 3198 rotation curve">
           <p class="s4-kicker">NGC 3198 data</p>
-          
         </section>
-        
       </section>
 
+      <div class="s34-track-transition" id="s34TrackTransition" aria-hidden="true"></div>
+
+      <div class="s45-graph-transition" id="s45GraphTransition" aria-hidden="true">
+        <div class="s45-graph-shell" id="s45GraphShell">
+          <svg class="s45-graph-clone" id="s45GraphClone" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
 
       <!-- SLIDE 5 -->
       <section class="slide-five" id="slideFive" aria-label="Multiple independent evidence streams point to dark matter halos">
@@ -7702,13 +8271,20 @@ window.addEventListener('load', () => {
   const deck = document.getElementById('deck');
   const slideThree = document.getElementById('slideThree');
   const slideFour = document.getElementById('slideFour');
+  const slideFive = document.getElementById('slideFive');
   const canvas = document.getElementById('s3GalaxyCanvas');
   const orbitLayer = document.getElementById('s3OrbitLayer');
   const orbitRings = document.getElementById('s3OrbitRings');
+  const speedAnnotations = document.getElementById('s3SpeedAnnotations');
   const radiusLine = document.getElementById('s3RadiusLine');
   const radiusHead = document.getElementById('s3RadiusHead');
   const radiusLabel = document.getElementById('s3RadiusLabel');
   const graph = document.getElementById('s4Graph');
+  const graphStage = document.getElementById('s4GraphStage');
+  const trackTransition = document.getElementById('s34TrackTransition');
+  const graphTransition = document.getElementById('s45GraphTransition');
+  const graphTransitionShell = document.getElementById('s45GraphShell');
+  const graphTransitionClone = document.getElementById('s45GraphClone');
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -7768,6 +8344,11 @@ window.addEventListener('load', () => {
 
   function buildOrbitRings() {
     setRadiusLine();
+    orbitRings.innerHTML = '';
+    orbitLayer.innerHTML = '';
+    speedAnnotations.innerHTML = '';
+    orbiters.length = 0;
+
     orbitConfig.rings.forEach((ring, i) => {
       const ellipse = createSvg('ellipse', {
         cx: orbitConfig.cx,
@@ -7783,16 +8364,71 @@ window.addEventListener('load', () => {
       for (let j = 0; j < ring.dots; j += 1) {
         const dot = document.createElement('span');
         dot.className = `s3-orbiter ${ring.kpc >= 10 ? 'outer' : 'inner'}`;
+        dot.dataset.ringIndex = i;
+        dot.dataset.expectedSpeed = ring.expected;
+        dot.dataset.observedSpeed = ring.observed;
         dot.style.setProperty('--size', `${ring.kpc >= 20 ? 7 : 6}px`);
         orbitLayer.appendChild(dot);
         orbiters.push({
           node: dot,
           ring,
           phase: (j / ring.dots) * Math.PI * 2 + rand() * .65,
-          spin: rand() > .5 ? 1 : 1,
+          spin: 1,
           jitter: rand() * 30
         });
       }
+    });
+
+    const annotationSpecs = [
+      { ringIndex: 2, theta: -1.02, dx: 76, dy: -30 },
+      { ringIndex: 3, theta: .16, dx: 43, dy: 76 },
+      { ringIndex: 4, theta: .56, dx: 52, dy: 148 }
+    ];
+
+    annotationSpecs.forEach((spec, index) => {
+      const ring = orbitConfig.rings[spec.ringIndex];
+      const point = projectOrbit(ring.r, spec.theta);
+      const labelX = point.x + spec.dx;
+      const labelY = point.y + spec.dy;
+      const group = createSvg('g', { class: 's3-speed-annotation' });
+      group.style.setProperty('--i', index);
+
+      const leader = createSvg('path', {
+        class: 's3-speed-annotation-line',
+        d: `M ${point.x.toFixed(1)} ${point.y.toFixed(1)} C ${(point.x + spec.dx * .44).toFixed(1)} ${(point.y + spec.dy * .25).toFixed(1)}, ${(labelX - 26).toFixed(1)} ${labelY.toFixed(1)}, ${labelX.toFixed(1)} ${labelY.toFixed(1)}`,
+        pathLength: 100
+      });
+      leader.style.setProperty('--i', index);
+
+      const anchor = createSvg('circle', {
+        class: 's3-speed-annotation-dot',
+        cx: point.x.toFixed(1),
+        cy: point.y.toFixed(1),
+        r: 4.5
+      });
+      anchor.style.setProperty('--i', index);
+
+      const value = createSvg('text', {
+        class: 's3-speed-value',
+        x: (labelX + 10).toFixed(1),
+        y: (labelY - 3).toFixed(1)
+      });
+      value.style.setProperty('--i', index);
+      value.textContent = `${ring.expected} km/s`;
+
+      const note = createSvg('text', {
+        class: 's3-speed-note',
+        x: (labelX + 10).toFixed(1),
+        y: (labelY + 17).toFixed(1)
+      });
+      note.style.setProperty('--i', index);
+      note.textContent = 'VISIBLE MATTER CALCULATION';
+
+      group.appendChild(leader);
+      group.appendChild(anchor);
+      group.appendChild(value);
+      group.appendChild(note);
+      speedAnnotations.appendChild(group);
     });
   }
 
@@ -7924,7 +8560,11 @@ window.addEventListener('load', () => {
 
   function updateOrbiters(time = 0) {
     const modeObserved = slideThree?.classList.contains('s3-observed');
-    const active = slideThree?.classList.contains('s3-expected') || modeObserved;
+    const active =
+      slideThree?.classList.contains('s3-predicted') ||
+      slideThree?.classList.contains('s3-equation') ||
+      modeObserved;
+
     const rect = slideThree?.getBoundingClientRect();
     if (!rect) return;
 
@@ -7943,7 +8583,10 @@ window.addEventListener('load', () => {
       const x = offsetX + p.x * scale;
       const y = offsetY + p.y * scale;
       const angle = Math.atan2((next.y - p.y), (next.x - p.x));
-      const trail = active ? Math.max(18, (speed / 150) * (orb.ring.kpc >= 10 ? 86 : 58)) : 22;
+      const trail = active
+        ? Math.max(18, (speed / 150) * (orb.ring.kpc >= 10 ? 86 : 58))
+        : 22;
+
       orb.node.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) translate(-50%, -50%)`;
       orb.node.style.setProperty('--trail', `${trail.toFixed(1)}px`);
       orb.node.style.setProperty('--trail-angle', `${angle.toFixed(4)}rad`);
@@ -7987,9 +8630,10 @@ window.addEventListener('load', () => {
   function buildGraph() {
     if (!graph) return;
     graph.innerHTML = '';
+
     const W = 1200;
     const H = 760;
-    const margin = { left: 104, right: 70, top: 64, bottom: 96 };
+    const margin = { left: 118, right: 70, top: 64, bottom: 104 };
     const xMin = 0;
     const xMax = 30;
     const yMin = 0;
@@ -7997,35 +8641,77 @@ window.addEventListener('load', () => {
     const sx = x => margin.left + (x - xMin) / (xMax - xMin) * (W - margin.left - margin.right);
     const sy = y => H - margin.bottom - (y - yMin) / (yMax - yMin) * (H - margin.top - margin.bottom);
 
-    const grid = createSvg('g');
+    const grid = createSvg('g', { class: 's4-grid' });
     graph.appendChild(grid);
+
     [0,5,10,15,20,25,30].forEach(x => {
-      const line = createSvg('line', { class: 's4-gridline', x1: sx(x), y1: margin.top, x2: sx(x), y2: H - margin.bottom });
-      grid.appendChild(line);
-      const tick = createSvg('line', { class: 's4-tick', x1: sx(x), y1: H-margin.bottom, x2: sx(x), y2: H-margin.bottom+10 });
-      graph.appendChild(tick);
-      const txt = createSvg('text', { class: 's4-tick-label', x: sx(x), y: H-margin.bottom+38, 'text-anchor': 'middle' });
+      grid.appendChild(createSvg('line', {
+        class: 's4-gridline',
+        x1: sx(x), y1: margin.top,
+        x2: sx(x), y2: H - margin.bottom
+      }));
+      graph.appendChild(createSvg('line', {
+        class: 's4-tick',
+        x1: sx(x), y1: H - margin.bottom,
+        x2: sx(x), y2: H - margin.bottom + 10
+      }));
+      const txt = createSvg('text', {
+        class: 's4-tick-label',
+        x: sx(x), y: H - margin.bottom + 38,
+        'text-anchor': 'middle'
+      });
       txt.textContent = x;
       graph.appendChild(txt);
     });
+
     [0,30,60,90,120,150,180].forEach(y => {
-      const line = createSvg('line', { class: 's4-gridline', x1: margin.left, y1: sy(y), x2: W-margin.right, y2: sy(y) });
-      grid.appendChild(line);
-      const tick = createSvg('line', { class: 's4-tick', x1: margin.left-10, y1: sy(y), x2: margin.left, y2: sy(y) });
-      graph.appendChild(tick);
-      const txt = createSvg('text', { class: 's4-tick-label', x: margin.left-24, y: sy(y)+6, 'text-anchor': 'end' });
+      grid.appendChild(createSvg('line', {
+        class: 's4-gridline',
+        x1: margin.left, y1: sy(y),
+        x2: W - margin.right, y2: sy(y)
+      }));
+      graph.appendChild(createSvg('line', {
+        class: 's4-tick',
+        x1: margin.left - 10, y1: sy(y),
+        x2: margin.left, y2: sy(y)
+      }));
+      const txt = createSvg('text', {
+        class: 's4-tick-label',
+        x: margin.left - 24, y: sy(y) + 6,
+        'text-anchor': 'end'
+      });
       txt.textContent = y;
       graph.appendChild(txt);
     });
 
-    graph.appendChild(createSvg('line', { class: 's4-axis', x1: margin.left, y1: H-margin.bottom, x2: W-margin.right, y2: H-margin.bottom }));
-    graph.appendChild(createSvg('line', { class: 's4-axis', x1: margin.left, y1: margin.top, x2: margin.left, y2: H-margin.bottom }));
+    graph.appendChild(createSvg('line', {
+      class: 's4-axis',
+      x1: margin.left, y1: H - margin.bottom,
+      x2: W - margin.right, y2: H - margin.bottom
+    }));
+    graph.appendChild(createSvg('line', {
+      class: 's4-axis',
+      x1: margin.left, y1: margin.top,
+      x2: margin.left, y2: H - margin.bottom
+    }));
 
-    const xlabel = createSvg('text', { class: 's4-label', x: (margin.left + W - margin.right)/2, y: H - 28, 'text-anchor': 'middle' });
-    xlabel.textContent = 'r in kpc';
+    const xlabel = createSvg('text', {
+      class: 's4-label',
+      x: (margin.left + W - margin.right) / 2,
+      y: H - 28,
+      'text-anchor': 'middle'
+    });
+    xlabel.textContent = 'Radius (kpc)';
     graph.appendChild(xlabel);
-    const ylabel = createSvg('text', { class: 's4-label', x: -H/2, y: 36, 'text-anchor': 'middle', transform: 'rotate(-90)' });
-    ylabel.textContent = 'v(r) in km/s';
+
+    const ylabel = createSvg('text', {
+      class: 's4-label',
+      x: -H / 2,
+      y: 38,
+      'text-anchor': 'middle',
+      transform: 'rotate(-90)'
+    });
+    ylabel.textContent = 'Velocity (km/s)';
     graph.appendChild(ylabel);
 
     const observed = [
@@ -8034,61 +8720,115 @@ window.addEventListener('load', () => {
       [12.3,153,3],[13.7,152,3],[15.0,152,3],[16.5,150,3],[18.0,149,3],[19.4,148,3],[20.6,147,3],
       [22.1,147,3],[23.6,148,3],[24.9,148,3],[26.2,149,3],[27.4,150,3],[28.6,150,4],[30.0,148,5]
     ];
+
     const disk = [[0,0],[1.2,55],[2.4,82],[4,88],[6,84],[8,78],[10,72],[12,66],[15,60],[18,55],[21,51],[24,48],[27,46],[30,44]];
-    const halo = [[0,0],[1.2,48],[2.5,82],[4,105],[6,122],[8,130],[10,135],[12,137],[15,139],[18,140],[22,141],[26,141],[30,141]];
     const fit = [[0,0],[.8,58],[1.5,98],[2.3,123],[3.4,139],[4.6,146],[6.0,150],[7.6,153],[9.5,153],[12,152],[15,151],[18,150],[22,149],[26,149],[30,149]];
 
-    const gap = createSvg('path', { class: 's4-gap-marker', d: `M ${sx(18)} ${sy(150)} L ${sx(18)} ${sy(55)} L ${sx(29)} ${sy(44)} L ${sx(29)} ${sy(150)} Z` });
+    const gap = createSvg('path', {
+      class: 's4-gap-marker',
+      d: `M ${sx(18)} ${sy(150)} L ${sx(18)} ${sy(55)} L ${sx(29)} ${sy(44)} L ${sx(29)} ${sy(150)} Z`
+    });
     graph.appendChild(gap);
 
     function addLine(points, cls) {
       const smooth = makeSmooth(points, 14);
       const d = pathFromData(smooth, sx, sy);
-      const glow = createSvg('path', { class: `s4-line-glow ${cls}`, d, pathLength: 1000 });
-      const line = createSvg('path', { class: `s4-line ${cls}`, d, pathLength: 1000 });
-      graph.appendChild(glow);
-      graph.appendChild(line);
+      graph.appendChild(createSvg('path', {
+        class: `s4-line-glow ${cls}`,
+        d,
+        pathLength: 1000
+      }));
+      graph.appendChild(createSvg('path', {
+        class: `s4-line ${cls}`,
+        d,
+        pathLength: 1000
+      }));
     }
 
     addLine(disk, 's4-line-disk');
     addLine(fit, 's4-line-fit');
 
-    const dataGroup = createSvg('g');
+    const dataGroup = createSvg('g', { class: 's4-observed-group' });
     graph.appendChild(dataGroup);
+
     observed.forEach(([x,y,e], i) => {
-      const g = createSvg('g');
+      const g = createSvg('g', {
+        class: 's4-observed-sample',
+        'data-index': i
+      });
       g.style.setProperty('--i', i);
-      const eb = createSvg('line', { class: 's4-error-bar', x1: sx(x), y1: sy(y-e), x2: sx(x), y2: sy(y+e) });
-      eb.style.setProperty('--i', i);
-      const cap1 = createSvg('line', { class: 's4-error-bar', x1: sx(x)-6, y1: sy(y-e), x2: sx(x)+6, y2: sy(y-e) });
-      cap1.style.setProperty('--i', i);
-      const cap2 = createSvg('line', { class: 's4-error-bar', x1: sx(x)-6, y1: sy(y+e), x2: sx(x)+6, y2: sy(y+e) });
-      cap2.style.setProperty('--i', i);
-      const pt = createSvg('circle', { class: 's4-data-point', cx: sx(x), cy: sy(y), r: 5.4 });
-      pt.style.setProperty('--i', i);
-      g.appendChild(eb); g.appendChild(cap1); g.appendChild(cap2); g.appendChild(pt);
+
+      const errorAttrs = { class: 's4-error-bar', 'data-index': i };
+      const eb = createSvg('line', {
+        ...errorAttrs,
+        x1: sx(x), y1: sy(y-e),
+        x2: sx(x), y2: sy(y+e)
+      });
+      const cap1 = createSvg('line', {
+        ...errorAttrs,
+        x1: sx(x)-6, y1: sy(y-e),
+        x2: sx(x)+6, y2: sy(y-e)
+      });
+      const cap2 = createSvg('line', {
+        ...errorAttrs,
+        x1: sx(x)-6, y1: sy(y+e),
+        x2: sx(x)+6, y2: sy(y+e)
+      });
+      const pt = createSvg('circle', {
+        class: 's4-data-point s4-observed-point',
+        'data-index': i,
+        cx: sx(x), cy: sy(y), r: 5.4
+      });
+
+      [eb, cap1, cap2, pt].forEach(node => node.style.setProperty('--i', i));
+      g.appendChild(eb);
+      g.appendChild(cap1);
+      g.appendChild(cap2);
+      g.appendChild(pt);
       dataGroup.appendChild(g);
     });
 
-    const legend = createSvg('g', { transform: `translate(${margin.left + 54} ${H - margin.bottom - 86})` });
+    const legend = createSvg('g', {
+      class: 's4-legend',
+      transform: `translate(${margin.left + 54} ${H - margin.bottom - 86})`
+    });
+
     const items = [
-      ['legend-disk', 'visible matter only', 'disk'],
       ['legend-data', 'NGC 3198 observed data', 'data'],
+      ['legend-disk', 'visible matter only', 'disk'],
       ['legend-fit', 'with dark matter included', 'fit']
     ];
+
     items.forEach((item, i) => {
-      const g = createSvg('g', { class: `s4-legend-item ${item[0]}`, transform: `translate(0 ${i * 30})` });
+      const g = createSvg('g', {
+        class: `s4-legend-item ${item[0]}`,
+        transform: `translate(0 ${i * 30})`
+      });
+
       if (item[2] === 'data') {
-        g.appendChild(createSvg('circle', { class: 's4-data-point', cx: 0, cy: 0, r: 5 }));
+        g.appendChild(createSvg('circle', {
+          class: 's4-data-point',
+          cx: 0, cy: 0, r: 5
+        }));
       } else {
         const cls = item[2] === 'disk' ? 's4-line-disk' : 's4-line-fit';
-        g.appendChild(createSvg('line', { class: `s4-line ${cls}`, x1: -16, y1: 0, x2: 20, y2: 0, pathLength: 1000 }));
+        g.appendChild(createSvg('line', {
+          class: `s4-line ${cls}`,
+          x1: -16, y1: 0,
+          x2: 20, y2: 0,
+          pathLength: 1000
+        }));
       }
-      const txt = createSvg('text', { class: 's4-legend-label', x: 36, y: 7 });
+
+      const txt = createSvg('text', {
+        class: 's4-legend-label',
+        x: 36, y: 7
+      });
       txt.textContent = item[1];
       g.appendChild(txt);
       legend.appendChild(g);
     });
+
     graph.appendChild(legend);
   }
 
@@ -8342,91 +9082,237 @@ window.addEventListener('load', () => {
     }, reduced ? 40 : 2550);
   }
 
+
+  function clearTrackTransition() {
+    if (!trackTransition) return;
+    trackTransition.classList.remove('is-active');
+    trackTransition.innerHTML = '';
+  }
+
+  function buildTrackToGraphTransition() {
+    if (!trackTransition) return;
+    clearTrackTransition();
+
+    const visibleOrbiters = orbiters
+      .map(item => item.node)
+      .filter(node => {
+        const rect = node.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0;
+      });
+
+    const targets = Array.from(
+      graph.querySelectorAll('.s4-observed-point')
+    );
+
+    if (!visibleOrbiters.length || !targets.length) return;
+
+    const count = Math.min(visibleOrbiters.length, 18);
+
+    for (let i = 0; i < count; i += 1) {
+      const source = visibleOrbiters[i];
+      const targetIndex = Math.round(i * (targets.length - 1) / Math.max(count - 1, 1));
+      const target = targets[targetIndex];
+      const startRect = source.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const sx = startRect.left + startRect.width / 2;
+      const sy = startRect.top + startRect.height / 2;
+      const tx = targetRect.left + targetRect.width / 2;
+      const ty = targetRect.top + targetRect.height / 2;
+      const dx = tx - sx;
+      const dy = ty - sy;
+      const bend = (i % 2 === 0 ? 1 : -1) * (26 + (i % 5) * 7);
+      const mx = dx * .54 - Math.sin(i * .73) * bend;
+      const my = dy * .54 + Math.cos(i * .61) * bend * .45;
+      const angle = Math.atan2(dy, dx);
+
+      const dot = document.createElement('span');
+      dot.className = 's34-track-dot';
+      dot.style.setProperty('--sx', `${sx.toFixed(2)}px`);
+      dot.style.setProperty('--sy', `${sy.toFixed(2)}px`);
+      dot.style.setProperty('--dx', `${dx.toFixed(2)}px`);
+      dot.style.setProperty('--dy', `${dy.toFixed(2)}px`);
+      dot.style.setProperty('--mx', `${mx.toFixed(2)}px`);
+      dot.style.setProperty('--my', `${my.toFixed(2)}px`);
+      dot.style.setProperty('--size', `${Math.max(6, startRect.width).toFixed(2)}px`);
+      dot.style.setProperty('--trail', `${(28 + i % 4 * 8).toFixed(1)}px`);
+      dot.style.setProperty('--angle', `${angle.toFixed(4)}rad`);
+      dot.style.setProperty('--delay', `${i * 24}ms`);
+      trackTransition.appendChild(dot);
+    }
+
+    void trackTransition.offsetWidth;
+    trackTransition.classList.add('is-active');
+  }
+
+  function prepareGraphToEvidenceTransition() {
+    if (!graphTransition || !graphTransitionShell || !graphTransitionClone || !graphStage) return false;
+
+    const target = document.getElementById('s5MiniRotation');
+    if (!target) return false;
+
+    const startRect = graphStage.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    if (!startRect.width || !startRect.height || !targetRect.width || !targetRect.height) return false;
+
+    graphTransitionClone.innerHTML = graph.innerHTML;
+    graphTransitionShell.style.setProperty('--left', `${startRect.left.toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--top', `${startRect.top.toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--width', `${startRect.width.toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--height', `${startRect.height.toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--dx', `${(targetRect.left - startRect.left).toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--dy', `${(targetRect.top - startRect.top).toFixed(2)}px`);
+    graphTransitionShell.style.setProperty('--scale-x', (targetRect.width / startRect.width).toFixed(5));
+    graphTransitionShell.style.setProperty('--scale-y', (targetRect.height / startRect.height).toFixed(5));
+    return true;
+  }
+
+  function transitionToSlideFive() {
+    slideFive?.classList.add('s5-ready', 's5-transition-arrived');
+    const prepared = prepareGraphToEvidenceTransition();
+
+    deck.classList.add('is-transitioning-to-slide5');
+    if (prepared) {
+      void graphTransition.offsetWidth;
+      graphTransition.classList.add('is-active');
+    }
+
+    window.setTimeout(() => {
+      deck.classList.add('show-slide-5');
+    }, reduced ? 20 : 420);
+
+    window.setTimeout(() => {
+      deck.classList.remove('show-slide-4');
+    }, reduced ? 30 : 1840);
+
+    window.setTimeout(() => {
+      deck.classList.remove('is-transitioning-to-slide5');
+      graphTransition?.classList.remove('is-active');
+      if (graphTransitionClone) graphTransitionClone.innerHTML = '';
+    }, reduced ? 40 : 2200);
+  }
+
   function transitionToSlideFour() {
     deck.classList.add('is-transitioning-to-slide4');
+    slideFour.classList.add('s4-ready');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        buildTrackToGraphTransition();
+      });
+    });
+
+    window.setTimeout(() => {
+      slideFour.classList.add('s4-data');
+    }, reduced ? 20 : 1540);
+
     window.setTimeout(() => {
       deck.classList.add('show-slide-4');
       deck.classList.remove('show-slide-3');
-    }, reduced ? 20 : 590);
+    }, reduced ? 30 : 1880);
+
     window.setTimeout(() => {
       deck.classList.remove('is-transitioning-to-slide4');
-      slideFour.classList.add('s4-ready');
-    }, reduced ? 30 : 1220);
+      clearTrackTransition();
+    }, reduced ? 40 : 2220);
   }
 
   function reset() {
     window.slides59Controller?.reset?.();
-    deck.classList.remove('show-slide-3', 'show-slide-4', 'is-transitioning-to-slide3', 'is-transitioning-to-slide4');
+    deck.classList.remove(
+      'show-slide-3',
+      'show-slide-4',
+      'is-transitioning-to-slide3',
+      'is-transitioning-to-slide4',
+      'is-transitioning-to-slide5'
+    );
+
+    clearTrackTransition();
+    graphTransition?.classList.remove('is-active');
+    if (graphTransitionClone) graphTransitionClone.innerHTML = '';
+
     slideThree.classList.remove(
       's3-ready',
       's3-orbits-intro',
+      's3-predicted',
       's3-equation',
       's3-expected',
       's3-observed'
     );
-    slideFour.classList.remove('s4-ready', 's4-data', 's4-disk', 's4-halo', 's4-fit');
+
+    slideFour.classList.remove(
+      's4-ready',
+      's4-data',
+      's4-disk',
+      's4-halo',
+      's4-fit'
+    );
+
+    slideFive?.classList.remove('s5-transition-arrived');
   }
 
   function jumpToSlideThreeStart() {
     reset();
-
-    deck.classList.add(
-      'show-slide-3'
-    );
-
-    slideThree.classList.add(
-      's3-ready',
-      's3-orbits-intro'
-    );
+    deck.classList.add('show-slide-3');
+    slideThree.classList.add('s3-ready', 's3-orbits-intro');
   }
 
   function jumpToSlideFourStart() {
     reset();
     deck.classList.add('show-slide-4');
-    slideFour.classList.add('s4-ready');
+    slideFour.classList.add('s4-ready', 's4-data');
   }
 
   function jumpToSlideFourComplete() {
     jumpToSlideFourStart();
-    slideFour.classList.add('s4-disk', 's4-data', 's4-fit');
+    slideFour.classList.add('s4-disk', 's4-fit');
   }
 
   function advance(step) {
-    if (step >= 16) {
+    if (step >= 17) {
       return window.slides59Controller?.advance?.(step) ?? step;
     }
+
     if (step === 7) {
       transitionToSlideThree();
       return 8;
     }
+
     if (step === 8) {
-      slideThree.classList.add('s3-equation');
+      slideThree.classList.add('s3-predicted');
       return 9;
     }
+
     if (step === 9) {
-      slideThree.classList.add('s3-expected');
+      slideThree.classList.add('s3-equation');
       return 10;
     }
+
     if (step === 10) {
       slideThree.classList.add('s3-observed');
       return 11;
     }
+
     if (step === 11) {
       transitionToSlideFour();
       return 12;
     }
+
     if (step === 12) {
       slideFour.classList.add('s4-disk');
       return 13;
     }
+
     if (step === 13) {
-      slideFour.classList.add('s4-data');
-      return 14;
-    }
-    if (step === 14) {
       slideFour.classList.add('s4-fit');
       return 16;
     }
+
+    if (step === 16) {
+      transitionToSlideFive();
+      return 17;
+    }
+
     return step;
   }
 
@@ -8444,7 +9330,8 @@ window.addEventListener('load', () => {
     reset,
     jumpToSlideThreeStart,
     jumpToSlideFourStart,
-    jumpToSlideFourComplete
+    jumpToSlideFourComplete,
+    transitionToSlideFive
   };
 })();
 
@@ -8507,19 +9394,72 @@ window.addEventListener('load', () => {
   function buildMiniRotation() {
     const host = document.getElementById('s5MiniRotation');
     if (!host) return;
-    const svg = makeSvg('svg', { viewBox: '0 0 330 220', preserveAspectRatio: 'none' });
-    const axis = makeSvg('path', { d: 'M36 24 L36 184 L304 184', fill: 'none', stroke: 'rgba(255,255,255,.28)', 'stroke-width': '2' });
-    svg.appendChild(axis);
-    const expected = makeSvg('path', { d: 'M36 184 C58 70 86 74 120 96 S220 143 304 157', fill: 'none', stroke: 'rgba(255,255,255,.65)', 'stroke-width': '4', 'stroke-dasharray': '10 9', 'stroke-linecap': 'round' });
-    const observed = makeSvg('path', { d: 'M36 184 C54 95 75 51 110 48 S216 50 304 52', fill: 'none', stroke: 'rgba(80,145,255,.95)', 'stroke-width': '5', 'stroke-linecap': 'round' });
-    svg.appendChild(expected);
-    svg.appendChild(observed);
-    for (let i = 0; i < 19; i += 1) {
-      const x = 44 + i * 13.8;
-      const y = 56 + Math.sin(i * .8) * 6 + (i < 4 ? 44 - i * 11 : 0);
-      const c = makeSvg('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: '3.6', fill: 'rgba(255,68,68,.98)' });
-      svg.appendChild(c);
+    host.innerHTML = '';
+
+    const svg = makeSvg('svg', {
+      viewBox: '0 0 330 220',
+      preserveAspectRatio: 'none'
+    });
+
+    const defs = makeSvg('defs');
+    const glow = makeSvg('filter', { id: 's5MiniGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' });
+    glow.appendChild(makeSvg('feGaussianBlur', { stdDeviation: '2.2', result: 'b' }));
+    const merge = makeSvg('feMerge');
+    merge.appendChild(makeSvg('feMergeNode', { in: 'b' }));
+    merge.appendChild(makeSvg('feMergeNode', { in: 'SourceGraphic' }));
+    glow.appendChild(merge);
+    defs.appendChild(glow);
+    svg.appendChild(defs);
+
+    svg.appendChild(makeSvg('path', {
+      d: 'M36 22 L36 184 L306 184',
+      fill: 'none',
+      stroke: 'rgba(255,255,255,.30)',
+      'stroke-width': '2'
+    }));
+
+    [76,116,156].forEach(y => {
+      svg.appendChild(makeSvg('line', {
+        x1: '36', y1: y, x2: '306', y2: y,
+        stroke: 'rgba(160,205,255,.10)',
+        'stroke-width': '1'
+      }));
+    });
+
+    const visible = makeSvg('path', {
+      d: 'M36 184 C55 105 82 78 116 92 C162 111 218 145 306 158',
+      fill: 'none',
+      stroke: 'rgba(244,246,252,.76)',
+      'stroke-width': '4',
+      'stroke-dasharray': '10 8',
+      'stroke-linecap': 'round'
+    });
+
+    const fit = makeSvg('path', {
+      d: 'M36 184 C52 101 75 55 111 49 C164 45 222 51 306 52',
+      fill: 'none',
+      stroke: 'rgba(76,145,255,.98)',
+      'stroke-width': '5',
+      'stroke-linecap': 'round',
+      filter: 'url(#s5MiniGlow)'
+    });
+
+    svg.appendChild(visible);
+    svg.appendChild(fit);
+
+    for (let i = 0; i < 20; i += 1) {
+      const x = 46 + i * 13.1;
+      const y = 54 + Math.sin(i * .71) * 4.2 + (i < 4 ? 42 - i * 10.5 : 0);
+      svg.appendChild(makeSvg('circle', {
+        cx: x.toFixed(1),
+        cy: y.toFixed(1),
+        r: '3.5',
+        fill: 'rgba(255,74,74,.98)',
+        stroke: 'rgba(255,255,255,.88)',
+        'stroke-width': '1.1'
+      }));
     }
+
     host.appendChild(svg);
   }
 
@@ -8814,8 +9754,11 @@ window.addEventListener('load', () => {
 
   function reset() {
     window.slides1020Controller?.reset?.();
-    deck.classList.remove('show-slide-5','show-slide-6','show-slide-7','show-slide-8','show-slide-9','s59-warp');
-    slideFive?.classList.remove('s5-ready','s5-beat-1','s5-beat-2','s5-beat-3','s5-beat-4','s5-beat-5');
+    deck.classList.remove(
+      'show-slide-5','show-slide-6','show-slide-7','show-slide-8','show-slide-9',
+      's59-warp','is-transitioning-to-slide5'
+    );
+    slideFive?.classList.remove('s5-ready','s5-transition-arrived','s5-beat-1','s5-beat-2','s5-beat-3','s5-beat-4','s5-beat-5');
     slideSix?.classList.remove('s6-ready','s6-beat-1','s6-beat-2','s6-beat-3','s6-beat-4');
     slideSeven?.classList.remove('s7-ready','s7-beat-1','s7-beat-2','s7-beat-3');
     slideEight?.classList.remove('s8-ready','s8-beat-1','s8-beat-2','s8-beat-3','s8-beat-4');
