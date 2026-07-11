@@ -6657,11 +6657,11 @@ function appendWavePacket(
   options = {}
 ) {
   const {
-    className = 's2-wave-cool',
+    className = 's2-wave-source',
     delay = 0,
     duration = 5200,
-    coreOpacity = 0.92,
-    glowOpacity = 0.24
+    coreOpacity = 0.94,
+    glowOpacity = 0.28
   } = options;
 
   const glow = appendPath(
@@ -6713,25 +6713,129 @@ function appendCollision(
   group,
   x,
   y,
-  delay
+  delay,
+  rotation = 0
 ) {
-  const ring = createSvg('circle');
+  const impact = createSvg('g');
 
-  ring.setAttribute(
+  impact.setAttribute(
     'class',
-    's2-collision-ring'
+    's2-impact-system'
   );
 
-  ring.setAttribute('cx', x);
-  ring.setAttribute('cy', y);
-  ring.setAttribute('r', 12);
-
-  ring.style.setProperty(
+  impact.style.setProperty(
     '--impact-delay',
     `${delay}ms`
   );
 
-  group.appendChild(ring);
+  impact.style.setProperty(
+    '--impact-x',
+    `${x}px`
+  );
+
+  impact.style.setProperty(
+    '--impact-y',
+    `${y}px`
+  );
+
+  impact.setAttribute(
+    'transform',
+    `rotate(${rotation} ${x} ${y})`
+  );
+
+  const outer =
+    createSvg('circle');
+
+  outer.setAttribute(
+    'class',
+    's2-impact-ring'
+  );
+
+  outer.setAttribute('cx', x);
+  outer.setAttribute('cy', y);
+  outer.setAttribute('r', 13);
+
+  const inner =
+    createSvg('circle');
+
+  inner.setAttribute(
+    'class',
+    's2-impact-ring-inner'
+  );
+
+  inner.setAttribute('cx', x);
+  inner.setAttribute('cy', y);
+  inner.setAttribute('r', 6);
+
+  impact.appendChild(outer);
+  impact.appendChild(inner);
+
+  const spokeCount = 8;
+
+  for (
+    let i = 0;
+    i < spokeCount;
+    i += 1
+  ) {
+    const angle =
+      (i / spokeCount) *
+      Math.PI *
+      2;
+
+    const r0 = 10;
+
+    const r1 =
+      28 +
+      (i % 2) * 8;
+
+    const line =
+      createSvg('line');
+
+    line.setAttribute(
+      'class',
+      's2-impact-spoke'
+    );
+
+    line.setAttribute(
+      'x1',
+      (
+        x +
+        Math.cos(angle) *
+        r0
+      ).toFixed(2)
+    );
+
+    line.setAttribute(
+      'y1',
+      (
+        y +
+        Math.sin(angle) *
+        r0
+      ).toFixed(2)
+    );
+
+    line.setAttribute(
+      'x2',
+      (
+        x +
+        Math.cos(angle) *
+        r1
+      ).toFixed(2)
+    );
+
+    line.setAttribute(
+      'y2',
+      (
+        y +
+        Math.sin(angle) *
+        r1
+      ).toFixed(2)
+    );
+
+    impact.appendChild(line);
+  }
+
+  group.appendChild(impact);
 }
 
 function buildLightWaves() {
@@ -6745,129 +6849,245 @@ function buildLightWaves() {
     group.innerHTML = '';
   });
 
-  const rows = [342, 390, 438];
-  const amplitude = 9.5;
-  const wavelength = 78;
+  const wavelength = 82;
+  const sourceX = -170;
+  const exitX = 1770;
 
-  rows.forEach((y, index) => {
-    const phase = index * 1.22;
-    const delay = index * 230;
+  /*
+   * These four packets miss the visible
+   * particle concentration. They travel
+   * from the left edge through the dark
+   * gravity region and leave unchanged.
+   */
+  const controlRows = [
+    244,
+    286,
+    532,
+    574
+  ];
 
-    const leftIncomingPath = sinePath(
-      -130,
-      y,
-      526,
-      y,
-      amplitude,
-      wavelength,
-      phase
-    );
+  controlRows.forEach(
+    (y, index) => {
+      const path = sinePath(
+        sourceX,
+        y,
+        exitX,
+        y,
+        7.4,
+        wavelength,
+        index * .92,
+        280
+      );
 
-    appendWavePacket(
-      leftIncoming,
-      leftIncomingPath,
-      {
-        className: 's2-wave-cool',
-        delay,
-        duration: 3300,
-        coreOpacity: 0.94,
-        glowOpacity: 0.22
-      }
-    );
+      appendWavePacket(
+        rightPassing,
+        path,
+        {
+          className:
+            's2-wave-control',
 
-    const rightPassingPath = sinePath(
-      650,
-      y,
-      1710,
-      y,
-      amplitude,
-      wavelength,
-      phase
-    );
+          delay:
+            index * 170,
 
-    appendWavePacket(
-      rightPassing,
-      rightPassingPath,
-      {
-        className: 's2-wave-cool',
-        delay,
-        duration: 5400,
-        coreOpacity: 0.94,
-        glowOpacity: 0.22
-      }
-    );
+          duration:
+            6600,
 
-    appendCollision(
-      leftScatter,
-      526,
-      y,
-      2420 + delay
-    );
-  });
+          coreOpacity:
+            .88,
 
-  const scatterUp = sinePath(
-    526,
-    342,
-    930,
-    205,
-    8.2,
-    wavelength,
-    0
-  );
-
-  const scatterDown = sinePath(
-    526,
-    390,
-    950,
-    548,
-    8.2,
-    wavelength,
-    1.22
-  );
-
-  const absorbed = sinePath(
-    526,
-    438,
-    675,
-    438,
-    7,
-    wavelength,
-    2.44
-  );
-
-  appendWavePacket(
-    leftScatter,
-    scatterUp,
-    {
-      className: 's2-wave-scatter',
-      delay: 2480,
-      duration: 2900,
-      coreOpacity: 0.86,
-      glowOpacity: 0.18
+          glowOpacity:
+            .22
+        }
+      );
     }
   );
 
-  appendWavePacket(
-    leftScatter,
-    scatterDown,
+  /*
+   * These six packets are aimed directly
+   * at different portions of the visible
+   * particle concentration.
+   *
+   * Five scatter and keep travelling
+   * toward the right edge.
+   *
+   * One is absorbed.
+   *
+   * After scattering, no path changes
+   * direction again at the invisible
+   * gravity well.
+   */
+  const interactions = [
     {
-      className: 's2-wave-scatter',
-      delay: 2710,
-      duration: 2900,
-      coreOpacity: 0.86,
-      glowOpacity: 0.18
+      sourceY: 322,
+      hitX: 503,
+      hitY: 342,
+      exitY: 142,
+      phase: .10,
+      delay: 180,
+      rotation: -18
+    },
+    {
+      sourceY: 350,
+      hitX: 523,
+      hitY: 365,
+      exitY: 258,
+      phase: .78,
+      delay: 360,
+      rotation: -8
+    },
+    {
+      sourceY: 380,
+      hitX: 540,
+      hitY: 389,
+      exitY: 438,
+      phase: 1.46,
+      delay: 540,
+      rotation: 7
+    },
+    {
+      sourceY: 412,
+      hitX: 548,
+      hitY: 414,
+      exitY: 548,
+      phase: 2.14,
+      delay: 720,
+      rotation: 13
+    },
+    {
+      sourceY: 444,
+      hitX: 530,
+      hitY: 442,
+      exitY: 676,
+      phase: 2.82,
+      delay: 900,
+      rotation: 21
+    },
+    {
+      sourceY: 470,
+      hitX: 512,
+      hitY: 466,
+      exitY: null,
+      phase: 3.50,
+      delay: 1080,
+      rotation: 0
     }
-  );
+  ];
 
-  appendWavePacket(
-    leftAbsorbed,
-    absorbed,
-    {
-      className: 's2-wave-absorbed',
-      delay: 2940,
-      duration: 1450,
-      coreOpacity: 0.58,
-      glowOpacity: 0.12
+  interactions.forEach(
+    (ray) => {
+      const incomingPath =
+        sinePath(
+          sourceX,
+          ray.sourceY,
+          ray.hitX,
+          ray.hitY,
+          8.6,
+          wavelength,
+          ray.phase,
+          170
+        );
+
+      appendWavePacket(
+        leftIncoming,
+        incomingPath,
+        {
+          className:
+            's2-wave-source',
+
+          delay:
+            ray.delay,
+
+          duration:
+            3000,
+
+          coreOpacity:
+            .98,
+
+          glowOpacity:
+            .30
+        }
+      );
+
+      const impactTime =
+        ray.delay + 2190;
+
+      appendCollision(
+        leftScatter,
+        ray.hitX,
+        ray.hitY,
+        impactTime,
+        ray.rotation
+      );
+
+      if (ray.exitY === null) {
+        const absorbedPath =
+          sinePath(
+            ray.hitX,
+            ray.hitY,
+            ray.hitX + 170,
+            ray.hitY + 12,
+            7.2,
+            wavelength,
+            ray.phase + .55,
+            90
+          );
+
+        appendWavePacket(
+          leftAbsorbed,
+          absorbedPath,
+          {
+            className:
+              's2-wave-absorbed',
+
+            delay:
+              impactTime + 120,
+
+            duration:
+              1550,
+
+            coreOpacity:
+              .70,
+
+            glowOpacity:
+              .18
+          }
+        );
+
+        return;
+      }
+
+      const outgoingPath =
+        sinePath(
+          ray.hitX,
+          ray.hitY,
+          exitX,
+          ray.exitY,
+          8.2,
+          wavelength,
+          ray.phase + .42,
+          260
+        );
+
+      appendWavePacket(
+        leftScatter,
+        outgoingPath,
+        {
+          className:
+            's2-wave-scatter',
+
+          delay:
+            impactTime + 80,
+
+          duration:
+            4400,
+
+          coreOpacity:
+            .92,
+
+          glowOpacity:
+            .25
+        }
+      );
     }
   );
 }
@@ -6958,7 +7178,9 @@ function advanceSlideTwoBeat() {
     );
 
     lockSlideTwoFor(
-      prefersReduced ? 80 : 2300
+      prefersReduced
+        ? 80
+        : 2300
     );
 
     step = 3;
@@ -6971,7 +7193,9 @@ function advanceSlideTwoBeat() {
     );
 
     lockSlideTwoFor(
-      prefersReduced ? 80 : 7900
+      prefersReduced
+        ? 80
+        : 9500
     );
 
     step = 4;
@@ -6984,7 +7208,9 @@ function advanceSlideTwoBeat() {
     );
 
     lockSlideTwoFor(
-      prefersReduced ? 80 : 7900
+      prefersReduced
+        ? 80
+        : 9500
     );
 
     step = 5;
@@ -6997,7 +7223,9 @@ function advanceSlideTwoBeat() {
     );
 
     lockSlideTwoFor(
-      prefersReduced ? 80 : 5850
+      prefersReduced
+        ? 80
+        : 8000
     );
 
     step = 7;
@@ -7017,9 +7245,22 @@ function advance() {
     return;
   }
 
+  /*
+   * Step 7 is the handoff to Slide 3.
+   * Do not allow that handoff while the
+   * photons are still crossing Slide 2.
+   */
+  if (
+    step === 7 &&
+    slideTwoIsLocked()
+  ) {
+    return;
+  }
+
   if (step >= 7) {
     step =
-      window.slide34Controller?.advance?.(step)
+      window.slide34Controller
+        ?.advance?.(step)
       ?? step;
 
     return;
@@ -7660,7 +7901,219 @@ window.addEventListener('load', () => {
     graph.appendChild(legend);
   }
 
+  function prepareSlide23Morph() {
+    const stream =
+      document.getElementById(
+        's23MatterStream'
+      );
+
+    const source =
+      document.querySelectorAll(
+        '#baryonParticles .s2-baryon'
+      );
+
+    if (
+      !stream ||
+      !source.length
+    ) {
+      return;
+    }
+
+    stream.innerHTML = '';
+
+    const width =
+      window.innerWidth;
+
+    const height =
+      window.innerHeight;
+
+    const centerX =
+      width * .50;
+
+    const centerY =
+      height * .535;
+
+    const tilt =
+      -25 *
+      Math.PI /
+      180;
+
+    const cosTilt =
+      Math.cos(tilt);
+
+    const sinTilt =
+      Math.sin(tilt);
+
+    const selected =
+      Array
+        .from(source)
+        .filter(
+          (_, index) =>
+            index % 2 === 0
+        )
+        .slice(0, 42);
+
+    selected.forEach(
+      (node, index) => {
+        const rect =
+          node.getBoundingClientRect();
+
+        const startX =
+          rect.left +
+          rect.width / 2;
+
+        const startY =
+          rect.top +
+          rect.height / 2;
+
+        const fraction =
+          selected.length <= 1
+            ? 0
+            : index /
+              (
+                selected.length -
+                1
+              );
+
+        const radius =
+          Math.min(
+            width,
+            height
+          ) *
+          (
+            .055 +
+            fraction * .285
+          );
+
+        const angle =
+          index *
+          2.399963229728653 +
+          fraction *
+          2.8;
+
+        const localX =
+          Math.cos(angle) *
+          radius;
+
+        const localY =
+          Math.sin(angle) *
+          radius *
+          .36;
+
+        const targetX =
+          centerX +
+          localX *
+          cosTilt -
+          localY *
+          sinTilt;
+
+        const targetY =
+          centerY +
+          localX *
+          sinTilt +
+          localY *
+          cosTilt;
+
+        const dx =
+          targetX -
+          startX;
+
+        const dy =
+          targetY -
+          startY;
+
+        const swirl =
+          (
+            index % 2 === 0
+              ? 1
+              : -1
+          ) *
+          Math.min(
+            width,
+            height
+          ) *
+          (
+            .025 +
+            fraction * .035
+          );
+
+        const midX =
+          dx * .54 -
+          Math.sin(angle) *
+          swirl;
+
+        const midY =
+          dy * .54 +
+          Math.cos(angle) *
+          swirl *
+          .42;
+
+        const bit =
+          document.createElement(
+            'span'
+          );
+
+        bit.className =
+          's23-matter-bit';
+
+        bit.style.setProperty(
+          '--sx',
+          `${startX.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--sy',
+          `${startY.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--mx',
+          `${midX.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--my',
+          `${midY.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--dx',
+          `${dx.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--dy',
+          `${dy.toFixed(2)}px`
+        );
+
+        bit.style.setProperty(
+          '--size',
+          `${
+            Math.max(
+              3.4,
+              Math.min(
+                9.5,
+                rect.width * .82
+              )
+            ).toFixed(2)
+          }px`
+        );
+
+        bit.style.setProperty(
+          '--delay',
+          `${
+            (index % 9) * 26
+          }ms`
+        );
+
+        stream.appendChild(bit);
+      }
+    );
+  }
+
   function transitionToSlideThree() {
+    prepareSlide23Morph();
+
     deck.classList.add(
       'is-transitioning-to-slide3'
     );
@@ -7674,14 +8127,28 @@ window.addEventListener('load', () => {
       deck.classList.add(
         'show-slide-3'
       );
-    }, reduced ? 20 : 820);
+    }, reduced ? 20 : 1660);
 
     window.setTimeout(() => {
       deck.classList.remove(
-        'show-slide-2',
+        'show-slide-2'
+      );
+    }, reduced ? 30 : 2240);
+
+    window.setTimeout(() => {
+      deck.classList.remove(
         'is-transitioning-to-slide3'
       );
-    }, reduced ? 40 : 1940);
+
+      const stream =
+        document.getElementById(
+          's23MatterStream'
+        );
+
+      if (stream) {
+        stream.innerHTML = '';
+      }
+    }, reduced ? 40 : 2550);
   }
 
   function transitionToSlideFour() {
