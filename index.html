@@ -5704,6 +5704,488 @@ body {
 .s9-dispute-vacuum strong { font-size:clamp(18px,1.45vw,28px); }
 
 </style>
+
+<style>
+/* ===== Slide 5 and 6 perfection pass ===== */
+
+.slide-five,
+.slide-six {
+  background: #000;
+}
+
+.slide-five .s59-bg,
+.slide-six .s59-bg,
+.slide-six .s6-cmb-shell,
+.slide-six .s6-halo-field,
+.slide-six .s6-cosmic-story,
+.slide-six .s6-fate-strip,
+.slide-six .s6-history-graph {
+  display: none !important;
+}
+
+.s5-black-bg,
+.s6-black-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+}
+
+.s5-canvas {
+  display: none !important;
+}
+
+/* Slide 5: one-click, slow evidence convergence */
+.s5-evidence-deck {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  perspective: 1300px;
+}
+
+.s5-evidence-card {
+  position: absolute;
+  width: clamp(210px, 22vw, 360px);
+  height: clamp(142px, 15.6vw, 250px);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 25px;
+  border: 1px solid rgba(162, 213, 255, .21);
+  background: linear-gradient(135deg, rgba(6, 13, 31, .82), rgba(1, 4, 13, .92));
+  box-shadow:
+    0 28px 92px rgba(0,0,0,.62),
+    inset 0 0 44px rgba(91, 165, 255, .055);
+  opacity: 0;
+  transform: translate3d(var(--sx,0), var(--sy,0), 0) rotate(var(--rot,0deg)) scale(.68);
+  filter: blur(13px) brightness(.42) saturate(.85);
+}
+
+.s5-card-rotation { left: 8.2vw; top: 28.5vh; --sx:-45vw; --sy:9vh; --rot:-16deg; }
+.s5-card-lensing { left: 35.5vw; top: 13.5vh; --sx:-8vw; --sy:-36vh; --rot:8deg; }
+.s5-card-bullet { right: 8vw; top: 29vh; --sx:42vw; --sy:9vh; --rot:14deg; }
+.s5-card-cmb { left: 20vw; bottom: 8vh; --sx:-24vw; --sy:38vh; --rot:11deg; }
+.s5-card-spectrum { right: 20vw; bottom: 8vh; --sx:25vw; --sy:38vh; --rot:-10deg; }
+
+.s5-card-web { display: none !important; }
+
+.s5-evidence-card img,
+.s5-mini-graph svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.s5-card-spectrum img {
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.05) brightness(.96);
+}
+
+.s5-mini-graph {
+  position: absolute;
+  inset: 0;
+  background: #f3f5fb;
+}
+
+.s5-mini-graph .s4-graph {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.03);
+  transform-origin: center;
+}
+
+.s5-evidence-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 35% 18%, rgba(255,255,255,.22), transparent 18%),
+    linear-gradient(120deg, transparent 0 42%, rgba(255,255,255,.14) 50%, transparent 60%);
+  mix-blend-mode: screen;
+  opacity: .42;
+}
+
+.s5-evidence-card figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 13px;
+  z-index: 3;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,.58);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(245,250,255,.90);
+  font-size: clamp(12px,.85vw,15px);
+  letter-spacing: .06em;
+  backdrop-filter: blur(14px);
+}
+
+.slide-five.s5-evidence-reveal .s5-evidence-card,
+.slide-five.s5-beat-5 .s5-evidence-card {
+  animation: s5EvidenceCardResolve 1450ms cubic-bezier(.16,.84,.22,1) forwards;
+  animation-delay: calc(var(--i) * 280ms);
+}
+
+@keyframes s5EvidenceCardResolve {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--sx,0), var(--sy,0), 0) rotate(var(--rot,0deg)) scale(.68);
+    filter: blur(13px) brightness(.42) saturate(.85);
+  }
+  62% {
+    opacity: 1;
+    filter: blur(0) brightness(1.08) saturate(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0) rotate(0deg) scale(1);
+    filter: blur(0) brightness(1) saturate(1.03);
+  }
+}
+
+.s5-connection-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-five.s5-evidence-reveal .s5-connection-svg,
+.slide-five.s5-beat-5 .s5-connection-svg {
+  opacity: 1;
+  transition: opacity 800ms 1700ms ease;
+}
+
+.s5-evidence-line {
+  fill: none;
+  stroke: rgba(111, 190, 255, .43);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-dasharray: 7 13;
+  filter: url(#s5LineGlow);
+  animation: s5LineFlow 1.6s linear infinite;
+}
+
+.s5-core-halo {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(34vw, 420px);
+  aspect-ratio: 1;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(.54);
+}
+
+.slide-five.s5-evidence-reveal .s5-core-halo,
+.slide-five.s5-beat-5 .s5-core-halo {
+  animation: s5CoreResolve 1250ms 1900ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+@keyframes s5CoreResolve {
+  to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+}
+
+.s5-core-lens {
+  position: absolute;
+  inset: 13%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,.92) 0 25%, rgba(72,130,255,.15) 42%, rgba(109,180,255,.10) 62%, transparent 76%),
+    conic-gradient(from 20deg, transparent, rgba(130,205,255,.18), transparent 28%, rgba(255,220,145,.12), transparent 58%, rgba(130,205,255,.14), transparent);
+  box-shadow:
+    inset 0 0 72px rgba(93,158,255,.12),
+    0 0 78px rgba(78,148,255,.16);
+  animation: s5LensBreathe 4.6s ease-in-out infinite alternate;
+}
+
+@keyframes s5LensBreathe {
+  from { transform: scale(.96); opacity:.72; }
+  to { transform: scale(1.04); opacity:1; }
+}
+
+.s5-core-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(153,216,255,.25);
+  box-shadow: 0 0 28px rgba(105,178,255,.16), inset 0 0 28px rgba(105,178,255,.06);
+}
+.s5-r1 { inset: 0; animation: s5CoreSpin 18s linear infinite; }
+.s5-r2 { inset: 14%; animation: s5CoreSpin 14s linear infinite reverse; }
+.s5-r3 { inset: 31%; border-color: rgba(255,220,145,.25); animation: s5CorePulse 2.6s ease-in-out infinite; }
+
+@keyframes s5CoreSpin { to { transform: rotate(360deg); } }
+@keyframes s5CorePulse { 50% { opacity: .52; transform: scale(1.05); } }
+
+.s5-core-word {
+  position: relative;
+  z-index: 3;
+  max-width: 220px;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(255,247,229,.96);
+  text-shadow: 0 0 28px rgba(116,190,255,.74);
+  letter-spacing: .20em;
+  line-height: 1.15;
+  font-size: clamp(18px, 1.8vw, 32px);
+  font-weight: 840;
+}
+
+.deck.is-transitioning-s5-s6 .s5-evidence-card {
+  animation: s5CardCollapseToGeometry 940ms cubic-bezier(.16,.84,.22,1) forwards !important;
+  animation-delay: calc(var(--i) * 45ms) !important;
+}
+
+@keyframes s5CardCollapseToGeometry {
+  to {
+    opacity: 0;
+    transform: translate3d(calc(50vw - var(--card-x, 50vw)), calc(50vh - var(--card-y, 50vh)), 0) scale(.22) rotateX(70deg);
+    filter: blur(15px) brightness(.55);
+  }
+}
+
+.s56-geometry-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 72;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  background: #000;
+}
+.s56-geometry-transition svg { width: 100%; height: 100%; display: block; }
+.s56-rings, .s56-grid-seed { fill: none; stroke: rgba(154,220,255,.42); stroke-width: 1.15; filter: url(#s56Glow); opacity: 0; }
+.s56-grid-seed path { stroke-dasharray: 760; stroke-dashoffset: 760; }
+.deck.is-transitioning-s5-s6 .s56-geometry-transition { opacity: 1; animation: s56TransitionFade 1600ms cubic-bezier(.16,.84,.22,1) forwards; }
+.deck.is-transitioning-s5-s6 .s56-rings { animation: s56RingsOpen 1500ms cubic-bezier(.16,.84,.22,1) forwards; }
+.deck.is-transitioning-s5-s6 .s56-grid-seed path { animation: s56GridSeedDraw 1250ms 280ms cubic-bezier(.16,.84,.22,1) forwards; }
+@keyframes s56TransitionFade { 0%{opacity:0} 20%{opacity:1} 100%{opacity:0} }
+@keyframes s56RingsOpen { 0%{opacity:0;transform:scale(.22);transform-origin:800px 455px} 34%{opacity:.9} 100%{opacity:0;transform:scale(3.1);transform-origin:800px 455px;filter:blur(8px)} }
+@keyframes s56GridSeedDraw { to { opacity: .9; stroke-dashoffset: 0; } }
+
+/* Slide 6: black field + expanding/reversing spacetime geometry */
+.slide-six { background: #000 !important; }
+.s6-web-canvas { display: none !important; }
+.s6-spacetime-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: #000;
+}
+.s6-spacetime-svg {
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+}
+.s6-grid-plane {
+  transform-box: view-box;
+  transform-origin: 800px 455px;
+}
+.s6-grid-line {
+  fill: none;
+  stroke: rgba(153, 223, 255, .30);
+  stroke-width: 1.05;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  filter: url(#s6GridGlow);
+}
+.s6-grid-line.major { stroke: rgba(207, 244, 255, .46); stroke-width: 1.35; }
+.s6-funnel-layer { opacity: 0; transform-box: view-box; transform-origin: 800px 455px; }
+.s6-warp-ring { fill: url(#s6FunnelGlow); opacity: .88; }
+.s6-warp-contour { fill: none; stroke: rgba(120, 205, 255, .30); stroke-width: 1.1; filter: url(#s6GridGlow); }
+.s6-warp-core { fill: #000; stroke: rgba(190,235,255,.40); stroke-width: 1; filter: url(#s6GridGlow); }
+.s6-singularity { opacity: 0; fill: rgba(255,244,216,.98); filter: url(#s6GridGlow); transform-box: fill-box; transform-origin: center; }
+
+.slide-six.s6-ready .s6-grid-line,
+.slide-six.s6-beat-1 .s6-grid-line,
+.slide-six.s6-beat-2 .s6-grid-line,
+.slide-six.s6-beat-3 .s6-grid-line,
+.slide-six.s6-beat-4 .s6-grid-line {
+  animation: s6GridExpandDraw 2600ms cubic-bezier(.16,.84,.22,1) forwards;
+  animation-delay: calc(var(--i) * 22ms);
+}
+
+.slide-six.s6-ready .s6-grid-plane,
+.slide-six.s6-beat-1 .s6-grid-plane,
+.slide-six.s6-beat-2 .s6-grid-plane,
+.slide-six.s6-beat-3 .s6-grid-plane,
+.slide-six.s6-beat-4 .s6-grid-plane {
+  animation: s6GridExpand 3300ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+.slide-six.s6-ready .s6-funnel-layer,
+.slide-six.s6-beat-1 .s6-funnel-layer,
+.slide-six.s6-beat-2 .s6-funnel-layer,
+.slide-six.s6-beat-3 .s6-funnel-layer,
+.slide-six.s6-beat-4 .s6-funnel-layer {
+  animation: s6FunnelLandscapeIn 2400ms 900ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+
+@keyframes s6GridExpandDraw {
+  0% { opacity:0; stroke-dashoffset:1600; }
+  36% { opacity:.78; }
+  100% { opacity:.92; stroke-dashoffset:0; }
+}
+@keyframes s6GridExpand {
+  0% { transform: scale(.14); filter: blur(7px); }
+  62% { filter: blur(.4px); }
+  100% { transform: scale(1); filter: blur(0); }
+}
+@keyframes s6FunnelLandscapeIn {
+  0% { opacity:0; transform:scale(.86); filter: blur(10px); }
+  100% { opacity:1; transform:scale(1); filter: blur(0); }
+}
+
+.slide-six.s6-beat-1 .s6-grid-plane {
+  animation: s6GridCollapse 2400ms cubic-bezier(.19,.72,.18,1) forwards !important;
+}
+.slide-six.s6-beat-1 .s6-grid-line { animation: s6GridCollapseLine 2400ms cubic-bezier(.19,.72,.18,1) forwards !important; }
+.slide-six.s6-beat-1 .s6-funnel-layer { animation: s6FunnelFlatten 1900ms cubic-bezier(.19,.72,.18,1) forwards !important; }
+.slide-six.s6-beat-1 .s6-singularity { animation: s6SingularityBirth 2400ms cubic-bezier(.19,.72,.18,1) forwards; }
+
+@keyframes s6GridCollapse {
+  0% { transform: scale(1); filter: blur(0); }
+  74% { transform: scale(.22); filter: blur(4px); }
+  100% { transform: scale(.035); filter: blur(11px); }
+}
+@keyframes s6GridCollapseLine {
+  0% { opacity:.92; stroke-dashoffset:0; }
+  58% { opacity:.72; }
+  100% { opacity:0; stroke-dashoffset:-1200; }
+}
+@keyframes s6FunnelFlatten {
+  0% { opacity:1; transform:scale(1); filter:blur(0); }
+  100% { opacity:0; transform:scale(.3); filter:blur(10px); }
+}
+@keyframes s6SingularityBirth {
+  0% { opacity:0; transform:scale(.2); }
+  42% { opacity:.95; transform:scale(8); }
+  78% { opacity:.72; transform:scale(3.2); }
+  100% { opacity:.28; transform:scale(.55); }
+}
+
+.s6-rewind-label {
+  position: absolute;
+  left: 50%;
+  bottom: 7.6vh;
+  z-index: 8;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  opacity: 0;
+  color: rgba(228,243,255,.75);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: clamp(10px, .75vw, 13px);
+}
+.s6-rewind-label i { display:block; width: min(22vw, 310px); height: 1px; background: linear-gradient(90deg,rgba(160,220,255,.2),rgba(255,226,165,.95),rgba(160,220,255,.2)); box-shadow:0 0 18px rgba(114,190,255,.45); }
+.slide-six.s6-ready .s6-rewind-label,
+.slide-six.s6-beat-1 .s6-rewind-label,
+.slide-six.s6-beat-2 .s6-rewind-label,
+.slide-six.s6-beat-3 .s6-rewind-label,
+.slide-six.s6-beat-4 .s6-rewind-label { opacity: 1; transition: opacity 900ms 1200ms ease; }
+
+.s6-parameter-lab {
+  position: absolute;
+  left: 7vw;
+  right: 7vw;
+  bottom: 5.8vh;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  pointer-events: none;
+}
+.s6-param-card {
+  min-height: 150px;
+  border-radius: 28px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, rgba(5,12,28,.84), rgba(2,5,14,.68));
+  border: 1px solid rgba(148,213,255,.20);
+  box-shadow: 0 24px 80px rgba(0,0,0,.55), inset 0 0 44px rgba(89,166,255,.065);
+  opacity: 0;
+  transform: translateY(28px) scale(.94);
+  filter: blur(9px);
+  backdrop-filter: blur(12px);
+}
+.s6-param-card small { display:block; color:#ffe0a4; letter-spacing:.20em; text-transform:uppercase; font-weight:850; margin-bottom:8px; }
+.s6-param-card b { display:block; color:#fff8e8; font-size:clamp(19px,1.65vw,32px); line-height:1; letter-spacing:-.04em; margin-bottom:15px; }
+.s6-mini-grid { position:relative; height:48px; border-radius:16px; overflow:hidden; background: radial-gradient(circle at 50% 50%, rgba(110,185,255,.10), rgba(0,0,0,.25)), repeating-linear-gradient(90deg,rgba(158,224,255,.22) 0 1px,transparent 1px 18px), repeating-linear-gradient(0deg,rgba(158,224,255,.16) 0 1px,transparent 1px 18px); }
+.s6-mini-grid::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at var(--hx,50%) 50%, rgba(255,226,155,.82) 0 5px, rgba(112,194,255,.22) 6px 15px, transparent 28px); }
+.s6-mini-low::after, .s6-mini-high::after, .s6-mini-match::after { content:""; position:absolute; inset:0; background-size: 42px 42px; }
+.s6-mini-low::after { background-image: radial-gradient(circle, rgba(255,245,210,.9) 0 2px, transparent 3px); opacity:.42; }
+.s6-mini-high::after { background-image: radial-gradient(circle, rgba(255,245,210,.9) 0 2px, transparent 3px); opacity:.95; background-size: 24px 24px; }
+.s6-mini-match::after { background-image: radial-gradient(circle, rgba(255,245,210,.94) 0 2px, transparent 3px); opacity:.68; background-size: 32px 32px; }
+
+.slide-six.s6-beat-1 .s6-param-card,
+.slide-six.s6-beat-2 .s6-param-card,
+.slide-six.s6-beat-3 .s6-param-card,
+.slide-six.s6-beat-4 .s6-param-card {
+  animation: s6ParamIn 850ms cubic-bezier(.16,.84,.22,1) forwards;
+}
+.slide-six.s6-beat-1 .s6-param-low { animation-delay: 1500ms; }
+.slide-six.s6-beat-1 .s6-param-high { animation-delay: 1670ms; }
+.slide-six.s6-beat-1 .s6-param-match { animation-delay: 1840ms; }
+.slide-six.s6-beat-2 .s6-param-low,
+.slide-six.s6-beat-3 .s6-param-low,
+.slide-six.s6-beat-4 .s6-param-low { animation-delay:0ms; }
+.slide-six.s6-beat-2 .s6-param-high,
+.slide-six.s6-beat-3 .s6-param-high,
+.slide-six.s6-beat-4 .s6-param-high { animation-delay:120ms; }
+.slide-six.s6-beat-2 .s6-param-match,
+.slide-six.s6-beat-3 .s6-param-match,
+.slide-six.s6-beat-4 .s6-param-match { animation-delay:240ms; }
+
+@keyframes s6ParamIn { to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+
+.slide-six.s6-beat-2 .s6-param-low,
+.slide-six.s6-beat-3 .s6-param-low,
+.slide-six.s6-beat-4 .s6-param-low { border-color: rgba(255,191,132,.35); }
+.slide-six.s6-beat-3 .s6-param-high,
+.slide-six.s6-beat-4 .s6-param-high { border-color: rgba(255,191,132,.35); }
+.slide-six.s6-beat-4 .s6-param-match { border-color: rgba(255,226,155,.72); box-shadow: 0 0 85px rgba(105,178,255,.25), inset 0 0 62px rgba(255,226,155,.12); }
+
+.s6-origin-core {
+  position: absolute;
+  left: 50%;
+  top: 43.5%;
+  z-index: 11;
+  width: 190px;
+  height: 190px;
+  margin: -95px 0 0 -95px;
+  border-radius: 50%;
+  display:grid;
+  place-items:center;
+  opacity:0;
+  transform:scale(.52);
+  background: radial-gradient(circle, rgba(255,248,220,.20) 0 18%, rgba(103,178,255,.11) 40%, transparent 68%);
+  border:1px solid rgba(222,242,255,.22);
+  box-shadow:0 0 90px rgba(92,166,255,.22), inset 0 0 48px rgba(255,226,155,.08);
+}
+.s6-origin-core span { color:rgba(255,248,230,.86); text-transform:uppercase; letter-spacing:.22em; font-size:12px; }
+.slide-six.s6-beat-4 .s6-origin-core { opacity:1; transform:scale(1); transition: all 900ms cubic-bezier(.16,.84,.22,1); }
+
+.deck.is-transitioning-s5-s6 #slideFive { animation: s56SlideFiveOut 1400ms cubic-bezier(.16,.84,.22,1) forwards; }
+.deck.is-transitioning-s5-s6 #slideSix { z-index: 46; opacity:1; animation: s56SlideSixIn 1650ms cubic-bezier(.16,.84,.22,1) forwards; }
+@keyframes s56SlideFiveOut { to { opacity:0; filter:blur(15px) brightness(.22); transform:scale(.98); } }
+@keyframes s56SlideSixIn { 0%{opacity:0;filter:blur(16px);transform:scale(1.03)} 100%{opacity:1;filter:blur(0);transform:scale(1)} }
+
+@media (max-width: 900px) {
+  .s5-card-rotation,.s5-card-lensing,.s5-card-bullet,.s5-card-cmb,.s5-card-spectrum { width:42vw; height:27vw; }
+  .s5-card-rotation{left:5vw;top:24vh}.s5-card-lensing{left:53vw;top:24vh}.s5-card-bullet{left:5vw;top:52vh}.s5-card-cmb{left:53vw;top:52vh}.s5-card-spectrum{left:29vw;bottom:5vh}.s5-core-halo{width:54vw;}
+  .s6-parameter-lab{grid-template-columns:1fr;gap:10px;left:5vw;right:5vw}.s6-param-card{min-height:96px}.s6-rewind-label{display:none}
+}
+</style>
+
 <style>
 /* ===== src/slides10-20.css ===== */
 #slideTen,#slideEleven,#slideTwelve,#slideThirteen,#slideFourteen,#slideFifteen,#slideSixteen,#slideSeventeen,#slideEighteen,#slideNineteen,#slideTwenty{
@@ -6548,86 +7030,125 @@ body {
       </div>
 
       <!-- SLIDE 5 -->
-      <section class="slide-five" id="slideFive" aria-label="Multiple independent evidence streams point to dark matter halos">
-        <div class="s59-bg s5-bg" aria-hidden="true"></div>
+      <section class="slide-five" id="slideFive" aria-label="Multiple evidence streams converge on the same missing gravity">
+        <div class="s5-black-bg" aria-hidden="true"></div>
         <canvas class="s5-canvas" id="s5EvidenceCanvas" aria-hidden="true"></canvas>
-        <div class="s5-title" aria-label="Evidence montage title">
-          <span>not a single clue</span>
-          <h2>The evidence converges on unseen mass.</h2>
-        </div>
+
         <div class="s5-evidence-deck" aria-hidden="true">
           <figure class="s5-evidence-card s5-card-rotation" style="--i:0">
             <div class="s5-mini-graph" id="s5MiniRotation"></div>
             <figcaption>flat rotation</figcaption>
           </figure>
+
           <figure class="s5-evidence-card s5-card-lensing" style="--i:1">
             <img src="assets/cluster-lensing-contours.png" alt="" draggable="false" />
             <figcaption>lensing maps</figcaption>
           </figure>
+
           <figure class="s5-evidence-card s5-card-bullet" style="--i:2">
             <img src="assets/bullet-cluster-xray-lensing.png" alt="" draggable="false" />
             <figcaption>cluster collision</figcaption>
           </figure>
+
           <figure class="s5-evidence-card s5-card-cmb" style="--i:3">
             <img src="assets/cmb-map.png" alt="" draggable="false" />
             <figcaption>CMB seeds</figcaption>
           </figure>
+
           <figure class="s5-evidence-card s5-card-spectrum" style="--i:4">
-            <img src="assets/hmf-final-graph.png" alt="" draggable="false" />
+            <img src="assets/Beauty.jpg" onerror="this.onerror=null;this.src='assets/hmf-final-graph.png';" alt="" draggable="false" />
             <figcaption>halo census</figcaption>
           </figure>
-          <figure class="s5-evidence-card s5-card-web" style="--i:5">
-            <img src="assets/dark-matter-density-field-map.webp" alt="" draggable="false" />
-            <figcaption>cosmic web</figcaption>
-          </figure>
         </div>
+
         <svg class="s5-connection-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <filter id="s5LineGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g id="s5EvidenceLines"></g>
         </svg>
+
         <div class="s5-core-halo" aria-hidden="true">
+          <div class="s5-core-lens"></div>
           <div class="s5-core-ring s5-r1"></div>
           <div class="s5-core-ring s5-r2"></div>
           <div class="s5-core-ring s5-r3"></div>
-          <div class="s5-core-word">gravity</div>
+          <div class="s5-core-word">missing gravity</div>
         </div>
       </section>
 
+      <div class="s56-geometry-transition" id="s56GeometryTransition" aria-hidden="true">
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <filter id="s56Glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="4" result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <g class="s56-rings">
+            <ellipse cx="800" cy="455" rx="120" ry="44" />
+            <ellipse cx="800" cy="455" rx="240" ry="88" />
+            <ellipse cx="800" cy="455" rx="420" ry="154" />
+          </g>
+          <g class="s56-grid-seed">
+            <path d="M 0 450 C 260 430 420 430 800 450 S 1350 470 1600 450" />
+            <path d="M 800 0 C 770 250 770 600 800 900" />
+            <path d="M 260 0 C 315 250 315 650 260 900" />
+            <path d="M 1340 0 C 1285 250 1285 650 1340 900" />
+          </g>
+        </svg>
+      </div>
+
       <!-- SLIDE 6 -->
-      <section class="slide-six" id="slideSix" aria-label="Counting halos records the starting conditions and possible fate of the universe">
-        <div class="s59-bg s6-bg" aria-hidden="true"></div>
+      <section class="slide-six" id="slideSix" aria-label="A halo census rewinds spacetime geometry back toward starting conditions">
+        <div class="s6-black-bg" aria-hidden="true"></div>
         <canvas class="s6-web-canvas" id="s6WebCanvas" aria-hidden="true"></canvas>
-        <div class="s6-cmb-shell" aria-hidden="true"><img src="assets/cmb-map.png" alt="" draggable="false" /></div>
-        <div class="s6-headline" aria-label="Why count halos">
-          <span>why halo counts?</span>
-          <h2>A census of gravity becomes a time machine.</h2>
-        </div>
-        <div class="s6-halo-field" id="s6HaloField" aria-hidden="true"></div>
-        <div class="s6-cosmic-story" aria-hidden="true">
-          <div class="s6-story-card s6-story-count"><small>01</small><b>measure today’s halo census</b></div>
-          <div class="s6-story-thread"></div>
-          <div class="s6-story-card s6-story-start"><small>02</small><b>rewind the starting recipe</b></div>
-          <div class="s6-story-thread"></div>
-          <div class="s6-story-card s6-story-fate"><small>03</small><b>forecast expansion’s fate</b></div>
-        </div>
-        <div class="s6-fate-strip" aria-hidden="true">
-          <span class="s6-fate-card crunch"><b>Big Crunch</b><i>gravity wins back</i><em></em></span>
-          <span class="s6-fate-card freeze"><b>Big Freeze</b><i>expansion cools everything</i><em></em></span>
-          <span class="s6-fate-card rip"><b>Big Rip</b><i>expansion tears structure apart</i><em></em></span>
-        </div>
-        <div class="s6-history-graph" aria-hidden="true">
-          <span>density history</span>
-          <svg viewBox="0 0 640 210" preserveAspectRatio="none">
-            <path class="s6-hist-rad" d="M34 32 C125 55 210 93 318 139 S520 180 606 188" />
-            <path class="s6-hist-mat" d="M34 76 C142 86 250 111 356 142 S520 166 606 173" />
-            <path class="s6-hist-de" d="M34 168 C165 168 300 163 414 130 S555 56 606 28" />
-            <line x1="90" y1="186" x2="90" y2="28" />
-            <line x1="328" y1="186" x2="328" y2="28" />
-            <line x1="518" y1="186" x2="518" y2="28" />
-            <text x="68" y="203">radiation</text><text x="285" y="203">matter</text><text x="484" y="203">dark energy</text>
+
+        <div class="s6-spacetime-stage" aria-hidden="true">
+          <svg class="s6-spacetime-svg" id="s6SpacetimeSvg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <filter id="s6GridGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3.4" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <radialGradient id="s6FunnelGlow">
+                <stop offset="0%" stop-color="rgba(0,0,0,1)" />
+                <stop offset="52%" stop-color="rgba(78,157,255,.16)" />
+                <stop offset="100%" stop-color="rgba(78,157,255,0)" />
+              </radialGradient>
+            </defs>
+            <g class="s6-grid-plane" id="s6GridPlane"></g>
+            <g class="s6-funnel-layer" id="s6FunnelLayer"></g>
+            <circle class="s6-singularity" cx="800" cy="455" r="12" />
           </svg>
+        </div>
+
+        <div class="s6-rewind-label" aria-hidden="true">
+          <span>halo census today</span>
+          <i></i>
+          <span>starting conditions</span>
+        </div>
+
+        <div class="s6-parameter-lab" aria-hidden="true">
+          <div class="s6-param-card s6-param-low">
+            <small>recipe A</small>
+            <b>too few halos</b>
+            <div class="s6-mini-grid s6-mini-low"></div>
+          </div>
+          <div class="s6-param-card s6-param-high">
+            <small>recipe B</small>
+            <b>too many halos</b>
+            <div class="s6-mini-grid s6-mini-high"></div>
+          </div>
+          <div class="s6-param-card s6-param-match">
+            <small>matched recipe</small>
+            <b>today’s census fits</b>
+            <div class="s6-mini-grid s6-mini-match"></div>
+          </div>
+        </div>
+
+        <div class="s6-origin-core" aria-hidden="true">
+          <span>beginning</span>
         </div>
       </section>
 
@@ -9396,83 +9917,116 @@ window.addEventListener('load', () => {
     if (!host) return;
     host.innerHTML = '';
 
-    const svg = makeSvg('svg', {
-      viewBox: '0 0 330 220',
-      preserveAspectRatio: 'none'
-    });
-
-    const defs = makeSvg('defs');
-    const glow = makeSvg('filter', { id: 's5MiniGlow', x: '-50%', y: '-50%', width: '200%', height: '200%' });
-    glow.appendChild(makeSvg('feGaussianBlur', { stdDeviation: '2.2', result: 'b' }));
-    const merge = makeSvg('feMerge');
-    merge.appendChild(makeSvg('feMergeNode', { in: 'b' }));
-    merge.appendChild(makeSvg('feMergeNode', { in: 'SourceGraphic' }));
-    glow.appendChild(merge);
-    defs.appendChild(glow);
-    svg.appendChild(defs);
-
-    svg.appendChild(makeSvg('path', {
-      d: 'M36 22 L36 184 L306 184',
-      fill: 'none',
-      stroke: 'rgba(255,255,255,.30)',
-      'stroke-width': '2'
-    }));
-
-    [76,116,156].forEach(y => {
-      svg.appendChild(makeSvg('line', {
-        x1: '36', y1: y, x2: '306', y2: y,
-        stroke: 'rgba(160,205,255,.10)',
-        'stroke-width': '1'
-      }));
-    });
-
-    const visible = makeSvg('path', {
-      d: 'M36 184 C55 105 82 78 116 92 C162 111 218 145 306 158',
-      fill: 'none',
-      stroke: 'rgba(244,246,252,.76)',
-      'stroke-width': '4',
-      'stroke-dasharray': '10 8',
-      'stroke-linecap': 'round'
-    });
-
-    const fit = makeSvg('path', {
-      d: 'M36 184 C52 101 75 55 111 49 C164 45 222 51 306 52',
-      fill: 'none',
-      stroke: 'rgba(76,145,255,.98)',
-      'stroke-width': '5',
-      'stroke-linecap': 'round',
-      filter: 'url(#s5MiniGlow)'
-    });
-
-    svg.appendChild(visible);
-    svg.appendChild(fit);
-
-    for (let i = 0; i < 20; i += 1) {
-      const x = 46 + i * 13.1;
-      const y = 54 + Math.sin(i * .71) * 4.2 + (i < 4 ? 42 - i * 10.5 : 0);
-      svg.appendChild(makeSvg('circle', {
-        cx: x.toFixed(1),
-        cy: y.toFixed(1),
-        r: '3.5',
-        fill: 'rgba(255,74,74,.98)',
-        stroke: 'rgba(255,255,255,.88)',
-        'stroke-width': '1.1'
-      }));
+    const slideFourGraph = document.getElementById('s4Graph');
+    if (slideFourGraph && slideFourGraph.children.length) {
+      const clone = slideFourGraph.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.add('s5-cloned-rotation-graph');
+      clone.setAttribute('viewBox', '0 0 1200 760');
+      clone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      host.appendChild(clone);
+      return;
     }
 
+    const svg = makeSvg('svg', { viewBox: '0 0 1200 760', preserveAspectRatio: 'xMidYMid meet' });
+    svg.appendChild(makeSvg('rect', { x: '0', y: '0', width: '1200', height: '760', fill: '#f3f5fb' }));
+    svg.appendChild(makeSvg('path', { d: 'M140 85 L140 610 L1070 610', fill: 'none', stroke: 'rgba(12,16,28,.72)', 'stroke-width': '7' }));
+    [215,315,415,515].forEach(y => svg.appendChild(makeSvg('line', { x1: '140', y1: y, x2: '1070', y2: y, stroke: 'rgba(30,42,70,.12)', 'stroke-width': '2' })));
+    const visible = makeSvg('path', { d: 'M140 610 C230 338 340 285 455 346 C610 428 790 505 1070 548', fill: 'none', stroke: 'rgba(10,12,20,.84)', 'stroke-width': '12', 'stroke-dasharray': '35 24', 'stroke-linecap': 'round' });
+    const fit = makeSvg('path', { d: 'M140 610 C210 350 292 225 420 198 C595 160 790 182 1070 190', fill: 'none', stroke: '#064cff', 'stroke-width': '14', 'stroke-linecap': 'round' });
+    svg.appendChild(visible);
+    svg.appendChild(fit);
+    for (let i = 0; i < 22; i += 1) {
+      const x = 170 + i * 40;
+      const y = 195 + Math.sin(i * .67) * 13 + (i < 5 ? 128 - i * 25 : 0);
+      svg.appendChild(makeSvg('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: '10', fill: '#ff1c1c', stroke: 'rgba(255,255,255,.96)', 'stroke-width': '3' }));
+    }
     host.appendChild(svg);
   }
 
   function buildEvidenceLines() {
     const group = document.getElementById('s5EvidenceLines');
     if (!group) return;
+    group.innerHTML = '';
     const ends = [
-      [300, 410], [640, 252], [1280, 415], [440, 725], [1132, 725], [800, 535]
+      [300, 405],
+      [635, 250],
+      [1280, 415],
+      [448, 720],
+      [1136, 720]
     ];
     ends.forEach(([x, y], i) => {
-      const path = makeSvg('path', { class: 's5-evidence-line', d: `M ${x} ${y} C ${(x + 800) / 2} ${y < 500 ? y + 110 : y - 120}, ${(x + 800) / 2} ${y < 500 ? 470 : 590}, 800 505` });
-      path.style.animationDelay = `${i * -0.13}s`;
+      const path = makeSvg('path', {
+        class: 's5-evidence-line',
+        d: `M ${x} ${y} C ${(x + 800) / 2} ${y < 500 ? y + 122 : y - 138}, ${(x + 800) / 2} ${y < 500 ? 458 : 602}, 800 505`
+      });
+      path.style.animationDelay = `${i * -0.16}s`;
       group.appendChild(path);
+    });
+  }
+
+  function buildS6Spacetime() {
+    const grid = document.getElementById('s6GridPlane');
+    const funnels = document.getElementById('s6FunnelLayer');
+    if (!grid || !funnels || grid.children.length) return;
+
+    const verticals = [];
+    for (let x = -160; x <= 1760; x += 80) verticals.push(x);
+    const horizontals = [];
+    for (let y = -80; y <= 980; y += 56) horizontals.push(y);
+
+    function warpPoint(x, y) {
+      const wells = [
+        { x: 520, y: 430, a: 82, sx: 170, sy: 125 },
+        { x: 905, y: 515, a: 118, sx: 215, sy: 145 },
+        { x: 1115, y: 350, a: 58, sx: 135, sy: 105 },
+        { x: 720, y: 305, a: 48, sx: 125, sy: 95 }
+      ];
+      let dx = 0;
+      let dy = 0;
+      wells.forEach(w => {
+        const nx = (x - w.x) / w.sx;
+        const ny = (y - w.y) / w.sy;
+        const g = Math.exp(-(nx * nx + ny * ny));
+        dx += (w.x - x) * g * 0.052;
+        dy += g * w.a;
+      });
+      const perspective = (y - 455) * .08;
+      return [x + dx, y + dy + perspective];
+    }
+
+    function curveThrough(points) {
+      return points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+    }
+
+    let index = 0;
+    verticals.forEach((x) => {
+      const pts = [];
+      for (let y = -80; y <= 980; y += 18) pts.push(warpPoint(x, y));
+      const path = makeSvg('path', { class: `s6-grid-line ${Math.abs(x - 800) < 5 || x % 240 === 0 ? 'major' : ''}`, d: curveThrough(pts) });
+      path.style.setProperty('--i', index++);
+      grid.appendChild(path);
+    });
+    horizontals.forEach((y) => {
+      const pts = [];
+      for (let x = -160; x <= 1760; x += 22) pts.push(warpPoint(x, y));
+      const path = makeSvg('path', { class: `s6-grid-line ${Math.abs(y - 455) < 6 || y % 168 === 0 ? 'major' : ''}`, d: curveThrough(pts) });
+      path.style.setProperty('--i', index++);
+      grid.appendChild(path);
+    });
+
+    const wells = [
+      { x: 520, y: 505, rx: 108, ry: 32, core: 18 },
+      { x: 905, y: 605, rx: 156, ry: 44, core: 25 },
+      { x: 1115, y: 405, rx: 85, ry: 24, core: 14 },
+      { x: 720, y: 365, rx: 72, ry: 20, core: 12 }
+    ];
+    wells.forEach((w) => {
+      const g = makeSvg('g', { class: 's6-warp-well' });
+      g.appendChild(makeSvg('ellipse', { class: 's6-warp-ring', cx: w.x, cy: w.y, rx: w.rx, ry: w.ry }));
+      [0.72, 0.48, 0.27].forEach((s) => g.appendChild(makeSvg('ellipse', { class: 's6-warp-contour', cx: w.x, cy: w.y, rx: (w.rx * s).toFixed(1), ry: (w.ry * s).toFixed(1) })));
+      g.appendChild(makeSvg('circle', { class: 's6-warp-core', cx: w.x, cy: w.y, r: w.core }));
+      funnels.appendChild(g);
     });
   }
 
@@ -9742,23 +10296,35 @@ window.addEventListener('load', () => {
   }
 
   function transitionToSlide(num, readyClass) {
-    warp();
-    window.setTimeout(() => {
-      showOnly(num);
-    }, reduced ? 10 : 420);
+    deck.classList.add('s59-warp');
+    window.setTimeout(() => deck.classList.remove('s59-warp'), reduced ? 20 : 1100);
+    deck.classList.remove('show-slide-5','show-slide-6','show-slide-7','show-slide-8','show-slide-9');
+    deck.classList.add(`show-slide-${num}`);
     window.setTimeout(() => {
       const slide = {5: slideFive, 6: slideSix, 7: slideSeven, 8: slideEight, 9: slideNine}[num];
       slide?.classList.add(readyClass);
     }, reduced ? 20 : 920);
   }
 
+  function transitionToSlideSix() {
+    buildS6Spacetime();
+    deck.classList.add('is-transitioning-s5-s6');
+    window.setTimeout(() => {
+      deck.classList.add('show-slide-6');
+      slideSix?.classList.add('s6-ready');
+    }, reduced ? 20 : 760);
+    window.setTimeout(() => {
+      deck.classList.remove('show-slide-5', 'is-transitioning-s5-s6');
+    }, reduced ? 30 : 1680);
+  }
+
   function reset() {
     window.slides1020Controller?.reset?.();
     deck.classList.remove(
       'show-slide-5','show-slide-6','show-slide-7','show-slide-8','show-slide-9',
-      's59-warp','is-transitioning-to-slide5'
+      's59-warp','is-transitioning-to-slide5','is-transitioning-s5-s6'
     );
-    slideFive?.classList.remove('s5-ready','s5-transition-arrived','s5-beat-1','s5-beat-2','s5-beat-3','s5-beat-4','s5-beat-5');
+    slideFive?.classList.remove('s5-ready','s5-transition-arrived','s5-evidence-reveal','s5-beat-1','s5-beat-2','s5-beat-3','s5-beat-4','s5-beat-5');
     slideSix?.classList.remove('s6-ready','s6-beat-1','s6-beat-2','s6-beat-3','s6-beat-4');
     slideSeven?.classList.remove('s7-ready','s7-beat-1','s7-beat-2','s7-beat-3');
     slideEight?.classList.remove('s8-ready','s8-beat-1','s8-beat-2','s8-beat-3','s8-beat-4');
@@ -9766,7 +10332,7 @@ window.addEventListener('load', () => {
   }
 
   function jumpToSlideFiveStart() { reset(); deck.classList.add('show-slide-5'); slideFive.classList.add('s5-ready'); }
-  function jumpToSlideSixStart() { reset(); deck.classList.add('show-slide-6'); slideSix.classList.add('s6-ready'); }
+  function jumpToSlideSixStart() { reset(); buildS6Spacetime(); deck.classList.add('show-slide-6'); slideSix.classList.add('s6-ready'); }
   function jumpToSlideSevenStart() { reset(); deck.classList.add('show-slide-7'); slideSeven.classList.add('s7-ready'); }
   function jumpToSlideEightStart() { reset(); deck.classList.add('show-slide-8'); slideEight.classList.add('s8-ready'); }
   function jumpToSlideNineStart() { reset(); deck.classList.add('show-slide-9'); slideNine.classList.add('s9-ready'); }
@@ -9779,13 +10345,9 @@ window.addEventListener('load', () => {
   function advance(step) {
     if (step >= 41) { return window.slides1020Controller?.advance?.(step) ?? step; }
     if (step === 16) { transitionToSlide(5, 's5-ready'); return 17; }
-    if (step === 17) { slideFive.classList.add('s5-beat-1'); return 18; }
-    if (step === 18) { slideFive.classList.add('s5-beat-2'); return 19; }
-    if (step === 19) { slideFive.classList.add('s5-beat-3'); return 20; }
-    if (step === 20) { slideFive.classList.add('s5-beat-4'); return 21; }
-    if (step === 21) { slideFive.classList.add('s5-beat-5'); return 22; }
+    if (step === 17) { slideFive.classList.add('s5-evidence-reveal','s5-beat-5'); return 22; }
 
-    if (step === 22) { transitionToSlide(6, 's6-ready'); return 23; }
+    if (step === 22) { transitionToSlideSix(); return 23; }
     if (step === 23) { slideSix.classList.add('s6-beat-1'); return 24; }
     if (step === 24) { slideSix.classList.add('s6-beat-2'); return 25; }
     if (step === 25) { slideSix.classList.add('s6-beat-3'); return 26; }
@@ -9813,6 +10375,7 @@ window.addEventListener('load', () => {
   function init() {
     buildMiniRotation();
     buildEvidenceLines();
+    buildS6Spacetime();
     buildS6Halos();
     buildS7Halos();
     buildS8Dots();
