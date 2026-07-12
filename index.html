@@ -6598,6 +6598,941 @@ body {
 }
 </style>
 
+
+<style>
+/* ===== Slides 5–6 final cinematic reconstruction ===== */
+
+/* ---------- Slide 5 ---------- */
+.slide-five,
+.slide-six {
+  background: #000 !important;
+}
+
+.slide-five .s5-canvas,
+.slide-six .s6-web-canvas,
+.slide-six .s59-bg,
+.slide-five .s59-bg {
+  display: none !important;
+}
+
+.s5-black-bg,
+.s6-black-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+}
+
+/* Exact Slide 4 graph clone: force the observed points and both requested curves visible. */
+#s5MiniRotation .s5-cloned-rotation-graph,
+#s5MiniRotation .s4-graph {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+  background: #f3f5fb;
+}
+
+#s5MiniRotation .s4-line,
+#s5MiniRotation .s4-line-glow,
+#s5MiniRotation .s4-data-point,
+#s5MiniRotation .s4-error-bar,
+#s5MiniRotation .s4-gap-marker,
+#s5MiniRotation .s4-legend-item {
+  display: initial !important;
+  opacity: 1 !important;
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+#s5MiniRotation .s4-line-halo,
+#s5MiniRotation .s4-line-glow.s4-line-halo,
+#s5MiniRotation .legend-halo {
+  display: none !important;
+}
+
+#s5MiniRotation .s4-line-disk {
+  stroke: rgba(10,12,20,.94) !important;
+  stroke-width: 5.2 !important;
+}
+
+#s5MiniRotation .s4-line-fit {
+  stroke: #064cff !important;
+  stroke-width: 5.8 !important;
+}
+
+#s5MiniRotation .s4-data-point {
+  fill: #ff1c1c !important;
+  stroke: #fff !important;
+}
+
+#s5MiniRotation .s4-label,
+#s5MiniRotation .s4-tick-label,
+#s5MiniRotation .s4-legend-label {
+  opacity: 1 !important;
+}
+
+.s5-evidence-card {
+  width: clamp(210px, 22vw, 360px) !important;
+  height: clamp(142px, 15.6vw, 250px) !important;
+  border-radius: 25px !important;
+  background: linear-gradient(145deg, rgba(8,16,35,.88), rgba(1,3,10,.96)) !important;
+  border: 1px solid rgba(169,220,255,.24) !important;
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.72),
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    inset 0 0 50px rgba(92,164,255,.055) !important;
+}
+
+.s5-evidence-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.s5-card-spectrum img {
+  object-position: center;
+  filter: contrast(1.08) saturate(1.08) brightness(.96) !important;
+}
+
+.s5-evidence-card figcaption {
+  text-transform: lowercase;
+  letter-spacing: .07em !important;
+  background: rgba(0,0,0,.66) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+
+.s5-core-halo.s5-core-gravity {
+  position: absolute;
+  left: 50%;
+  top: 51.5%;
+  width: min(39vw, 510px);
+  height: min(30vw, 390px);
+  aspect-ratio: auto;
+  z-index: 9;
+  display: block;
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(.52) perspective(1100px) rotateX(7deg);
+  filter: blur(10px) brightness(.48);
+}
+
+.slide-five.s5-evidence-reveal .s5-core-halo.s5-core-gravity,
+.slide-five.s5-beat-5 .s5-core-halo.s5-core-gravity {
+  animation: s5GravityCoreResolve 1450ms 1880ms cubic-bezier(.16,.84,.22,1) forwards !important;
+}
+
+@keyframes s5GravityCoreResolve {
+  0% {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(.52) perspective(1100px) rotateX(7deg);
+    filter: blur(10px) brightness(.48);
+  }
+  68% {
+    opacity: 1;
+    filter: blur(0) brightness(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(1) perspective(1100px) rotateX(7deg);
+    filter: blur(0) brightness(1);
+  }
+}
+
+.s5-core-gravity-svg {
+  position: absolute;
+  inset: -10% -8% -14%;
+  width: 116%;
+  height: 124%;
+  overflow: visible;
+  filter: drop-shadow(0 28px 32px rgba(0,0,0,.76));
+  transform: perspective(1000px) rotateX(13deg);
+  transform-origin: center 58%;
+}
+
+.s5-core-grid-line {
+  fill: none;
+  stroke: rgba(155,224,255,.38);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: .88;
+  filter: url(#s5GravityGlow);
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+}
+
+.s5-core-grid-line.major {
+  stroke: rgba(220,247,255,.62);
+  stroke-width: 1.42;
+}
+
+.slide-five.s5-evidence-reveal .s5-core-grid-line,
+.slide-five.s5-beat-5 .s5-core-grid-line {
+  animation: s5GravityGridDraw 1450ms cubic-bezier(.16,.84,.22,1) calc(1980ms + var(--i) * 19ms) forwards;
+}
+
+@keyframes s5GravityGridDraw {
+  0% { opacity: 0; stroke-dashoffset: 760; }
+  30% { opacity: .92; }
+  100% { opacity: .88; stroke-dashoffset: 0; }
+}
+
+.s5-gravity-depth-shadow {
+  fill: url(#s5GravityWell);
+  opacity: .96;
+  filter: drop-shadow(0 28px 24px rgba(0,0,0,.86));
+}
+
+.s5-core-depth-contours {
+  fill: none;
+  stroke: rgba(129,205,255,.32);
+  stroke-width: 1.2;
+  filter: url(#s5GravityGlow);
+}
+
+.s5-core-depth-contours ellipse:nth-child(2) { stroke: rgba(170,225,255,.42); }
+.s5-core-depth-contours ellipse:nth-child(3) { stroke: rgba(233,250,255,.62); }
+
+.s5-gravity-horizon {
+  fill: #000;
+  stroke: rgba(229,248,255,.64);
+  stroke-width: 1.1;
+  filter: url(#s5GravityGlow);
+}
+
+.s5-core-word {
+  position: absolute !important;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%,-50%);
+  z-index: 5;
+  width: 76%;
+  max-width: none !important;
+  color: rgba(255,250,236,.98) !important;
+  font-size: clamp(15px, 1.45vw, 25px) !important;
+  line-height: 1.22 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow:
+    0 3px 8px #000,
+    0 0 22px rgba(110,194,255,.72),
+    0 0 54px rgba(70,130,255,.36) !important;
+}
+
+/* Slide 5 -> 6: the exact central gravity surface grows into the full universe grid. */
+.s56-geometry-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 96;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.s56-transition-void,
+.s56-transition-flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.s56-transition-void {
+  background: radial-gradient(circle at 50% 51%, rgba(25,74,128,.16), #000 62%);
+}
+
+.s56-transition-flash {
+  background: radial-gradient(circle at 50% 51%, rgba(220,247,255,.22), rgba(82,167,255,.10) 15%, transparent 42%);
+  mix-blend-mode: screen;
+}
+
+.s56-morph-shell {
+  position: absolute;
+  left: var(--s56-left, 40vw);
+  top: var(--s56-top, 35vh);
+  width: var(--s56-width, 20vw);
+  height: var(--s56-height, 20vh);
+  overflow: visible;
+  transform-origin: center;
+  filter: drop-shadow(0 32px 42px rgba(0,0,0,.8));
+}
+
+.s56-morph-shell svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.s56-morph-shell .s5-core-grid-line {
+  opacity: .92 !important;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+  animation: none !important;
+}
+
+.deck.is-transitioning-s5-s6 .s56-geometry-transition { opacity: 1; animation: none !important; }
+.deck.is-transitioning-s5-s6 .s56-transition-void { animation: s56VoidIn 2450ms cubic-bezier(.16,.84,.22,1) forwards; }
+.deck.is-transitioning-s5-s6 .s56-transition-flash { animation: s56Flash 2100ms cubic-bezier(.16,.84,.22,1) forwards; }
+.deck.is-transitioning-s5-s6 .s56-morph-shell { animation: s56CoreBecomesUniverse 2400ms cubic-bezier(.16,.84,.22,1) forwards; }
+
+@keyframes s56VoidIn {
+  0% { opacity: 0; }
+  24% { opacity: .76; }
+  100% { opacity: 0; }
+}
+
+@keyframes s56Flash {
+  0%, 34% { opacity: 0; transform: scale(.35); }
+  55% { opacity: .75; }
+  100% { opacity: 0; transform: scale(2.2); filter: blur(20px); }
+}
+
+@keyframes s56CoreBecomesUniverse {
+  0% {
+    left: var(--s56-left);
+    top: var(--s56-top);
+    width: var(--s56-width);
+    height: var(--s56-height);
+    opacity: 1;
+    transform: perspective(1200px) rotateX(7deg) scale(1);
+    filter: blur(0) brightness(1);
+  }
+  58% {
+    opacity: 1;
+    filter: blur(0) brightness(1.18);
+  }
+  86% {
+    left: -3vw;
+    top: -5vh;
+    width: 106vw;
+    height: 110vh;
+    opacity: .92;
+    transform: perspective(1600px) rotateX(0deg) scale(1);
+    filter: blur(.3px) brightness(.82);
+  }
+  100% {
+    left: -3vw;
+    top: -5vh;
+    width: 106vw;
+    height: 110vh;
+    opacity: 0;
+    transform: perspective(1600px) rotateX(0deg) scale(1.02);
+    filter: blur(7px) brightness(.52);
+  }
+}
+
+.deck.is-transitioning-s5-s6 #slideFive {
+  animation: s56SlideFiveOutFinal 2250ms cubic-bezier(.16,.84,.22,1) forwards !important;
+}
+
+.deck.is-transitioning-s5-s6 #slideSix {
+  z-index: 46;
+  opacity: 1;
+  pointer-events: none;
+  transform: scale(1);
+  filter: none;
+  animation: s56SlideSixInFinal 2400ms cubic-bezier(.16,.84,.22,1) forwards !important;
+}
+
+@keyframes s56SlideFiveOutFinal {
+  0%, 25% { opacity: 1; filter: blur(0) brightness(1); }
+  100% { opacity: 0; filter: blur(18px) brightness(.18); transform: scale(.975); }
+}
+
+@keyframes s56SlideSixInFinal {
+  0%, 38% { opacity: 0; filter: blur(16px) brightness(.25); transform: scale(1.035); }
+  100% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1); }
+}
+
+/* ---------- Slide 6 ---------- */
+.slide-six {
+  background: #000 !important;
+}
+
+.s6-spacetime-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  background: #000;
+  perspective: 1600px;
+}
+
+.s6-spacetime-svg {
+  position: absolute;
+  inset: -3vh -3vw;
+  width: 106vw;
+  height: 106vh;
+  overflow: visible;
+  transform: perspective(1500px) rotateX(3deg);
+  transform-origin: center 55%;
+}
+
+.s6-grid-flat,
+.s6-grid-plane,
+.s6-funnel-layer {
+  transform-box: view-box;
+  transform-origin: 800px 455px;
+}
+
+.s6-flat-line,
+.s6-grid-line {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: url(#s6GridGlow);
+}
+
+.s6-flat-line {
+  stroke: rgba(137,205,238,.25);
+  stroke-width: .95;
+  opacity: 0;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+}
+
+.s6-flat-line.major {
+  stroke: rgba(205,241,255,.42);
+  stroke-width: 1.25;
+}
+
+.s6-grid-line {
+  stroke: rgba(127,206,245,.34);
+  stroke-width: 1.02;
+  opacity: 0;
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
+
+.s6-grid-line.major {
+  stroke: rgba(220,247,255,.54);
+  stroke-width: 1.35;
+}
+
+.s6-warp-ring {
+  fill: none !important;
+  opacity: 0 !important;
+}
+
+.s6-warp-contour {
+  fill: none;
+  stroke: rgba(139,215,248,.20);
+  stroke-width: 1.08;
+  filter: url(#s6GridGlow);
+  opacity: 0 !important;
+}
+
+.s6-warp-core {
+  fill: none !important;
+  stroke: none !important;
+  opacity: 0 !important;
+}
+
+.s6-singularity {
+  opacity: 0;
+  fill: rgba(255,247,222,.98);
+  filter: url(#s6GridGlow);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.s6-galaxy-field,
+.s6-ghost-galaxy-field {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.s6-ghost-galaxy-field { z-index: 8; }
+
+.s6-galaxy,
+.s6-ghost-galaxy {
+  position: absolute;
+  left: var(--gx);
+  top: var(--gy);
+  width: var(--gsize);
+  aspect-ratio: 1;
+  transform: translate(-50%,-50%) rotate(var(--tilt)) scale(.18);
+  opacity: 0;
+  will-change: transform, opacity, filter, left, top, width;
+}
+
+.s6-galaxy img,
+.s6-ghost-galaxy img {
+  position: absolute;
+  inset: -16%;
+  width: 132%;
+  height: 132%;
+  object-fit: cover;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle, #000 0 42%, rgba(0,0,0,.88) 60%, transparent 82%);
+  mask-image: radial-gradient(circle, #000 0 42%, rgba(0,0,0,.88) 60%, transparent 82%);
+}
+
+.s6-galaxy img {
+  filter: brightness(var(--brightness,1.08)) contrast(1.18) saturate(var(--sat,1.15)) hue-rotate(var(--hue,0deg));
+  animation: s6GalaxySlowTurn var(--spin,24s) linear infinite;
+}
+
+.s6-galaxy::after,
+.s6-ghost-galaxy::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20%;
+  aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,252,224,.95), rgba(255,199,122,.50) 35%, transparent 72%);
+  box-shadow: 0 0 18px rgba(255,225,165,.62), 0 0 44px rgba(104,176,255,.26);
+  mix-blend-mode: screen;
+}
+
+.s6-galaxy.edge-on {
+  transform: translate(-50%,-50%) rotate(var(--tilt)) scaleY(.52) scale(.18);
+}
+
+.s6-galaxy.edge-on img {
+  border-radius: 48%;
+  filter: brightness(1.18) contrast(1.26) saturate(1.05) hue-rotate(var(--hue,0deg));
+}
+
+@keyframes s6GalaxySlowTurn {
+  from { transform: rotate(-1deg) scale(1.03); }
+  to { transform: rotate(4deg) scale(1.12); }
+}
+
+.s6-ghost-galaxy {
+  left: var(--from-x);
+  top: var(--from-y);
+  width: var(--from-size);
+  opacity: 0;
+}
+
+.s6-ghost-galaxy img {
+  filter: grayscale(.55) brightness(1.45) contrast(1.22) saturate(.65) hue-rotate(155deg);
+  opacity: .62;
+}
+
+.s6-ghost-galaxy::after {
+  opacity: .55;
+  background: radial-gradient(circle, rgba(221,250,255,.92), rgba(92,199,255,.35) 42%, transparent 72%);
+}
+
+/* Entrance: a flat expanding grid develops bends exactly where visible galaxies appear. */
+.slide-six.s6-ready:not(.s6-beat-1) .s6-grid-flat {
+  animation: s6FlatUniverseExpand 2300ms cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.slide-six.s6-ready:not(.s6-beat-1) .s6-flat-line {
+  animation: s6FlatLineDraw 1850ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 16ms) both !important;
+}
+
+.slide-six.s6-ready:not(.s6-beat-1) .s6-grid-plane,
+.slide-six.s6-ready:not(.s6-beat-1) .s6-funnel-layer {
+  animation: s6CurvatureResolve 1500ms 1150ms cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.slide-six.s6-ready:not(.s6-beat-1) .s6-grid-line {
+  animation: s6WarpLineResolve 1300ms 1120ms ease both !important;
+}
+
+.slide-six.s6-ready:not(.s6-beat-1) .s6-galaxy {
+  animation: s6GalaxyArrive 1100ms cubic-bezier(.16,.84,.22,1) calc(1450ms + var(--delay)) both !important;
+}
+
+@keyframes s6FlatUniverseExpand {
+  0% { transform: scale(.035); filter: blur(12px); opacity: .1; }
+  66% { filter: blur(.4px); opacity: 1; }
+  100% { transform: scale(1); filter: blur(0); opacity: .32; }
+}
+
+@keyframes s6FlatLineDraw {
+  0% { opacity: 0; stroke-dashoffset: 1600; }
+  40% { opacity: .72; }
+  100% { opacity: .32; stroke-dashoffset: 0; }
+}
+
+@keyframes s6CurvatureResolve {
+  0% { opacity: 0; transform: scale(.96); filter: blur(11px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes s6WarpLineResolve {
+  from { opacity: 0; }
+  to { opacity: .94; }
+}
+
+@keyframes s6GalaxyArrive {
+  0% { opacity: 0; transform: translate(-50%,-50%) rotate(var(--tilt)) scale(.12); filter: blur(12px) brightness(.45); }
+  70% { opacity: 1; filter: blur(0) brightness(1.18); }
+  100% { opacity: var(--alpha,.96); transform: translate(-50%,-50%) rotate(var(--tilt)) scale(1); filter: blur(0) brightness(1); }
+}
+
+.slide-six.s6-ready:not(.s6-beat-1) .s6-galaxy.edge-on {
+  animation-name: s6GalaxyArriveEdge !important;
+}
+
+@keyframes s6GalaxyArriveEdge {
+  0% { opacity: 0; transform: translate(-50%,-50%) rotate(var(--tilt)) scaleY(.52) scale(.12); filter: blur(12px); }
+  100% { opacity: var(--alpha,.96); transform: translate(-50%,-50%) rotate(var(--tilt)) scaleY(.52) scale(1); filter: blur(0); }
+}
+
+/* Click 1: rewind — galaxies, bends, and geometry collapse toward one early point. */
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-grid-flat,
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-grid-plane,
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-funnel-layer {
+  animation: s6UniverseRewind 2600ms cubic-bezier(.22,.72,.14,1) both !important;
+}
+
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-flat-line,
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-grid-line {
+  animation: s6LineRewind 2400ms cubic-bezier(.22,.72,.14,1) both !important;
+}
+
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-galaxy {
+  animation: s6GalaxyRewind 2350ms cubic-bezier(.22,.72,.14,1) calc(var(--delay) * .18) both !important;
+}
+
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-singularity {
+  animation: s6OriginPulse 2600ms cubic-bezier(.22,.72,.14,1) both !important;
+}
+
+@keyframes s6UniverseRewind {
+  0% { opacity: 1; transform: scale(1); filter: blur(0); }
+  68% { opacity: .78; transform: scale(.21); filter: blur(3px); }
+  100% { opacity: 0; transform: scale(.018); filter: blur(14px); }
+}
+
+@keyframes s6LineRewind {
+  0% { opacity: .94; }
+  65% { opacity: .65; }
+  100% { opacity: 0; }
+}
+
+@keyframes s6GalaxyRewind {
+  0% { opacity: var(--alpha,.96); transform: translate(-50%,-50%) rotate(var(--tilt)) scale(1); filter: blur(0) brightness(1); }
+  70% { opacity: 1; filter: blur(0) brightness(1.5); }
+  100% { left: 50%; top: 50.6%; opacity: 0; transform: translate(-50%,-50%) rotate(0deg) scale(.045); filter: blur(8px) brightness(2); }
+}
+
+@keyframes s6OriginPulse {
+  0%, 34% { opacity: 0; transform: scale(.1); }
+  68% { opacity: 1; transform: scale(10); }
+  100% { opacity: .92; transform: scale(.7); }
+}
+
+/* Click 2: Parameter 1 grows a universe forward again. */
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-grid-flat {
+  animation: s6ParameterOneFlat 2100ms cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-grid-plane,
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-funnel-layer {
+  animation: s6ParameterOneWarp 1800ms 820ms cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-flat-line {
+  animation: s6FlatLineDraw 1500ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 12ms) both !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-grid-line {
+  animation: s6WarpLineResolve 1100ms 820ms ease both !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-galaxy {
+  animation: s6GalaxyArrive 1000ms cubic-bezier(.16,.84,.22,1) calc(1150ms + var(--delay)) both !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-galaxy.edge-on {
+  animation-name: s6GalaxyArriveEdge !important;
+}
+
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-singularity {
+  animation: s6OriginFade 700ms ease both !important;
+}
+
+@keyframes s6ParameterOneFlat {
+  from { opacity: 0; transform: scale(.018); filter: blur(14px); }
+  to { opacity: .28; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes s6ParameterOneWarp {
+  from { opacity: 0; transform: scale(.78); filter: blur(12px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes s6OriginFade {
+  from { opacity: .9; transform: scale(.7); }
+  to { opacity: 0; transform: scale(5); }
+}
+
+/* Persistent present-day geometry for beats 3 and 4. */
+.slide-six.s6-beat-3 .s6-grid-flat,
+.slide-six.s6-beat-4 .s6-grid-flat { opacity: .28; transform: scale(1); filter: none; animation: none !important; }
+.slide-six.s6-beat-3 .s6-grid-plane,
+.slide-six.s6-beat-4 .s6-grid-plane,
+.slide-six.s6-beat-3 .s6-funnel-layer,
+.slide-six.s6-beat-4 .s6-funnel-layer { opacity: 1; transform: scale(1); filter: none; animation: none !important; }
+.slide-six.s6-beat-3 .s6-flat-line,
+.slide-six.s6-beat-4 .s6-flat-line { opacity: .28; stroke-dashoffset: 0; animation: none !important; }
+.slide-six.s6-beat-3 .s6-grid-line,
+.slide-six.s6-beat-4 .s6-grid-line { opacity: .94; animation: none !important; }
+.slide-six.s6-beat-3 .s6-galaxy,
+.slide-six.s6-beat-4 .s6-galaxy { opacity: var(--alpha,.96); transform: translate(-50%,-50%) rotate(var(--tilt)) scale(1); filter: none; animation: none !important; }
+.slide-six.s6-beat-3 .s6-galaxy.edge-on,
+.slide-six.s6-beat-4 .s6-galaxy.edge-on { transform: translate(-50%,-50%) rotate(var(--tilt)) scaleY(.52) scale(1); }
+.slide-six.s6-beat-3 .s6-singularity,
+.slide-six.s6-beat-4 .s6-singularity { opacity: 0; animation: none !important; }
+
+/* Click 3: a ghost second parameter set changes positions, sizes, and number of galaxies. */
+.slide-six.s6-beat-3:not(.s6-beat-4) .s6-ghost-galaxy {
+  animation: s6GhostParameterMorph 1900ms cubic-bezier(.16,.84,.22,1) var(--delay) both;
+}
+
+.slide-six.s6-beat-3:not(.s6-beat-4) .s6-galaxy {
+  opacity: .35;
+  filter: saturate(.45) brightness(.72);
+  transition: opacity 650ms ease, filter 650ms ease;
+}
+
+@keyframes s6GhostParameterMorph {
+  0% {
+    left: var(--from-x);
+    top: var(--from-y);
+    width: var(--from-size);
+    opacity: 0;
+    transform: translate(-50%,-50%) rotate(var(--from-tilt)) scale(.52);
+    filter: blur(8px);
+  }
+  28% { opacity: .78; filter: blur(0); }
+  100% {
+    left: var(--gx);
+    top: var(--gy);
+    width: var(--gsize);
+    opacity: .62;
+    transform: translate(-50%,-50%) rotate(var(--tilt)) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Click 4: selected galaxies disappear, but the already-deformed spacetime grid does not move. */
+.slide-six.s6-beat-4 .s6-ghost-galaxy-field {
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.slide-six.s6-beat-4 .s6-galaxy.removable {
+  animation: s6GalaxyRemoved 1250ms cubic-bezier(.16,.84,.22,1) calc(var(--remove-delay)) both !important;
+}
+
+.slide-six.s6-beat-4 .s6-galaxy:not(.removable) {
+  animation: s6RemainingGalaxyFocus 900ms ease both !important;
+}
+
+@keyframes s6GalaxyRemoved {
+  0% { opacity: var(--alpha,.96); filter: blur(0) brightness(1); }
+  55% { opacity: .28; filter: blur(2px) brightness(.65); }
+  100% { opacity: 0; transform: translate(-50%,-50%) rotate(var(--tilt)) scale(.22); filter: blur(12px) brightness(.25); }
+}
+
+@keyframes s6RemainingGalaxyFocus {
+  from { opacity: .74; filter: brightness(.84); }
+  to { opacity: 1; filter: brightness(1.08); }
+}
+
+/* Minimal parameter labels and animated time direction. */
+.s6-parameter-cue {
+  position: absolute;
+  top: 6.2vh;
+  z-index: 12;
+  min-width: 230px;
+  padding: 15px 18px;
+  border-radius: 18px;
+  background: rgba(0,0,0,.66);
+  border: 1px solid rgba(158,220,255,.22);
+  box-shadow: 0 18px 55px rgba(0,0,0,.48), inset 0 0 30px rgba(82,157,255,.06);
+  opacity: 0;
+  transform: translateY(-14px);
+  backdrop-filter: blur(14px);
+}
+
+.s6-parameter-one { left: 5.5vw; }
+.s6-parameter-two { right: 5.5vw; }
+
+.s6-parameter-cue small {
+  display: block;
+  color: rgba(180,226,255,.86);
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-weight: 800;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.s6-parameter-cue b {
+  color: rgba(255,249,232,.94);
+  font-weight: 560;
+  font-family: Georgia, serif;
+  font-size: clamp(18px,1.35vw,24px);
+}
+
+.slide-six.s6-beat-2 .s6-parameter-one,
+.slide-six.s6-beat-3 .s6-parameter-one,
+.slide-six.s6-beat-4 .s6-parameter-one {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 700ms 450ms ease, transform 800ms 450ms cubic-bezier(.16,.84,.22,1);
+}
+
+.slide-six.s6-beat-3 .s6-parameter-one,
+.slide-six.s6-beat-4 .s6-parameter-one { opacity: .34; }
+
+.slide-six.s6-beat-3 .s6-parameter-two,
+.slide-six.s6-beat-4 .s6-parameter-two {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 700ms 280ms ease, transform 800ms 280ms cubic-bezier(.16,.84,.22,1);
+}
+
+.slide-six.s6-beat-4 .s6-parameter-two { opacity: .46; }
+
+.s6-time-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 5.7vh;
+  z-index: 13;
+  width: min(74vw, 980px);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+  opacity: 0;
+  color: rgba(207,235,249,.62);
+  text-transform: uppercase;
+  letter-spacing: .17em;
+  font-size: clamp(9px,.7vw,12px);
+}
+
+.slide-six.s6-ready .s6-time-arrow {
+  opacity: 1;
+  transition: opacity 800ms 1000ms ease;
+}
+
+.s6-time-track {
+  position: relative;
+  height: 2px;
+  background: rgba(133,204,238,.18);
+  box-shadow: 0 0 18px rgba(71,160,220,.18);
+}
+
+.s6-time-track::before {
+  content: "";
+  position: absolute;
+  inset: -5px 0;
+  background: repeating-linear-gradient(90deg, rgba(187,228,247,.34) 0 1px, transparent 1px 9.8%);
+  opacity: .52;
+}
+
+.s6-time-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(255,217,148,.68), rgba(116,212,255,.92));
+  box-shadow: 0 0 18px rgba(104,197,255,.42);
+  transform-origin: left center;
+}
+
+.s6-time-scrubber {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  background: #f8fbff;
+  box-shadow: 0 0 18px rgba(122,214,255,.9), 0 0 42px rgba(85,160,255,.48);
+}
+
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-time-scrubber {
+  animation: s6TimeRewind 2400ms cubic-bezier(.22,.72,.14,1) both;
+}
+.slide-six.s6-beat-1:not(.s6-beat-2) .s6-time-progress {
+  animation: s6ProgressRewind 2400ms cubic-bezier(.22,.72,.14,1) both;
+}
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-time-scrubber {
+  animation: s6TimeForward 2100ms cubic-bezier(.16,.84,.22,1) both;
+}
+.slide-six.s6-beat-2:not(.s6-beat-3) .s6-time-progress {
+  animation: s6ProgressForward 2100ms cubic-bezier(.16,.84,.22,1) both;
+}
+.slide-six.s6-beat-3 .s6-time-scrubber,
+.slide-six.s6-beat-4 .s6-time-scrubber { left: 100%; }
+.slide-six.s6-beat-3 .s6-time-progress,
+.slide-six.s6-beat-4 .s6-time-progress { transform: scaleX(1); }
+
+@keyframes s6TimeRewind { from { left:100%; } to { left:0%; } }
+@keyframes s6ProgressRewind { from { transform:scaleX(1); } to { transform:scaleX(.01); } }
+@keyframes s6TimeForward { from { left:0%; } to { left:100%; } }
+@keyframes s6ProgressForward { from { transform:scaleX(.01); } to { transform:scaleX(1); } }
+
+.s6-final-insight {
+  position: absolute;
+  left: 50%;
+  bottom: 10.5vh;
+  z-index: 14;
+  transform: translateX(-50%) translateY(15px);
+  opacity: 0;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(172,224,255,.24);
+  background: rgba(0,0,0,.68);
+  color: rgba(255,249,232,.94);
+  font-size: clamp(13px,1vw,17px);
+  letter-spacing: .05em;
+  box-shadow: 0 16px 50px rgba(0,0,0,.5);
+  backdrop-filter: blur(14px);
+}
+
+.slide-six.s6-beat-4 .s6-final-insight {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 750ms 650ms ease, transform 850ms 650ms cubic-bezier(.16,.84,.22,1);
+}
+
+@media (max-width: 900px) {
+  .s5-core-halo.s5-core-gravity { width: 58vw; height: 43vw; }
+  .s5-core-word { font-size: 13px !important; }
+  .s6-parameter-cue { min-width: 160px; padding: 10px 12px; }
+  .s6-parameter-cue b { font-size: 15px; }
+  .s6-time-arrow { width: 88vw; gap: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s5-core-grid-line,
+  .s6-flat-line,
+  .s6-grid-line,
+  .s6-galaxy,
+  .s6-ghost-galaxy,
+  .s56-morph-shell {
+    animation-duration: .001ms !important;
+  }
+}
+</style>
+
 </head>
 
   <body>
@@ -7030,9 +7965,8 @@ body {
       </div>
 
       <!-- SLIDE 5 -->
-      <section class="slide-five" id="slideFive" aria-label="Multiple evidence streams converge on the same missing gravity">
+      <section class="slide-five" id="slideFive" aria-label="Different observations reveal the same missing gravity">
         <div class="s5-black-bg" aria-hidden="true"></div>
-        <canvas class="s5-canvas" id="s5EvidenceCanvas" aria-hidden="true"></canvas>
 
         <div class="s5-evidence-deck" aria-hidden="true">
           <figure class="s5-evidence-card s5-card-rotation" style="--i:0">
@@ -7056,99 +7990,102 @@ body {
           </figure>
 
           <figure class="s5-evidence-card s5-card-spectrum" style="--i:4">
-            <img src="assets/Beauty.jpg" onerror="this.onerror=null;this.src='assets/hmf-final-graph.png';" alt="" draggable="false" />
-            <figcaption>halo census</figcaption>
+            <img src="assets/Beauty.jpg" onerror="this.onerror=null;this.src='assets/galaxy-main.webp';" alt="" draggable="false" />
+            <figcaption>cosmic structure</figcaption>
           </figure>
         </div>
 
         <svg class="s5-connection-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
           <defs>
-            <filter id="s5LineGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <g id="s5EvidenceLines"></g>
-        </svg>
-
-        <div class="s5-core-halo" aria-hidden="true">
-          <div class="s5-core-lens"></div>
-          <div class="s5-core-ring s5-r1"></div>
-          <div class="s5-core-ring s5-r2"></div>
-          <div class="s5-core-ring s5-r3"></div>
-          <div class="s5-core-word">missing gravity</div>
-        </div>
-      </section>
-
-      <div class="s56-geometry-transition" id="s56GeometryTransition" aria-hidden="true">
-        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <filter id="s56Glow" x="-60%" y="-60%" width="220%" height="220%">
+            <filter id="s5LineGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="4" result="b" />
               <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
             </filter>
           </defs>
-          <g class="s56-rings">
-            <ellipse cx="800" cy="455" rx="120" ry="44" />
-            <ellipse cx="800" cy="455" rx="240" ry="88" />
-            <ellipse cx="800" cy="455" rx="420" ry="154" />
-          </g>
-          <g class="s56-grid-seed">
-            <path d="M 0 450 C 260 430 420 430 800 450 S 1350 470 1600 450" />
-            <path d="M 800 0 C 770 250 770 600 800 900" />
-            <path d="M 260 0 C 315 250 315 650 260 900" />
-            <path d="M 1340 0 C 1285 250 1285 650 1340 900" />
-          </g>
+          <g id="s5EvidenceLines"></g>
         </svg>
+
+        <div class="s5-core-halo s5-core-gravity" id="s5CoreGravity" aria-hidden="true">
+          <svg class="s5-core-gravity-svg" id="s5CoreGravitySurface" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="s5GravityGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="3.2" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <radialGradient id="s5GravityWell" cx="50%" cy="48%" r="53%">
+                <stop offset="0%" stop-color="rgba(0,0,0,1)" />
+                <stop offset="34%" stop-color="rgba(5,11,25,.96)" />
+                <stop offset="64%" stop-color="rgba(61,132,222,.13)" />
+                <stop offset="100%" stop-color="rgba(61,132,222,0)" />
+              </radialGradient>
+            </defs>
+            <ellipse class="s5-gravity-depth-shadow" cx="320" cy="250" rx="138" ry="72" />
+            <g class="s5-core-grid" id="s5CoreGrid"></g>
+            <g class="s5-core-depth-contours">
+              <ellipse cx="320" cy="246" rx="112" ry="43" />
+              <ellipse cx="320" cy="262" rx="79" ry="31" />
+              <ellipse cx="320" cy="278" rx="47" ry="19" />
+            </g>
+            <ellipse class="s5-gravity-horizon" cx="320" cy="291" rx="25" ry="10" />
+          </svg>
+          <div class="s5-core-word">different clues,<br />same missing gravity</div>
+        </div>
+      </section>
+
+      <div class="s56-geometry-transition" id="s56GeometryTransition" aria-hidden="true">
+        <div class="s56-transition-void"></div>
+        <div class="s56-morph-shell" id="s56MorphShell"></div>
+        <div class="s56-transition-flash"></div>
       </div>
 
       <!-- SLIDE 6 -->
-      <section class="slide-six" id="slideSix" aria-label="A halo census rewinds spacetime geometry back toward starting conditions">
+      <section class="slide-six" id="slideSix" aria-label="Rewinding the observed universe and testing different starting parameters">
         <div class="s6-black-bg" aria-hidden="true"></div>
-        <canvas class="s6-web-canvas" id="s6WebCanvas" aria-hidden="true"></canvas>
 
         <div class="s6-spacetime-stage" aria-hidden="true">
           <svg class="s6-spacetime-svg" id="s6SpacetimeSvg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
             <defs>
-              <filter id="s6GridGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3.4" result="b" />
+              <filter id="s6GridGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.8" result="b" />
                 <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
               </filter>
-              <radialGradient id="s6FunnelGlow">
-                <stop offset="0%" stop-color="rgba(0,0,0,1)" />
-                <stop offset="52%" stop-color="rgba(78,157,255,.16)" />
-                <stop offset="100%" stop-color="rgba(78,157,255,0)" />
+              <radialGradient id="s6FunnelGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(0,0,0,.96)" />
+                <stop offset="50%" stop-color="rgba(71,151,236,.13)" />
+                <stop offset="100%" stop-color="rgba(71,151,236,0)" />
               </radialGradient>
             </defs>
+            <g class="s6-grid-flat" id="s6GridFlat"></g>
             <g class="s6-grid-plane" id="s6GridPlane"></g>
             <g class="s6-funnel-layer" id="s6FunnelLayer"></g>
-            <circle class="s6-singularity" cx="800" cy="455" r="12" />
+            <circle class="s6-singularity" cx="800" cy="455" r="9" />
           </svg>
         </div>
 
-        <div class="s6-rewind-label" aria-hidden="true">
-          <span>halo census today</span>
-          <i></i>
-          <span>starting conditions</span>
+        <div class="s6-galaxy-field" id="s6GalaxyField" aria-hidden="true"></div>
+        <div class="s6-ghost-galaxy-field" id="s6GhostGalaxyField" aria-hidden="true"></div>
+
+        <div class="s6-parameter-cue s6-parameter-one" aria-hidden="true">
+          <small>parameter 1</small>
+          <b>one growth history</b>
         </div>
 
-        <div class="s6-parameter-lab" aria-hidden="true">
-          <div class="s6-param-card s6-param-low">
-            <small>recipe A</small>
-            <b>too few halos</b>
-            <div class="s6-mini-grid s6-mini-low"></div>
-          </div>
-          <div class="s6-param-card s6-param-high">
-            <small>recipe B</small>
-            <b>too many halos</b>
-            <div class="s6-mini-grid s6-mini-high"></div>
-          </div>
-          <div class="s6-param-card s6-param-match">
-            <small>matched recipe</small>
-            <b>today’s census fits</b>
-            <div class="s6-mini-grid s6-mini-match"></div>
-          </div>
+        <div class="s6-parameter-cue s6-parameter-two" aria-hidden="true">
+          <small>parameter 2</small>
+          <b>a different census</b>
         </div>
 
-        <div class="s6-origin-core" aria-hidden="true">
-          <span>beginning</span>
+        <div class="s6-time-arrow" aria-hidden="true">
+          <span>early universe</span>
+          <div class="s6-time-track">
+            <i class="s6-time-progress"></i>
+            <b class="s6-time-scrubber"></b>
+          </div>
+          <span>today</span>
+        </div>
+
+        <div class="s6-final-insight" aria-hidden="true">
+          galaxies can fade — spacetime curvature remains
         </div>
       </section>
 
@@ -9918,36 +10855,31 @@ window.addEventListener('load', () => {
     host.innerHTML = '';
 
     const slideFourGraph = document.getElementById('s4Graph');
-    if (slideFourGraph && slideFourGraph.children.length) {
+    if (slideFourGraph) {
       const clone = slideFourGraph.cloneNode(true);
       clone.removeAttribute('id');
       clone.classList.add('s5-cloned-rotation-graph');
       clone.setAttribute('viewBox', '0 0 1200 760');
       clone.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+      clone.querySelectorAll('.s4-line-halo, .s4-line-glow.s4-line-halo, .legend-halo').forEach((node) => node.remove());
+      clone.querySelectorAll('.s4-line, .s4-line-glow, .s4-data-point, .s4-error-bar, .s4-gap-marker, .s4-legend-item').forEach((node) => {
+        node.style.opacity = '1';
+        node.style.strokeDashoffset = '0';
+        node.style.animation = 'none';
+        node.style.transition = 'none';
+      });
+
       host.appendChild(clone);
       return;
     }
-
-    const svg = makeSvg('svg', { viewBox: '0 0 1200 760', preserveAspectRatio: 'xMidYMid meet' });
-    svg.appendChild(makeSvg('rect', { x: '0', y: '0', width: '1200', height: '760', fill: '#f3f5fb' }));
-    svg.appendChild(makeSvg('path', { d: 'M140 85 L140 610 L1070 610', fill: 'none', stroke: 'rgba(12,16,28,.72)', 'stroke-width': '7' }));
-    [215,315,415,515].forEach(y => svg.appendChild(makeSvg('line', { x1: '140', y1: y, x2: '1070', y2: y, stroke: 'rgba(30,42,70,.12)', 'stroke-width': '2' })));
-    const visible = makeSvg('path', { d: 'M140 610 C230 338 340 285 455 346 C610 428 790 505 1070 548', fill: 'none', stroke: 'rgba(10,12,20,.84)', 'stroke-width': '12', 'stroke-dasharray': '35 24', 'stroke-linecap': 'round' });
-    const fit = makeSvg('path', { d: 'M140 610 C210 350 292 225 420 198 C595 160 790 182 1070 190', fill: 'none', stroke: '#064cff', 'stroke-width': '14', 'stroke-linecap': 'round' });
-    svg.appendChild(visible);
-    svg.appendChild(fit);
-    for (let i = 0; i < 22; i += 1) {
-      const x = 170 + i * 40;
-      const y = 195 + Math.sin(i * .67) * 13 + (i < 5 ? 128 - i * 25 : 0);
-      svg.appendChild(makeSvg('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: '10', fill: '#ff1c1c', stroke: 'rgba(255,255,255,.96)', 'stroke-width': '3' }));
-    }
-    host.appendChild(svg);
   }
 
   function buildEvidenceLines() {
     const group = document.getElementById('s5EvidenceLines');
     if (!group) return;
     group.innerHTML = '';
+
     const ends = [
       [300, 405],
       [635, 250],
@@ -9955,78 +10887,215 @@ window.addEventListener('load', () => {
       [448, 720],
       [1136, 720]
     ];
+
     ends.forEach(([x, y], i) => {
       const path = makeSvg('path', {
         class: 's5-evidence-line',
-        d: `M ${x} ${y} C ${(x + 800) / 2} ${y < 500 ? y + 122 : y - 138}, ${(x + 800) / 2} ${y < 500 ? 458 : 602}, 800 505`
+        d: `M ${x} ${y} C ${(x + 800) / 2} ${y < 500 ? y + 122 : y - 138}, ${(x + 800) / 2} ${y < 500 ? 450 : 596}, 800 492`
       });
       path.style.animationDelay = `${i * -0.16}s`;
       group.appendChild(path);
     });
+
+    buildS5GravityCore();
+  }
+
+  function buildS5GravityCore() {
+    const group = document.getElementById('s5CoreGrid');
+    if (!group || group.children.length) return;
+
+    const cx = 320;
+    const cy = 222;
+
+    function warp(x, y) {
+      const nx = (x - cx) / 155;
+      const ny = (y - cy) / 88;
+      const g = Math.exp(-(nx * nx + ny * ny));
+      const pull = g * .18;
+      const px = x + (cx - x) * pull;
+      const py = y + g * 105 + (y - cy) * .055;
+      return [px, py];
+    }
+
+    function pathFrom(points) {
+      return points.map((p, idx) => `${idx ? 'L' : 'M'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+    }
+
+    let index = 0;
+    for (let x = 56; x <= 584; x += 44) {
+      const points = [];
+      for (let y = 46; y <= 380; y += 8) points.push(warp(x, y));
+      const line = makeSvg('path', {
+        class: `s5-core-grid-line ${Math.abs(x - cx) < 4 || index % 3 === 0 ? 'major' : ''}`,
+        d: pathFrom(points)
+      });
+      line.style.setProperty('--i', index++);
+      group.appendChild(line);
+    }
+
+    for (let y = 58; y <= 366; y += 34) {
+      const points = [];
+      for (let x = 46; x <= 594; x += 8) points.push(warp(x, y));
+      const line = makeSvg('path', {
+        class: `s5-core-grid-line ${Math.abs(y - cy) < 5 || index % 3 === 0 ? 'major' : ''}`,
+        d: pathFrom(points)
+      });
+      line.style.setProperty('--i', index++);
+      group.appendChild(line);
+    }
   }
 
   function buildS6Spacetime() {
+    const flat = document.getElementById('s6GridFlat');
     const grid = document.getElementById('s6GridPlane');
     const funnels = document.getElementById('s6FunnelLayer');
-    if (!grid || !funnels || grid.children.length) return;
+    const galaxyField = document.getElementById('s6GalaxyField');
+    const ghostField = document.getElementById('s6GhostGalaxyField');
+    if (!flat || !grid || !funnels || !galaxyField || !ghostField) return;
+    if (grid.children.length && galaxyField.children.length) return;
+
+    flat.innerHTML = '';
+    grid.innerHTML = '';
+    funnels.innerHTML = '';
+    galaxyField.innerHTML = '';
+    ghostField.innerHTML = '';
+
+    const galaxies = [
+      { x: 405, y: 344, size: 11.2, tilt: -18, hue: -10, sat: 1.16, alpha: .98, delay: 0, remove: false },
+      { x: 625, y: 520, size: 7.8, tilt: 26, hue: 18, sat: 1.04, alpha: .92, delay: 120, remove: true, edge: true },
+      { x: 824, y: 302, size: 13.4, tilt: 7, hue: -22, sat: 1.24, alpha: 1, delay: 230, remove: false },
+      { x: 1044, y: 495, size: 9.5, tilt: -31, hue: 28, sat: 1.08, alpha: .94, delay: 330, remove: true },
+      { x: 1215, y: 350, size: 6.8, tilt: 18, hue: 5, sat: 1.18, alpha: .90, delay: 450, remove: true, edge: true },
+      { x: 530, y: 664, size: 6.4, tilt: -7, hue: -28, sat: 1.30, alpha: .88, delay: 570, remove: false },
+      { x: 930, y: 674, size: 8.2, tilt: 34, hue: 14, sat: 1.06, alpha: .94, delay: 680, remove: false },
+      { x: 1280, y: 650, size: 5.6, tilt: -24, hue: -4, sat: 1.22, alpha: .86, delay: 790, remove: true }
+    ];
+
+    const ghostGalaxies = [
+      { from: 0, x: 335, y: 310, size: 8.0, tilt: -28, delay: 0 },
+      { from: 1, x: 570, y: 462, size: 11.4, tilt: 17, delay: 80 },
+      { from: 2, x: 770, y: 255, size: 8.9, tilt: -5, delay: 160 },
+      { from: 3, x: 1010, y: 430, size: 13.8, tilt: -39, delay: 240 },
+      { from: 4, x: 1272, y: 300, size: 9.4, tilt: 24, delay: 320 },
+      { from: 5, x: 460, y: 690, size: 9.2, tilt: -12, delay: 400 },
+      { from: 6, x: 850, y: 640, size: 5.5, tilt: 42, delay: 480 },
+      { from: 7, x: 1190, y: 690, size: 8.6, tilt: -17, delay: 560 },
+      { from: 2, x: 670, y: 360, size: 5.2, tilt: 14, delay: 640 },
+      { from: 3, x: 1115, y: 590, size: 6.6, tilt: -4, delay: 720 },
+      { from: 0, x: 1375, y: 505, size: 4.8, tilt: 31, delay: 800 }
+    ];
 
     const verticals = [];
-    for (let x = -160; x <= 1760; x += 80) verticals.push(x);
+    for (let x = -160; x <= 1760; x += 72) verticals.push(x);
     const horizontals = [];
-    for (let y = -80; y <= 980; y += 56) horizontals.push(y);
+    for (let y = -90; y <= 990; y += 48) horizontals.push(y);
 
-    function warpPoint(x, y) {
-      const wells = [
-        { x: 520, y: 430, a: 82, sx: 170, sy: 125 },
-        { x: 905, y: 515, a: 118, sx: 215, sy: 145 },
-        { x: 1115, y: 350, a: 58, sx: 135, sy: 105 },
-        { x: 720, y: 305, a: 48, sx: 125, sy: 95 }
-      ];
-      let dx = 0;
-      let dy = 0;
-      wells.forEach(w => {
-        const nx = (x - w.x) / w.sx;
-        const ny = (y - w.y) / w.sy;
-        const g = Math.exp(-(nx * nx + ny * ny));
-        dx += (w.x - x) * g * 0.052;
-        dy += g * w.a;
-      });
-      const perspective = (y - 455) * .08;
-      return [x + dx, y + dy + perspective];
+    function flatPoint(x, y) {
+      return [x, y + (y - 455) * .075];
     }
 
-    function curveThrough(points) {
-      return points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+    function warpPoint(x, y) {
+      let dx = 0;
+      let dy = (y - 455) * .075;
+      galaxies.forEach((g) => {
+        const sx = 84 + g.size * 7.8;
+        const sy = 58 + g.size * 5.2;
+        const nx = (x - g.x) / sx;
+        const ny = (y - g.y) / sy;
+        const falloff = Math.exp(-(nx * nx + ny * ny));
+        dx += (g.x - x) * falloff * .044;
+        dy += falloff * (30 + g.size * 5.4);
+      });
+      return [x + dx, y + dy];
+    }
+
+    function pathFrom(points) {
+      return points.map((p, i) => `${i ? 'L' : 'M'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
     }
 
     let index = 0;
     verticals.forEach((x) => {
-      const pts = [];
-      for (let y = -80; y <= 980; y += 18) pts.push(warpPoint(x, y));
-      const path = makeSvg('path', { class: `s6-grid-line ${Math.abs(x - 800) < 5 || x % 240 === 0 ? 'major' : ''}`, d: curveThrough(pts) });
-      path.style.setProperty('--i', index++);
-      grid.appendChild(path);
-    });
-    horizontals.forEach((y) => {
-      const pts = [];
-      for (let x = -160; x <= 1760; x += 22) pts.push(warpPoint(x, y));
-      const path = makeSvg('path', { class: `s6-grid-line ${Math.abs(y - 455) < 6 || y % 168 === 0 ? 'major' : ''}`, d: curveThrough(pts) });
-      path.style.setProperty('--i', index++);
-      grid.appendChild(path);
+      const flatPts = [];
+      const warpPts = [];
+      for (let y = -90; y <= 990; y += 14) {
+        flatPts.push(flatPoint(x, y));
+        warpPts.push(warpPoint(x, y));
+      }
+      const major = Math.abs(x - 800) < 8 || index % 4 === 0;
+      const flatPath = makeSvg('path', { class: `s6-flat-line ${major ? 'major' : ''}`, d: pathFrom(flatPts) });
+      const warpPath = makeSvg('path', { class: `s6-grid-line ${major ? 'major' : ''}`, d: pathFrom(warpPts) });
+      flatPath.style.setProperty('--i', index);
+      warpPath.style.setProperty('--i', index);
+      flat.appendChild(flatPath);
+      grid.appendChild(warpPath);
+      index += 1;
     });
 
-    const wells = [
-      { x: 520, y: 505, rx: 108, ry: 32, core: 18 },
-      { x: 905, y: 605, rx: 156, ry: 44, core: 25 },
-      { x: 1115, y: 405, rx: 85, ry: 24, core: 14 },
-      { x: 720, y: 365, rx: 72, ry: 20, core: 12 }
-    ];
-    wells.forEach((w) => {
-      const g = makeSvg('g', { class: 's6-warp-well' });
-      g.appendChild(makeSvg('ellipse', { class: 's6-warp-ring', cx: w.x, cy: w.y, rx: w.rx, ry: w.ry }));
-      [0.72, 0.48, 0.27].forEach((s) => g.appendChild(makeSvg('ellipse', { class: 's6-warp-contour', cx: w.x, cy: w.y, rx: (w.rx * s).toFixed(1), ry: (w.ry * s).toFixed(1) })));
-      g.appendChild(makeSvg('circle', { class: 's6-warp-core', cx: w.x, cy: w.y, r: w.core }));
-      funnels.appendChild(g);
+    horizontals.forEach((y) => {
+      const flatPts = [];
+      const warpPts = [];
+      for (let x = -160; x <= 1760; x += 16) {
+        flatPts.push(flatPoint(x, y));
+        warpPts.push(warpPoint(x, y));
+      }
+      const major = Math.abs(y - 455) < 8 || index % 4 === 0;
+      const flatPath = makeSvg('path', { class: `s6-flat-line ${major ? 'major' : ''}`, d: pathFrom(flatPts) });
+      const warpPath = makeSvg('path', { class: `s6-grid-line ${major ? 'major' : ''}`, d: pathFrom(warpPts) });
+      flatPath.style.setProperty('--i', index);
+      warpPath.style.setProperty('--i', index);
+      flat.appendChild(flatPath);
+      grid.appendChild(warpPath);
+      index += 1;
+    });
+
+    galaxies.forEach((g, i) => {
+      const well = makeSvg('g', { class: 's6-warp-well' });
+      const rx = 52 + g.size * 5.6;
+      const ry = 18 + g.size * 2.0;
+      well.appendChild(makeSvg('ellipse', { class: 's6-warp-ring', cx: g.x, cy: g.y + 42, rx: rx.toFixed(1), ry: ry.toFixed(1) }));
+      [0.70, 0.45, 0.24].forEach((scale) => {
+        well.appendChild(makeSvg('ellipse', {
+          class: 's6-warp-contour',
+          cx: g.x,
+          cy: g.y + 42,
+          rx: (rx * scale).toFixed(1),
+          ry: (ry * scale).toFixed(1)
+        }));
+      });
+      well.appendChild(makeSvg('circle', { class: 's6-warp-core', cx: g.x, cy: g.y + 42, r: (5 + g.size * .45).toFixed(1) }));
+      funnels.appendChild(well);
+
+      const node = document.createElement('div');
+      node.className = `s6-galaxy ${g.edge ? 'edge-on' : ''} ${g.remove ? 'removable' : ''}`.trim();
+      node.style.setProperty('--gx', `${(g.x / 16).toFixed(3)}%`);
+      node.style.setProperty('--gy', `${(g.y / 9).toFixed(3)}%`);
+      node.style.setProperty('--gsize', `${g.size}vmin`);
+      node.style.setProperty('--tilt', `${g.tilt}deg`);
+      node.style.setProperty('--hue', `${g.hue}deg`);
+      node.style.setProperty('--sat', g.sat);
+      node.style.setProperty('--alpha', g.alpha);
+      node.style.setProperty('--delay', `${g.delay}ms`);
+      node.style.setProperty('--remove-delay', `${(i % 4) * 150}ms`);
+      node.style.setProperty('--spin', `${20 + i * 2.7}s`);
+      node.innerHTML = '<img src="assets/galaxy-main.webp" alt="" draggable="false" />';
+      galaxyField.appendChild(node);
+    });
+
+    ghostGalaxies.forEach((g) => {
+      const origin = galaxies[g.from % galaxies.length];
+      const node = document.createElement('div');
+      node.className = 's6-ghost-galaxy';
+      node.style.setProperty('--from-x', `${(origin.x / 16).toFixed(3)}%`);
+      node.style.setProperty('--from-y', `${(origin.y / 9).toFixed(3)}%`);
+      node.style.setProperty('--from-size', `${origin.size}vmin`);
+      node.style.setProperty('--from-tilt', `${origin.tilt}deg`);
+      node.style.setProperty('--gx', `${(g.x / 16).toFixed(3)}%`);
+      node.style.setProperty('--gy', `${(g.y / 9).toFixed(3)}%`);
+      node.style.setProperty('--gsize', `${g.size}vmin`);
+      node.style.setProperty('--tilt', `${g.tilt}deg`);
+      node.style.setProperty('--delay', `${g.delay}ms`);
+      node.innerHTML = '<img src="assets/galaxy-main.webp" alt="" draggable="false" />';
+      ghostField.appendChild(node);
     });
   }
 
@@ -10306,16 +11375,45 @@ window.addEventListener('load', () => {
     }, reduced ? 20 : 920);
   }
 
+  function prepareS56Morph() {
+    const source = document.getElementById('s5CoreGravitySurface');
+    const shell = document.getElementById('s56MorphShell');
+    if (!source || !shell) return;
+
+    const rect = source.getBoundingClientRect();
+    shell.innerHTML = '';
+    const clone = source.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.setAttribute('data-s56-morph-surface', 'true');
+    shell.appendChild(clone);
+    shell.style.setProperty('--s56-left', `${rect.left.toFixed(2)}px`);
+    shell.style.setProperty('--s56-top', `${rect.top.toFixed(2)}px`);
+    shell.style.setProperty('--s56-width', `${rect.width.toFixed(2)}px`);
+    shell.style.setProperty('--s56-height', `${rect.height.toFixed(2)}px`);
+    void shell.offsetWidth;
+  }
+
   function transitionToSlideSix() {
     buildS6Spacetime();
+    prepareS56Morph();
+
+    slideSix?.classList.remove('s6-beat-1','s6-beat-2','s6-beat-3','s6-beat-4');
     deck.classList.add('is-transitioning-s5-s6');
+
     window.setTimeout(() => {
       deck.classList.add('show-slide-6');
       slideSix?.classList.add('s6-ready');
-    }, reduced ? 20 : 760);
+    }, reduced ? 20 : 920);
+
     window.setTimeout(() => {
-      deck.classList.remove('show-slide-5', 'is-transitioning-s5-s6');
-    }, reduced ? 30 : 1680);
+      deck.classList.remove('show-slide-5');
+    }, reduced ? 30 : 2180);
+
+    window.setTimeout(() => {
+      deck.classList.remove('is-transitioning-s5-s6');
+      const shell = document.getElementById('s56MorphShell');
+      if (shell) shell.innerHTML = '';
+    }, reduced ? 40 : 2520);
   }
 
   function reset() {
