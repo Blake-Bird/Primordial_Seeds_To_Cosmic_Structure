@@ -7533,6 +7533,351 @@ body {
 }
 </style>
 
+
+<style>
+/* ===== Slides 7-8 final halo census redesign ===== */
+.s67-handoff,
+.s78-handoff {
+  position: absolute;
+  inset: 0;
+  z-index: 96;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+}
+.s67-void,
+.s78-void {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+}
+.s67-ghost-layer,
+.s67-halo-trace-layer,
+.s78-ghost-layer {
+  position: absolute;
+  inset: 0;
+}
+.deck.is-transitioning-s6-s7 .s67-handoff,
+.deck.is-transitioning-s7-s8 .s78-handoff { opacity: 1; }
+.deck.is-transitioning-s6-s7 .s67-void,
+.deck.is-transitioning-s7-s8 .s78-void { animation: s67VoidIn 2400ms cubic-bezier(.16,.84,.22,1) forwards; }
+@keyframes s67VoidIn { 0%{opacity:0} 34%{opacity:.78} 100%{opacity:0} }
+.s67-ghost-galaxy,
+.s78-ghost-halo {
+  position: absolute;
+  left: var(--sx);
+  top: var(--sy);
+  width: var(--size);
+  aspect-ratio: 1;
+  transform: translate(-50%,-50%) scale(.78) rotate(var(--rot,0deg));
+  opacity: 0;
+  border-radius: 50%;
+  will-change: transform, opacity, filter;
+}
+.s67-ghost-galaxy img {
+  position: absolute;
+  inset: -14%;
+  width: 128%;
+  height: 128%;
+  object-fit: cover;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle,#000 0 42%,rgba(0,0,0,.78) 60%,transparent 82%);
+  mask-image: radial-gradient(circle,#000 0 42%,rgba(0,0,0,.78) 60%,transparent 82%);
+  filter: brightness(1.1) contrast(1.2) saturate(1.14);
+}
+.s67-ghost-galaxy::before,
+.s78-ghost-halo::before {
+  content: "";
+  position: absolute;
+  inset: -42%;
+  border-radius: 50%;
+  border: 1px solid rgba(130,202,255,.30);
+  box-shadow: inset 0 0 44px rgba(85,154,255,.10), 0 0 34px rgba(82,150,255,.16);
+}
+.deck.is-transitioning-s6-s7 .s67-ghost-galaxy {
+  animation: s67GhostTravel 2200ms cubic-bezier(.18,.78,.14,1) var(--delay) forwards;
+}
+@keyframes s67GhostTravel {
+  0% { opacity: .88; transform: translate(-50%,-50%) scale(.74) rotate(var(--rot,0deg)); filter: blur(0) brightness(1); }
+  48% { opacity: 1; transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my))) scale(.92) rotate(calc(var(--rot,0deg) + 8deg)); filter: brightness(1.28); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.58) rotate(calc(var(--rot,0deg) + 16deg)); filter: blur(3px) brightness(1.55); }
+}
+
+.galaxy-noise-slide,
+.halo-census-slide {
+  background: #000 !important;
+  isolation: isolate;
+}
+.galaxy-noise-slide .s59-bg,
+.galaxy-noise-slide .s7-field-canvas,
+.galaxy-noise-slide .s7-title,
+.galaxy-noise-slide .s7-process-cloud,
+.halo-census-slide .s59-bg,
+.halo-census-slide canvas,
+.halo-census-slide .s8-title,
+.halo-census-slide .s8-density-stage,
+.halo-census-slide .s8-history-graph,
+.halo-census-slide .s8-question {
+  display: none !important;
+}
+.s7-black-bg,
+.s8-black-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 54%, rgba(35,76,130,.055), transparent 32%),
+    linear-gradient(#000,#000);
+  z-index: 0;
+}
+.s7-black-bg::after,
+.s8-black-bg::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 50%, transparent 0 55%, rgba(0,0,0,.72) 100%);
+}
+.s7-arrival-ghosts { position:absolute; inset:0; z-index:2; pointer-events:none; }
+.galaxy-noise-slide .s7-halo-lab {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+.s7-case {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  aspect-ratio: 1;
+  transform: translate(-50%,-50%) scale(.55);
+  opacity: 0;
+  will-change: opacity, transform, filter;
+}
+.slide-seven.s7-beat-1 .s7-case-visible,
+.slide-seven.s7-beat-2 .s7-case-visible,
+.slide-seven.s7-beat-3 .s7-case-visible,
+.slide-seven.s7-beat-2 .s7-case-blackhole,
+.slide-seven.s7-beat-3 .s7-case-blackhole,
+.slide-seven.s7-beat-3 .s7-case-gas,
+.slide-seven.s7-beat-3 .s7-case-dark,
+.slide-seven.s7-beat-3 .s7-case-merger {
+  animation: s7CaseIn 950ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 150ms) forwards;
+}
+@keyframes s7CaseIn { to { opacity:1; transform:translate(-50%,-50%) scale(1); filter:blur(0); } }
+.s7-halo-shell {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 26px 44px rgba(0,0,0,.62));
+}
+.s7-halo-shell::before {
+  content:"";
+  position:absolute;
+  inset:-28%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle, transparent 0 33%, rgba(79,150,255,.055) 45%, rgba(89,154,255,.09) 60%, transparent 76%);
+  box-shadow: inset 0 0 60px rgba(108,175,255,.09), 0 0 64px rgba(80,130,255,.12);
+}
+.s7-halo-ring {
+  position:absolute;
+  inset: -22%;
+  border-radius: 50%;
+  border: 1px solid rgba(116,194,255,.24);
+  box-shadow: 0 0 30px rgba(82,154,255,.14), inset 0 0 28px rgba(112,190,255,.055);
+  transform: rotateX(64deg) rotateZ(calc(var(--i) * 12deg));
+}
+.s7-halo-ring.r2 { inset:-2%; opacity:.74; border-color:rgba(181,223,255,.20); animation:s7HaloBreathe 5.5s ease-in-out infinite alternate; }
+.s7-halo-ring.r3 { inset:18%; opacity:.56; border-color:rgba(255,219,155,.18); animation:s7HaloBreathe 4.5s -1s ease-in-out infinite alternate; }
+.s7-halo-ring.r4 { inset:36%; opacity:.42; border-color:rgba(180,220,255,.15); }
+@keyframes s7HaloBreathe { to { transform: rotateX(64deg) rotateZ(18deg) scale(1.08); opacity: .96; } }
+.s7-galaxy-img,
+.s7-mini-gal img {
+  position:absolute;
+  inset:22%;
+  width:56%;
+  height:56%;
+  object-fit:cover;
+  border-radius:50%;
+  mix-blend-mode:screen;
+  filter:brightness(1.22) contrast(1.18) saturate(1.28);
+  -webkit-mask-image:radial-gradient(circle,#000 0 44%,rgba(0,0,0,.85) 62%,transparent 83%);
+  mask-image:radial-gradient(circle,#000 0 44%,rgba(0,0,0,.85) 62%,transparent 83%);
+  animation:s7GalaxyTurn 22s linear infinite;
+}
+@keyframes s7GalaxyTurn { to { transform: rotate(360deg) scale(1.05); } }
+.s7-case p {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 24px);
+  transform: translateX(-50%);
+  width: 240px;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  color: rgba(242,248,255,.86);
+}
+.s7-case p b { display:block; font-size:clamp(14px,1vw,18px); font-weight:800; letter-spacing:.02em; color:rgba(255,248,228,.96); }
+.s7-case p small { display:block; margin-top:4px; font-size:clamp(11px,.82vw,13px); color:rgba(180,211,245,.64); }
+.slide-seven.s7-beat-1 .s7-case-visible p,
+.slide-seven.s7-beat-2 .s7-case-visible p,
+.slide-seven.s7-beat-2 .s7-case-blackhole p,
+.slide-seven.s7-beat-3 .s7-case p { animation:s7CaptionIn 650ms ease calc(360ms + var(--i) * 120ms) forwards; }
+@keyframes s7CaptionIn { to { opacity:1; transform:translateX(-50%) translateY(0); } }
+.s7-black-hole {
+  position:absolute;
+  left:50%; top:50%; width:18%; aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.2);
+  border-radius:50%;
+  background:#000;
+  opacity:0;
+  box-shadow:0 0 0 2px rgba(255,218,160,.44),0 0 28px rgba(255,185,100,.5),0 0 74px rgba(94,160,255,.20);
+  z-index:4;
+}
+.s7-accretion-ring {
+  position:absolute; left:50%; top:50%; width:54%; height:14%; transform:translate(-50%,-50%) rotate(-16deg) scale(.2); border-radius:50%;
+  border-top:8px solid rgba(255,207,128,.56); border-bottom:4px solid rgba(120,194,255,.20); opacity:0; filter:blur(.4px);
+}
+.slide-seven.s7-beat-2 .s7-case-blackhole .s7-galaxy-img,
+.slide-seven.s7-beat-3 .s7-case-blackhole .s7-galaxy-img { animation:s7GalaxyToBlackHole 2400ms ease 650ms forwards; }
+.slide-seven.s7-beat-2 .s7-black-hole,
+.slide-seven.s7-beat-3 .s7-black-hole { animation:s7BlackHoleIn 1700ms ease 900ms forwards; }
+.slide-seven.s7-beat-2 .s7-accretion-ring,
+.slide-seven.s7-beat-3 .s7-accretion-ring { animation:s7AccretionIn 1700ms ease 1050ms forwards, s7AccretionSpin 7s linear 2700ms infinite; }
+@keyframes s7GalaxyToBlackHole { to { opacity:.06; transform:rotate(280deg) scale(.14); filter:blur(5px) brightness(.25); } }
+@keyframes s7BlackHoleIn { to { opacity:1; transform:translate(-50%,-50%) scale(1); } }
+@keyframes s7AccretionIn { to { opacity:1; transform:translate(-50%,-50%) rotate(-16deg) scale(1); } }
+@keyframes s7AccretionSpin { to { transform:translate(-50%,-50%) rotate(344deg) scale(1); } }
+.s7-gas-cloud {
+  position:absolute; border-radius:50%; opacity:0; filter:blur(9px); mix-blend-mode:screen; z-index:3;
+  background:radial-gradient(circle,rgba(255,212,150,.46),rgba(117,187,255,.20) 44%,transparent 72%);
+}
+.s7-gas-cloud.c1 { inset:12% 5% 22% 5%; }
+.s7-gas-cloud.c2 { inset:23% -12% 12% 22%; background:radial-gradient(circle,rgba(255,160,115,.36),rgba(120,200,255,.18) 45%,transparent 72%); }
+.s7-gas-cloud.c3 { inset:-10% 20% 36% -8%; background:radial-gradient(circle,rgba(190,220,255,.34),rgba(255,190,130,.16) 50%,transparent 76%); }
+.slide-seven.s7-beat-3 .s7-case-gas .s7-gas-cloud { animation:s7GasCover 1200ms ease calc(var(--i)*110ms) forwards, s7GasDrift 5.2s ease-in-out infinite alternate; }
+.slide-seven.s7-beat-3 .s7-case-gas .s7-galaxy-img { animation:s7GalaxyObscured 1400ms ease 850ms forwards; }
+@keyframes s7GasCover { to{opacity:1;} }
+@keyframes s7GasDrift { to{ transform:translate(10px,-8px) scale(1.12); } }
+@keyframes s7GalaxyObscured { to{ opacity:.16; filter:blur(4px) brightness(.55); } }
+.s7-empty-core { position:absolute; left:50%; top:50%; width:9%; aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%; background:rgba(120,190,255,.12); box-shadow:0 0 28px rgba(92,160,255,.26); }
+.s7-mini-gal { position:absolute; width:46%; aspect-ratio:1; border-radius:50%; overflow:hidden; }
+.s7-mini-gal.g1 { left:15%; top:28%; animation:s7MergerOne 4s ease-in-out infinite alternate; }
+.s7-mini-gal.g2 { right:13%; bottom:25%; animation:s7MergerTwo 4s ease-in-out infinite alternate; }
+.s7-mini-gal img { inset:0; width:100%; height:100%; }
+.s7-merger-bridge { position:absolute; left:34%; top:47%; width:38%; height:12%; border-radius:50%; background:linear-gradient(90deg,transparent,rgba(255,230,176,.35),rgba(120,200,255,.28),transparent); filter:blur(2px); transform:rotate(25deg); }
+@keyframes s7MergerOne { to { transform:translate(14px,8px) rotate(17deg); } }
+@keyframes s7MergerTwo { to { transform:translate(-12px,-7px) rotate(-18deg); } }
+.galaxy-noise-slide .s7-bottom-claim {
+  position:absolute; left:50%; bottom:5.6vh; z-index:10; transform:translateX(-50%) translateY(16px); opacity:0;
+  padding:14px 22px; border-radius:999px; border:1px solid rgba(139,213,255,.26); background:rgba(0,0,0,.62); backdrop-filter:blur(16px);
+  color:rgba(255,248,229,.94); font-size:clamp(15px,1.15vw,21px); letter-spacing:.02em; box-shadow:0 24px 64px rgba(0,0,0,.5);
+}
+.slide-seven.s7-beat-3 .s7-bottom-claim { opacity:1; transform:translateX(-50%) translateY(0); transition:opacity 720ms 900ms ease, transform 820ms 900ms cubic-bezier(.16,.84,.22,1); }
+
+.s78-handoff { z-index: 97; }
+.s78-ghost-halo::after { content:""; position:absolute; inset:8%; border-radius:50%; border:1px solid rgba(185,230,255,.18); }
+.deck.is-transitioning-s7-s8 .s78-ghost-halo { animation:s78HaloCarry 1750ms cubic-bezier(.16,.84,.22,1) var(--delay) forwards; }
+@keyframes s78HaloCarry {
+  0%{opacity:.9; transform:translate(-50%,-50%) scale(.88); filter:blur(0)}
+  58%{opacity:1; transform:translate(calc(-50% + var(--mx)),calc(-50% + var(--my))) scale(1.08); filter:brightness(1.35)}
+  100%{opacity:0; transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.42); filter:blur(6px) brightness(1.6)}
+}
+
+.halo-census-slide { background:#000 !important; }
+.s8-halo-swarm { position:absolute; inset:0; z-index:4; pointer-events:none; }
+.s8-swarm-halo {
+  position:absolute; left:var(--sx); top:var(--sy); width:var(--size); aspect-ratio:1; margin:calc(var(--size) * -.5);
+  border-radius:50%; opacity:0; transform:scale(.35); will-change:transform,opacity,filter;
+  background: radial-gradient(circle, rgba(216,245,255,.18) 0 18%, rgba(92,166,255,.09) 42%, transparent 72%);
+  border:1px solid rgba(138,210,255,.24);
+  box-shadow: inset 0 0 calc(var(--size) * .28) rgba(120,195,255,.08),0 0 calc(var(--size) * .22) rgba(92,166,255,.16);
+}
+.s8-swarm-halo::after { content:""; position:absolute; inset:34%; border-radius:50%; background:rgba(235,250,255,.65); box-shadow:0 0 16px rgba(145,210,255,.6); opacity:var(--core,.38); }
+.deck.show-slide-8 .s8-swarm-halo,
+.slide-eight.s8-ready .s8-swarm-halo { animation:s8HaloArrive 820ms cubic-bezier(.16,.84,.22,1) var(--delay) forwards, s8HaloDrift 6.5s ease-in-out calc(var(--delay) + 800ms) infinite alternate; }
+@keyframes s8HaloArrive { to{opacity:var(--alpha,.78); transform:scale(1);} }
+@keyframes s8HaloDrift { to{ transform:translate(var(--float-x),var(--float-y)) scale(1.03); } }
+.slide-eight.s8-beat-2 .s8-swarm-halo,
+.slide-eight.s8-beat-3 .s8-swarm-halo,
+.slide-eight.s8-beat-4 .s8-swarm-halo {
+  animation:s8HaloToCensus 1900ms cubic-bezier(.20,.76,.14,1) var(--sort-delay) forwards !important;
+}
+@keyframes s8HaloToCensus {
+  0%{opacity:var(--alpha,.78); transform:translate(0,0) scale(1); filter:blur(0)}
+  68%{opacity:.95; transform:translate(var(--mid-x),var(--mid-y)) scale(.52); filter:brightness(1.35)}
+  100%{opacity:.78; transform:translate(var(--dx),var(--dy)) scale(.16); filter:brightness(1.65)}
+}
+.s8-census-stage {
+  position:absolute; left:7vw; right:7vw; top:9vh; bottom:8vh; z-index:6; opacity:0; transform:translateY(22px) scale(.985); filter:blur(10px);
+}
+.deck.show-slide-8 .s8-census-stage,
+.slide-eight.s8-ready .s8-census-stage { animation:s8CensusStageIn 980ms cubic-bezier(.16,.84,.22,1) 220ms forwards; }
+@keyframes s8CensusStageIn { to{opacity:1; transform:translateY(0) scale(1); filter:blur(0);} }
+.s8-census-graph { width:100%; height:100%; overflow:visible; }
+.s8-axis,.s8-axis-grid { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; opacity:0; stroke-dasharray:100; stroke-dashoffset:100; }
+.s8-axis { stroke:rgba(221,244,255,.82); stroke-width:2.8; filter:url(#s8CensusGlow); }
+.s8-axis-grid { stroke:rgba(112,194,255,.13); stroke-width:1.1; }
+.slide-eight.s8-beat-1 .s8-axis,
+.slide-eight.s8-beat-2 .s8-axis,
+.slide-eight.s8-beat-3 .s8-axis,
+.slide-eight.s8-beat-4 .s8-axis,
+.slide-eight.s8-beat-1 .s8-axis-grid,
+.slide-eight.s8-beat-2 .s8-axis-grid,
+.slide-eight.s8-beat-3 .s8-axis-grid,
+.slide-eight.s8-beat-4 .s8-axis-grid { animation:s8AxisDraw 1050ms cubic-bezier(.16,.84,.22,1) forwards; }
+.slide-eight.s8-beat-1 .s8-axis-y,
+.slide-eight.s8-beat-2 .s8-axis-y,
+.slide-eight.s8-beat-3 .s8-axis-y,
+.slide-eight.s8-beat-4 .s8-axis-y { animation-delay:220ms; }
+.slide-eight.s8-beat-1 .s8-axis-grid,
+.slide-eight.s8-beat-2 .s8-axis-grid,
+.slide-eight.s8-beat-3 .s8-axis-grid,
+.slide-eight.s8-beat-4 .s8-axis-grid { animation-delay:420ms; }
+@keyframes s8AxisDraw { 14%{opacity:1} to{opacity:1;stroke-dashoffset:0;} }
+.s8-axis-label,.s8-scale-label { opacity:0; fill:rgba(231,246,255,.74); font-family:Inter,ui-sans-serif,system-ui,sans-serif; letter-spacing:.04em; }
+.s8-axis-label { font-size:25px; font-weight:720; text-transform:uppercase; }
+.s8-scale-label { font-size:18px; font-weight:680; fill:rgba(196,222,248,.58); }
+.slide-eight.s8-beat-1 .s8-axis-label,
+.slide-eight.s8-beat-2 .s8-axis-label,
+.slide-eight.s8-beat-3 .s8-axis-label,
+.slide-eight.s8-beat-4 .s8-axis-label,
+.slide-eight.s8-beat-1 .s8-scale-label,
+.slide-eight.s8-beat-2 .s8-scale-label,
+.slide-eight.s8-beat-3 .s8-scale-label,
+.slide-eight.s8-beat-4 .s8-scale-label { animation:s8LabelIn 700ms ease 760ms forwards; }
+@keyframes s8LabelIn { to{opacity:1;} }
+.s8-bin-dot { opacity:0; fill:rgba(217,246,255,.82); filter:url(#s8CensusGlow); }
+.slide-eight.s8-beat-2 .s8-bin-dot,
+.slide-eight.s8-beat-3 .s8-bin-dot,
+.slide-eight.s8-beat-4 .s8-bin-dot { animation:s8BinPop 640ms cubic-bezier(.16,.84,.22,1) calc(var(--i) * 16ms) forwards; }
+@keyframes s8BinPop { from{opacity:0; transform:scale(.2); transform-origin:center;} to{opacity:.78; transform:scale(1); transform-origin:center;} }
+.s8-census-title text { opacity:0; fill:rgba(255,248,229,.96); font-family:Georgia,"Times New Roman",serif; font-size:64px; letter-spacing:-.045em; filter:url(#s8CensusGlow); }
+.slide-eight.s8-beat-3 .s8-census-title text:first-child,
+.slide-eight.s8-beat-4 .s8-census-title text:first-child { animation:s8TitleLineIn 760ms cubic-bezier(.16,.84,.22,1) 320ms forwards; }
+.slide-eight.s8-beat-3 .s8-census-title text:last-child,
+.slide-eight.s8-beat-4 .s8-census-title text:last-child { animation:s8TitleLineIn 760ms cubic-bezier(.16,.84,.22,1) 540ms forwards; }
+@keyframes s8TitleLineIn { from{opacity:0; transform:translateY(18px); } to{opacity:1; transform:translateY(0); } }
+.s8-census-curve,.s8-census-curve-glow { fill:none; stroke-linecap:round; stroke-linejoin:round; opacity:0; stroke-dasharray:100; stroke-dashoffset:100; }
+.s8-census-curve { stroke:url(#s8CensusCurve); stroke-width:5.2; filter:url(#s8CensusGlow); }
+.s8-census-curve-glow { stroke:rgba(91,178,255,.26); stroke-width:18; filter:blur(6px); }
+.slide-eight.s8-beat-3 .s8-census-curve,
+.slide-eight.s8-beat-4 .s8-census-curve,
+.slide-eight.s8-beat-3 .s8-census-curve-glow,
+.slide-eight.s8-beat-4 .s8-census-curve-glow { animation:s8CurveDraw 1500ms cubic-bezier(.16,.84,.22,1) 720ms forwards; }
+@keyframes s8CurveDraw { 10%{opacity:1} to{opacity:1;stroke-dashoffset:0;} }
+.s8-census-note { opacity:0; fill:rgba(224,240,255,.70); font-size:22px; font-weight:720; letter-spacing:.02em; }
+.slide-eight.s8-beat-4 .s8-census-note { animation:s8NoteIn 720ms ease 460ms forwards; }
+.slide-eight.s8-beat-4 .s8-census-note.low { animation-delay:620ms; }
+@keyframes s8NoteIn { to{opacity:1;} }
+.s8-insight { position:absolute; left:50%; bottom:5.6vh; transform:translateX(-50%) translateY(16px); z-index:9; opacity:0; padding:14px 22px; border-radius:999px; border:1px solid rgba(139,213,255,.26); background:rgba(0,0,0,.62); backdrop-filter:blur(16px); color:rgba(255,248,229,.94); font-size:clamp(15px,1.15vw,21px); box-shadow:0 24px 64px rgba(0,0,0,.5); }
+.slide-eight.s8-beat-4 .s8-insight { opacity:1; transform:translateX(-50%) translateY(0); transition:opacity 700ms 950ms ease, transform 800ms 950ms cubic-bezier(.16,.84,.22,1); }
+@media (max-width:900px){ .s7-case{--size:150px !important}.s7-case p{width:190px}.s8-census-stage{left:2vw;right:2vw;top:10vh}.s8-axis-label{font-size:20px}.s8-census-title text{font-size:50px} }
+</style>
+
 </head>
 
   <body>
@@ -8089,65 +8434,114 @@ body {
         </div>
       </section>
 
+
+
+      <div class="s67-handoff" id="s67Handoff" aria-hidden="true">
+        <div class="s67-void"></div>
+        <div class="s67-ghost-layer" id="s67GhostLayer"></div>
+        <div class="s67-halo-trace-layer" id="s67HaloTraceLayer"></div>
+      </div>
+
       <!-- SLIDE 7 -->
-      <section class="slide-seven" id="slideSeven" aria-label="Why halos are cleaner than simply counting galaxies">
-        <div class="s59-bg s7-bg" aria-hidden="true"></div>
-        <canvas class="s7-field-canvas" id="s7HaloCanvas" aria-hidden="true"></canvas>
-        <div class="s7-title" aria-label="Why not just count galaxies">
-          <span>why not just galaxies?</span>
-          <h2>Galaxies are noisy. Halos trace the gravity.</h2>
+      <section class="slide-seven galaxy-noise-slide" id="slideSeven" aria-label="Galaxy light is unreliable, but halo gravity remains countable">
+        <div class="s7-black-bg" aria-hidden="true"></div>
+        <div class="s7-arrival-ghosts" id="s7ArrivalGhosts" aria-hidden="true"></div>
+
+        <div class="s7-halo-lab" id="s7HaloLab" aria-hidden="true">
+          <article class="s7-case s7-case-visible" style="--x:16%; --y:39%; --size:210px; --i:0;">
+            <div class="s7-halo-shell">
+              <img class="s7-galaxy-img" src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" draggable="false" />
+              <span class="s7-halo-ring r1"></span><span class="s7-halo-ring r2"></span><span class="s7-halo-ring r3"></span>
+            </div>
+            <p><b>visible galaxy</b><small>light traces part of the halo</small></p>
+          </article>
+
+          <article class="s7-case s7-case-blackhole" style="--x:35%; --y:56%; --size:178px; --i:1;">
+            <div class="s7-halo-shell">
+              <img class="s7-galaxy-img" src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" draggable="false" />
+              <span class="s7-black-hole"></span>
+              <span class="s7-accretion-ring"></span>
+              <span class="s7-halo-ring r1"></span><span class="s7-halo-ring r2"></span><span class="s7-halo-ring r3"></span>
+            </div>
+            <p><b>light collapses inward</b><small>the halo is still there</small></p>
+          </article>
+
+          <article class="s7-case s7-case-gas" style="--x:55%; --y:37%; --size:196px; --i:2;">
+            <div class="s7-halo-shell">
+              <img class="s7-galaxy-img" src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" draggable="false" />
+              <span class="s7-gas-cloud c1"></span><span class="s7-gas-cloud c2"></span><span class="s7-gas-cloud c3"></span>
+              <span class="s7-halo-ring r1"></span><span class="s7-halo-ring r2"></span><span class="s7-halo-ring r3"></span>
+            </div>
+            <p><b>gas hides the light</b><small>gravity remains measurable</small></p>
+          </article>
+
+          <article class="s7-case s7-case-dark" style="--x:73%; --y:58%; --size:226px; --i:3;">
+            <div class="s7-halo-shell">
+              <span class="s7-empty-core"></span>
+              <span class="s7-halo-ring r1"></span><span class="s7-halo-ring r2"></span><span class="s7-halo-ring r3"></span><span class="s7-halo-ring r4"></span>
+            </div>
+            <p><b>halo before stars</b><small>structure can form before galaxies light up</small></p>
+          </article>
+
+          <article class="s7-case s7-case-merger" style="--x:84%; --y:32%; --size:188px; --i:4;">
+            <div class="s7-halo-shell merger-shell">
+              <span class="s7-mini-gal g1"><img src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" /></span>
+              <span class="s7-mini-gal g2"><img src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" /></span>
+              <span class="s7-merger-bridge"></span>
+              <span class="s7-halo-ring r1"></span><span class="s7-halo-ring r2"></span><span class="s7-halo-ring r3"></span>
+            </div>
+            <p><b>merger scrambles light</b><small>the mass map is cleaner</small></p>
+          </article>
         </div>
-        <div class="s7-halo-lab" id="s7HaloLab" aria-hidden="true"></div>
-        <div class="s7-process-cloud" aria-hidden="true">
-          <span class="s7-process p1">gas cooling</span>
-          <span class="s7-process p2">star formation</span>
-          <span class="s7-process p3">dust</span>
-          <span class="s7-process p4">black holes</span>
-          <span class="s7-process p5">mergers</span>
-          <span class="s7-process p6">feedback</span>
-        </div>
-        <div class="s7-bottom-claim" aria-hidden="true">same halo mass → very different light</div>
+
+        <div class="s7-bottom-claim" aria-hidden="true">light changes; gravity gives the census</div>
       </section>
 
       <!-- SLIDE 8 -->
-      <section class="slide-eight" id="slideEight" aria-label="Matter, radiation, and dark energy dilute differently as the universe expands">
-        <div class="s59-bg s8-bg" aria-hidden="true"></div>
-        <canvas class="s8-pushpull-canvas" id="s8PushPullCanvas" aria-hidden="true"></canvas>
-        <div class="s8-title" aria-label="Dark matter versus dark energy">
-          <span>the cosmic tug-of-war</span>
-          <h2>Expansion changes which ingredient controls the universe.</h2>
-        </div>
-        <div class="s8-density-stage" aria-hidden="true">
-          <div class="s8-density-box s8-box-matter">
-            <div class="s8-box-front"></div><div class="s8-box-back"></div><div class="s8-box-edge e1"></div><div class="s8-box-edge e2"></div><div class="s8-box-edge e3"></div><div class="s8-box-edge e4"></div>
-            <div class="s8-particle-field" id="s8MatterDots"></div>
-            <span>matter</span><b>ρ ∝ a⁻³</b>
-          </div>
-          <div class="s8-density-box s8-box-radiation">
-            <div class="s8-box-front"></div><div class="s8-box-back"></div><div class="s8-box-edge e1"></div><div class="s8-box-edge e2"></div><div class="s8-box-edge e3"></div><div class="s8-box-edge e4"></div>
-            <svg class="s8-wave-svg" viewBox="0 0 330 180"><path id="s8RadiationWave" d="M20 90 C60 10 90 170 130 90 S210 10 250 90 S300 170 320 90" /></svg>
-            <div class="s8-energy-law">E = hc / λ</div>
-            <span>radiation</span><b>ρ ∝ a⁻⁴</b>
-          </div>
-          <div class="s8-density-box s8-box-darkenergy">
-            <div class="s8-box-front"></div><div class="s8-box-back"></div><div class="s8-box-edge e1"></div><div class="s8-box-edge e2"></div><div class="s8-box-edge e3"></div><div class="s8-box-edge e4"></div>
-            <div class="s8-vacuum-grid"></div>
-            <span>dark energy?</span><b>ρ ≈ constant</b>
-          </div>
-        </div>
-        <div class="s8-history-graph" aria-hidden="true">
-          <span>what dominates as space expands?</span>
-          <svg viewBox="0 0 720 230" preserveAspectRatio="none">
-            <path class="s8-hist-rad" d="M36 32 C128 60 224 95 330 132 S540 178 684 194" />
-            <path class="s8-hist-mat" d="M36 76 C160 82 278 106 382 139 S555 169 684 176" />
-            <path class="s8-hist-de" d="M36 174 C194 174 344 169 464 128 S620 54 684 26" />
-            <line x1="112" y1="192" x2="112" y2="34" />
-            <line x1="374" y1="192" x2="374" y2="34" />
-            <line x1="588" y1="192" x2="588" y2="34" />
-            <text x="70" y="214">radiation</text><text x="330" y="214">matter</text><text x="544" y="214">dark energy</text>
+      <section class="slide-eight halo-census-slide" id="slideEight" aria-label="Halo census becomes the first picture of the halo mass function">
+        <div class="s8-black-bg" aria-hidden="true"></div>
+        <div class="s8-halo-swarm" id="s8HaloSwarm" aria-hidden="true"></div>
+        <div class="s8-census-stage" aria-hidden="true">
+          <svg class="s8-census-graph" id="s8CensusGraph" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="s8CensusGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="3.4" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <linearGradient id="s8CensusCurve" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="rgba(225,248,255,.98)" />
+                <stop offset="42%" stop-color="rgba(125,202,255,.94)" />
+                <stop offset="100%" stop-color="rgba(255,219,154,.88)" />
+              </linearGradient>
+            </defs>
+            <g class="s8-axis-layer">
+              <path class="s8-axis s8-axis-x" d="M150 610 H1040" pathLength="100" />
+              <path class="s8-axis s8-axis-y" d="M150 610 V120" pathLength="100" />
+              <path class="s8-axis-grid" d="M150 520 H1040 M150 430 H1040 M150 340 H1040 M150 250 H1040 M150 160 H1040" pathLength="100" />
+              <path class="s8-axis-grid vertical" d="M330 610 V120 M510 610 V120 M690 610 V120 M870 610 V120" pathLength="100" />
+              <text class="s8-axis-label x" x="595" y="704">halo mass scale</text>
+              <text class="s8-axis-label y" x="52" y="365" transform="rotate(-90 52 365)">number of halos</text>
+              <text class="s8-scale-label small" x="150" y="646">smaller halos</text>
+              <text class="s8-scale-label large" x="914" y="646">larger halos</text>
+            </g>
+            <g class="s8-census-bin-layer" id="s8CensusBinLayer"></g>
+            <g class="s8-census-title" id="s8CensusTitle">
+              <text x="162" y="93">Halo</text>
+              <text x="162" y="146">Census</text>
+            </g>
+            <path class="s8-census-curve-glow" d="M175 180 C305 209 430 245 548 302 S760 428 914 506 S1010 552 1048 566" pathLength="100" />
+            <path class="s8-census-curve" d="M175 180 C305 209 430 245 548 302 S760 428 914 506 S1010 552 1048 566" pathLength="100" />
+            <text class="s8-census-note" x="706" y="240">many small halos</text>
+            <text class="s8-census-note low" x="812" y="572">few giant halos</text>
           </svg>
         </div>
+        <div class="s8-insight" aria-hidden="true">count the gravity wells, not only the light</div>
       </section>
+
+      <div class="s78-handoff" id="s78Handoff" aria-hidden="true">
+        <div class="s78-void"></div>
+        <div class="s78-ghost-layer" id="s78GhostLayer"></div>
+      </div>
 
       <!-- SLIDE 9 -->
       <section class="slide-nine" id="slideNine" aria-label="Dark matter structure connects to the conflict between general relativity and quantum mechanics">
@@ -11504,6 +11898,253 @@ window.addEventListener('load', () => {
 })();
 
 </script>
+
+<script>
+/* ===== Slides 7-8 final halo-census interaction override ===== */
+(() => {
+  const prior = window.slides59Controller;
+  const deck = document.getElementById('deck');
+  const slideSix = document.getElementById('slideSix');
+  const slideSeven = document.getElementById('slideSeven');
+  const slideEight = document.getElementById('slideEight');
+  const slideNine = document.getElementById('slideNine');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  function seededRandom(seed = 8317) {
+    let value = seed % 2147483647;
+    return () => {
+      value = (value * 16807) % 2147483647;
+      return (value - 1) / 2147483646;
+    };
+  }
+  const rand = seededRandom(77007);
+
+  function makeSvg(name, attrs = {}) {
+    const node = document.createElementNS(svgNS, name);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+    return node;
+  }
+
+  function clearCustomTransitions() {
+    ['s67GhostLayer', 's67HaloTraceLayer', 's78GhostLayer'].forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.innerHTML = '';
+    });
+    deck.classList.remove('is-transitioning-s6-s7', 'is-transitioning-s7-s8');
+  }
+
+  function graphTargetForMass(massRank, stack, jitter) {
+    const x = 12 + massRank * 74;
+    const baseY = 76 - Math.pow(1 - massRank, 1.35) * 52;
+    const y = Math.max(16, Math.min(78, baseY + stack * 1.55 + jitter));
+    return { x, y };
+  }
+
+  function buildHaloCensus() {
+    const swarm = document.getElementById('s8HaloSwarm');
+    const binLayer = document.getElementById('s8CensusBinLayer');
+    if (!swarm || !binLayer) return;
+    if (swarm.dataset.built === 'yes') return;
+    swarm.dataset.built = 'yes';
+    swarm.innerHTML = '';
+    binLayer.innerHTML = '';
+
+    const binStacks = new Array(12).fill(0);
+    const total = 96;
+    for (let i = 0; i < total; i += 1) {
+      const u = Math.pow(rand(), 2.65);
+      const massRank = Math.min(.985, Math.max(.015, u));
+      const bin = Math.min(11, Math.floor(massRank * 12));
+      const stack = binStacks[bin]++;
+      const size = 18 + Math.pow(massRank, 1.45) * 104 + rand() * 12;
+      const sx = 7 + rand() * 86;
+      const sy = 12 + rand() * 72;
+      const target = graphTargetForMass(massRank, stack, (rand() - .5) * 3.2);
+      const dx = target.x - sx;
+      const dy = target.y - sy;
+      const midx = dx * .55 + (rand() - .5) * 12;
+      const midy = dy * .55 - 9 - rand() * 12;
+      const halo = document.createElement('span');
+      halo.className = 's8-swarm-halo';
+      halo.style.setProperty('--sx', `${sx.toFixed(2)}vw`);
+      halo.style.setProperty('--sy', `${sy.toFixed(2)}vh`);
+      halo.style.setProperty('--size', `${size.toFixed(2)}px`);
+      halo.style.setProperty('--alpha', (0.42 + (1 - massRank) * .42 + rand() * .08).toFixed(2));
+      halo.style.setProperty('--core', (massRank > .72 ? .62 : .28 + rand() * .22).toFixed(2));
+      halo.style.setProperty('--delay', `${Math.round(i * 14 + rand() * 260)}ms`);
+      halo.style.setProperty('--sort-delay', `${Math.round(i * 13 + bin * 28)}ms`);
+      halo.style.setProperty('--float-x', `${((rand() - .5) * 18).toFixed(1)}px`);
+      halo.style.setProperty('--float-y', `${((rand() - .5) * 14).toFixed(1)}px`);
+      halo.style.setProperty('--dx', `${dx.toFixed(2)}vw`);
+      halo.style.setProperty('--dy', `${dy.toFixed(2)}vh`);
+      halo.style.setProperty('--mid-x', `${midx.toFixed(2)}vw`);
+      halo.style.setProperty('--mid-y', `${midy.toFixed(2)}vh`);
+      swarm.appendChild(halo);
+
+      const dot = makeSvg('circle', {
+        class: 's8-bin-dot',
+        cx: (150 + massRank * 890 + (rand() - .5) * 16).toFixed(1),
+        cy: (target.y / 100 * 760 + (rand() - .5) * 8).toFixed(1),
+        r: (2.2 + Math.pow(massRank, .5) * 3.0).toFixed(1)
+      });
+      dot.style.setProperty('--i', i);
+      binLayer.appendChild(dot);
+    }
+  }
+
+  function prepareS67Ghosts() {
+    const layer = document.getElementById('s67GhostLayer');
+    if (!layer) return;
+    layer.innerHTML = '';
+    const sources = Array.from(document.querySelectorAll('#s6GalaxyField .s6-galaxy'));
+    const fallback = [
+      { x: 405, y: 344, size: 80 }, { x: 625, y: 520, size: 64 }, { x: 824, y: 302, size: 92 },
+      { x: 1044, y: 495, size: 70 }, { x: 1215, y: 350, size: 54 }, { x: 530, y: 664, size: 54 }
+    ];
+    const targets = [
+      [16, 39], [35, 56], [55, 37], [73, 58], [84, 32], [28, 24]
+    ];
+    const count = Math.min(6, Math.max(sources.length, fallback.length));
+    for (let i = 0; i < count; i += 1) {
+      const source = sources[i];
+      let sx, sy, size;
+      if (source) {
+        const rect = source.getBoundingClientRect();
+        sx = rect.left + rect.width / 2;
+        sy = rect.top + rect.height / 2;
+        size = Math.max(38, rect.width);
+      } else {
+        sx = fallback[i].x / 1600 * window.innerWidth;
+        sy = fallback[i].y / 900 * window.innerHeight;
+        size = fallback[i].size;
+      }
+      const [txPct, tyPct] = targets[i % targets.length];
+      const tx = txPct / 100 * window.innerWidth;
+      const ty = tyPct / 100 * window.innerHeight;
+      const ghost = document.createElement('span');
+      ghost.className = 's67-ghost-galaxy';
+      ghost.style.setProperty('--sx', `${sx.toFixed(2)}px`);
+      ghost.style.setProperty('--sy', `${sy.toFixed(2)}px`);
+      ghost.style.setProperty('--size', `${Math.min(110, Math.max(46, size)).toFixed(2)}px`);
+      ghost.style.setProperty('--dx', `${(tx - sx).toFixed(2)}px`);
+      ghost.style.setProperty('--dy', `${(ty - sy).toFixed(2)}px`);
+      ghost.style.setProperty('--mx', `${((tx - sx) * .48 + (i % 2 ? -55 : 55)).toFixed(2)}px`);
+      ghost.style.setProperty('--my', `${((ty - sy) * .46 - 55 - i * 4).toFixed(2)}px`);
+      ghost.style.setProperty('--rot', `${(-24 + i * 13).toFixed(1)}deg`);
+      ghost.style.setProperty('--delay', `${i * 70}ms`);
+      ghost.innerHTML = `<img src="assets/galaxy-main.webp" onerror="this.onerror=null;this.src='assets/Beauty.jpg';" alt="" />`;
+      layer.appendChild(ghost);
+    }
+  }
+
+  function transitionToSlideSeven() {
+    buildHaloCensus();
+    prepareS67Ghosts();
+    slideSeven?.classList.remove('s7-beat-1','s7-beat-2','s7-beat-3');
+    deck.classList.add('is-transitioning-s6-s7');
+    window.setTimeout(() => {
+      deck.classList.add('show-slide-7');
+      slideSeven?.classList.add('s7-ready');
+    }, reduced ? 20 : 940);
+    window.setTimeout(() => deck.classList.remove('show-slide-6'), reduced ? 30 : 1980);
+    window.setTimeout(() => {
+      deck.classList.remove('is-transitioning-s6-s7');
+      const layer = document.getElementById('s67GhostLayer');
+      if (layer) layer.innerHTML = '';
+    }, reduced ? 40 : 2350);
+  }
+
+  function prepareS78Halos() {
+    const handoff = document.getElementById('s78GhostLayer');
+    if (!handoff) return;
+    handoff.innerHTML = '';
+    const sources = Array.from(document.querySelectorAll('#s7HaloLab .s7-case'));
+    sources.forEach((source, i) => {
+      const rect = source.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const sx = rect.left + rect.width / 2;
+      const sy = rect.top + rect.height / 2;
+      const tx = (14 + i * 15 + (i % 2) * 5) / 100 * window.innerWidth;
+      const ty = (23 + (i % 3) * 20) / 100 * window.innerHeight;
+      const halo = document.createElement('span');
+      halo.className = 's78-ghost-halo';
+      halo.style.setProperty('--sx', `${sx.toFixed(2)}px`);
+      halo.style.setProperty('--sy', `${sy.toFixed(2)}px`);
+      halo.style.setProperty('--size', `${Math.max(90, rect.width * .92).toFixed(2)}px`);
+      halo.style.setProperty('--dx', `${(tx - sx).toFixed(2)}px`);
+      halo.style.setProperty('--dy', `${(ty - sy).toFixed(2)}px`);
+      halo.style.setProperty('--mx', `${((tx - sx) * .48 + (i % 2 ? 70 : -70)).toFixed(2)}px`);
+      halo.style.setProperty('--my', `${((ty - sy) * .42 - 40).toFixed(2)}px`);
+      halo.style.setProperty('--delay', `${i * 62}ms`);
+      handoff.appendChild(halo);
+    });
+  }
+
+  function transitionToSlideEight() {
+    buildHaloCensus();
+    prepareS78Halos();
+    slideEight?.classList.remove('s8-beat-1','s8-beat-2','s8-beat-3','s8-beat-4');
+    deck.classList.add('is-transitioning-s7-s8');
+    window.setTimeout(() => {
+      deck.classList.add('show-slide-8');
+      slideEight?.classList.add('s8-ready');
+    }, reduced ? 20 : 860);
+    window.setTimeout(() => deck.classList.remove('show-slide-7'), reduced ? 30 : 1740);
+    window.setTimeout(() => {
+      deck.classList.remove('is-transitioning-s7-s8');
+      const layer = document.getElementById('s78GhostLayer');
+      if (layer) layer.innerHTML = '';
+    }, reduced ? 40 : 2100);
+  }
+
+  function jumpToSlideSevenStart() {
+    prior?.reset?.();
+    buildHaloCensus();
+    deck.classList.add('show-slide-7');
+    slideSeven?.classList.add('s7-ready');
+  }
+
+  function jumpToSlideEightStart() {
+    prior?.reset?.();
+    buildHaloCensus();
+    deck.classList.add('show-slide-8');
+    slideEight?.classList.add('s8-ready');
+  }
+
+  function reset() {
+    prior?.reset?.();
+    clearCustomTransitions();
+    slideSeven?.classList.remove('s7-ready','s7-beat-1','s7-beat-2','s7-beat-3');
+    slideEight?.classList.remove('s8-ready','s8-beat-1','s8-beat-2','s8-beat-3','s8-beat-4');
+  }
+
+  function advance(step) {
+    if (step <= 26) return prior?.advance?.(step) ?? step;
+    if (step === 27) { transitionToSlideSeven(); return 28; }
+    if (step === 28) { slideSeven?.classList.add('s7-beat-1'); return 29; }
+    if (step === 29) { slideSeven?.classList.add('s7-beat-2'); return 30; }
+    if (step === 30) { slideSeven?.classList.add('s7-beat-3'); return 31; }
+    if (step === 31) { transitionToSlideEight(); return 32; }
+    if (step === 32) { slideEight?.classList.add('s8-beat-1'); return 33; }
+    if (step === 33) { slideEight?.classList.add('s8-beat-2'); return 34; }
+    if (step === 34) { slideEight?.classList.add('s8-beat-3'); return 35; }
+    if (step === 35) { slideEight?.classList.add('s8-beat-4'); return 36; }
+    return prior?.advance?.(step) ?? step;
+  }
+
+  buildHaloCensus();
+
+  window.slides59Controller = {
+    ...prior,
+    advance,
+    reset,
+    jumpToSlideSevenStart,
+    jumpToSlideEightStart
+  };
+})();
+</script>
+
 <script>
 /* ===== src/slides10-20.js ===== */
 (() => {
